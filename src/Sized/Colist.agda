@@ -21,38 +21,56 @@ Colist = Colist′ ∞
 ∞Colist : ∀ {a} → Set a → Set a
 ∞Colist = ∞Colist′ ∞ 
 
-fromList : ∀ {a} {A : Set a} → List A → Colist A
-fromList []       = []
-fromList (x ∷ xs) = x ∷ delay (fromList xs)
+module _ {a} {A : Set a} where
 
-map  : ∀ {i a b} {A : Set a} {B : Set b} →
-       (A → B) → Colist′ i A → Colist′ i B
-∞map : ∀ {i a b} {A : Set a} {B : Set b} →
-       (A → B) → ∞Colist′ i A → ∞Colist′ i B
+ fromList : List A → Colist A
+ fromList []       = []
+ fromList (x ∷ xs) = x ∷ delay (fromList xs)
 
-map f []        = []
-map f (x ∷ ∞xs) = f x ∷ ∞map f ∞xs
-∞Colist′.force (∞map f ∞xs) = map f (∞Colist′.force ∞xs)
+ open import Data.Nat
+ open import Data.BoundedVec as BV using (BoundedVec)
 
+ take : (n : ℕ) → Colist A → BoundedVec A n
+ take 0       _        = BV.[]
+ take n       []       = BV.[]
+ take (suc n) (x ∷ xs) = x BV.∷ take n (∞Colist′.force xs)
 
-import Data.Colist as CL
-open CL using ([] ; _∷_)
-import Coinduction as CI
+ import Data.Colist as CL
+ open CL using ([] ; _∷_)
+ import Coinduction as CI
 
-fromLegacy  : ∀ {i a} {A : Set a} → CL.Colist A → Colist′ i A
-∞fromLegacy : ∀ {i a} {A : Set a} → CI.∞ (CL.Colist A) → ∞Colist′ i A
+ fromLegacy  : ∀ {i} → CL.Colist A → Colist′ i A
+ ∞fromLegacy : ∀ {i} → CI.∞ (CL.Colist A) → ∞Colist′ i A
 
-fromLegacy []       = []
-fromLegacy (x ∷ xs) = x ∷ ∞fromLegacy xs
+ fromLegacy []       = []
+ fromLegacy (x ∷ xs) = x ∷ ∞fromLegacy xs
+ ∞Colist′.force (∞fromLegacy xs) = fromLegacy (CI.♭ xs)
 
-∞Colist′.force (∞fromLegacy xs) = fromLegacy (CI.♭ xs)
+ open import Sized.Conat
 
-zipWith  : ∀ {i a b c} {A : Set a} {B : Set b} {C : Set c} →
-           (A → B → C) → Colist′ i A → Colist′ i B → Colist′ i C
-∞zipWith : ∀ {i a b c} {A : Set a} {B : Set b} {C : Set c} →
-           (A → B → C) → ∞Colist′ i A → ∞Colist′ i B → ∞Colist′ i C
+ colength  : ∀ {i} → Colist′ i A → Conat′ i
+ ∞colength : ∀ {i} → ∞Colist′ i A → ∞Conat′ i
 
-zipWith f []        ys        = []
-zipWith f xs        []        = []
-zipWith f (x ∷ ∞xs) (y ∷ ∞ys) = f x y ∷ ∞zipWith f ∞xs ∞ys
-∞Colist′.force (∞zipWith f ∞xs ∞ys) = zipWith f (∞Colist′.force ∞xs) (∞Colist′.force ∞ys)
+ colength []       = zero
+ colength (x ∷ xs) = suc (∞colength xs)
+ ∞Conat′.force (∞colength xs) {j} = colength (∞Colist′.force xs {j})
+
+module _ {a b} {A : Set a} {B : Set b} where
+
+ map  : ∀ {i} → (A → B) → Colist′ i A → Colist′ i B
+ ∞map : ∀ {i} → (A → B) → ∞Colist′ i A → ∞Colist′ i B
+
+ map f []        = []
+ map f (x ∷ ∞xs) = f x ∷ ∞map f ∞xs
+ ∞Colist′.force (∞map f ∞xs) = map f (∞Colist′.force ∞xs)
+
+module _ {a b c} {A : Set a} {B : Set b} {C : Set c} where
+
+ zipWith  : ∀ {i} → (A → B → C) → Colist′ i A → Colist′ i B → Colist′ i C
+ ∞zipWith : ∀ {i} → (A → B → C) → ∞Colist′ i A → ∞Colist′ i B → ∞Colist′ i C
+
+ zipWith f []        ys        = []
+ zipWith f xs        []        = []
+ zipWith f (x ∷ ∞xs) (y ∷ ∞ys) = f x y ∷ ∞zipWith f ∞xs ∞ys
+ ∞Colist′.force (∞zipWith f ∞xs ∞ys) = zipWith f (∞Colist′.force ∞xs) (∞Colist′.force ∞ys)
+
