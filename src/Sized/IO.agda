@@ -122,11 +122,13 @@ module ColistIO where
   mapM′ : (A → IO B) → Colist A → IO (Lift Unit)
   mapM′ f xs = lift unit <$ mapM f xs
 
-
+open import Agda.Builtin.Char
 open import Data.String
 open import System.FilePath.Posix
+import Sized.IO.Primitive as Prim
 
-
+getChar        : IO Char
+getLine        : IO String
 getContents    : IO Costring
 readFile       : FilePath → IO Costring
 writeFile      : FilePath → Costring → IO Unit
@@ -135,6 +137,8 @@ putStr         : Costring → IO Unit
 putStrLn       : Costring → IO Unit
 readFiniteFile : FilePath → IO String
 
+getChar        = lift Prim.getChar
+getLine        = lift Prim.getLine
 getContents    = lift Prim.getContents
 readFile       = λ fp → lift (Prim.readFile (getFilePath fp))
 writeFile      = λ fp cstr → lift (Prim.writeFile (getFilePath fp) cstr)
