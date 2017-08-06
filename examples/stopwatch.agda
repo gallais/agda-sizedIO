@@ -1,14 +1,11 @@
 module stopwatch where
 
+open import Data.Fin using (#_)
 open import Sized.IO
 open import Function
-open import System.Clock
+open import System.Clock as Clock
 open import Foreign.Haskell
-open import Agda.Builtin.Nat
-open import Data.Nat.DivMod
-open import Data.Bool.Base
-open import Data.Nat.Show
-open import Data.String using (toCostring ; _++_)
+open import Data.String using (toCostring)
 
 import IO.Primitive as Prim
 postulate hNoBuffering : Prim.IO Unit
@@ -20,7 +17,4 @@ main = run $ lift hNoBuffering >>
              getChar >>
              getTime Realtime >>= λ end →
              let dff = diff start end
-                 str = show (seconds dff)
-                     ++ "s"
-                     ++ show (nanoseconds dff div 1000000)
-             in unit <$ putStrLn (toCostring str)
+             in unit <$ putStrLn (toCostring $ Clock.show dff (# 3))
