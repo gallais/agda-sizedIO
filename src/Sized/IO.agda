@@ -2,8 +2,10 @@ module Sized.IO where
 
 import IO.Primitive as Prim
 
+import IO
 open import Level
 open import Size
+open import Function
 
 data    IO′ {a} (i : Size) (A : Set a) : Set (suc a)
 record ∞IO′ {a} (i : Size) (A : Set a) : Set (suc a)
@@ -18,10 +20,23 @@ record ∞IO′ i A where
   constructor delay
   field force : {j : Size< i} → IO′ j A
 
+size<_  : ∀ {i a} {A : Set a} {j : Size< i} → IO′ i A → IO′ j A
+∞size<_ : ∀ {i a} {A : Set a} {j : Size< i} → ∞IO′ i A → ∞IO′ j A
+
+size< lift io  = lift io
+size< return a = return a
+size< bind m f = bind (∞size< m) (λ a → ∞size< (f a))
+
+mkDelay : ∀ {i a} {A : Set a} → IO′ i A → ∞IO′ i A
+∞IO′.force (mkDelay io) = size< io
+
+∞IO′.force (∞size< m) = ∞IO′.force m
+
 IO : ∀ {a} → Set a → Set (suc a)
 IO = IO′ ∞
 ∞IO : ∀ {a} → Set a → Set (suc a)
 ∞IO = ∞IO′ ∞
+
 
 module _ {a} {A B : Set a} where
 
@@ -33,17 +48,28 @@ module _ {a} {A B : Set a} where
  map f (bind m g) = bind m (λ a → ∞map f (g a))
  ∞IO′.force (∞map f io) = map f (∞IO′.force io)
 
- infixl 1 _>>=_
+ infixr 1 _>>=_
 
- _>>=_ : IO A → (A → IO B) → IO B
- m >>= f = bind (delay m) (λ a → delay (f a))
+ _>>=_ : ∀ {i} → IO′ i A → (A → IO′ i B) → IO′ i B
+ m >>= f = bind (mkDelay m) (λ a → mkDelay (f a))
+
+open import Data.List.Base as List
+
+module _ {a} {A : Set a} where
 
 module _ {a} {A B : Set a} where
 
- infixl 1 _>>_ _<<_ _<$_
+ infixr 1 _>>_
+ infixl 1 _<<_ _<$_ _<$>_ _<*>_
+
+ _<$>_ : ∀ {i} → (A → B) → IO′ i A → IO′ i B
+ f <$> m = bind (mkDelay m) (λ a → mkDelay (return (f a)))
 
  _<$_ : A → IO B → IO A
  a <$ mb = mb >>= λ _ → return a 
+
+ _<*>_ : ∀ {i} → IO′ i (A → B) → IO′ i A → IO′ i B
+ f <*> m = f >>= (_<$> m)
 
  _>>_ : IO A → IO B → IO B
  ma >> mb = ma >>= λ _ → mb
@@ -51,9 +77,55 @@ module _ {a} {A B : Set a} where
  _<<_ : IO A → IO B → IO A
  ma << mb = ma >>= λ a → a <$ mb
 
+open import Foreign.Haskell
+
+module ListIO where
+
+ module _ {a} {A : Set a} where
+
+  sequence : List (IO A) → IO (List A)
+  sequence []         = return []
+  sequence (mx ∷ mxs) = mx           >>= λ x →
+                        sequence mxs >>= λ xs →
+                        return (x ∷ xs)
+
+ module _ {a} {A B : Set a} where
+
+  mapM : (A → IO B) → List A → IO (List B)
+  mapM f xs = sequence (List.map f xs)
+
+  mapM′ : (A → IO B) → List A → IO (Lift Unit)
+  mapM′ f xs = lift unit <$ mapM f xs
+
+open import Sized.Colist as Colist
+open import Coinduction
+
+module ColistIO where
+
+ module _ {a} {A : Set a} where
+
+  sequence  : ∀ {i} → Colist (IO′ i A) → IO′ i (Colist A)
+  ∞sequence : ∀ {i} → ∞Colist (IO′ i A) → ∞IO′ i (Colist A)
+
+  sequence []         = return []
+  sequence (mx ∷ mxs) = bind (mkDelay mx) $ λ x →
+                        mkDelay $ bind (∞sequence mxs) $ λ xs →
+                        mkDelay $ return (x ∷ delay xs)
+
+  ∞IO′.force (∞sequence mxs) = sequence (∞Colist′.force mxs)
+
+ module _ {a} {A B : Set a} where
+
+  mapM : (A → IO B) → Colist A → IO (Colist B)
+  mapM f xs = sequence (Colist.map f xs)
+
+  mapM′ : (A → IO B) → Colist A → IO (Lift Unit)
+  mapM′ f xs = lift unit <$ mapM f xs
+
+
 open import Data.String
 open import System.FilePath.Posix
-open import Foreign.Haskell
+
 
 getContents    : IO Costring
 readFile       : FilePath → IO Costring
