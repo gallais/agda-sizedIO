@@ -2,6 +2,9 @@ module Sized.Colist where
 
 open import Size
 open import Agda.Builtin.List
+open import Data.Maybe.Base hiding (map)
+open import Data.Product hiding (map)
+open import Function
 
 data    Colist′ {a} (i : Size) (A : Set a) : Set a
 record ∞Colist′ {a} (i : Size) (A : Set a) : Set a
@@ -13,7 +16,7 @@ data Colist′ i A where
 record ∞Colist′ i A where
   coinductive
   constructor delay
-  field force : {j : Size< i} → Colist′ i A
+  field force : {j : Size< i} → Colist′ j A
 
 Colist : ∀ {a} → Set a → Set a
 Colist = Colist′ ∞ 
@@ -63,6 +66,14 @@ module _ {a b} {A : Set a} {B : Set b} where
  map f []        = []
  map f (x ∷ ∞xs) = f x ∷ ∞map f ∞xs
  ∞Colist′.force (∞map f ∞xs) = map f (∞Colist′.force ∞xs)
+
+ unfold  : (A → Maybe (B × A)) → A → Colist B
+ ∞unfold : (A → Maybe (B × A)) → A → ∞Colist B
+
+ unfold step seed with step seed
+ ... | nothing = []
+ ... | just v  = proj₁ v ∷ ∞unfold step (proj₂ v)
+ ∞Colist′.force (∞unfold step seed) = unfold step seed
 
 module _ {a b c} {A : Set a} {B : Set b} {C : Set c} where
 
