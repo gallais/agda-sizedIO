@@ -1,6 +1,10 @@
 module Sized.IO where
 
 import IO.Primitive as Prim
+open import Foreign.Haskell
+
+Main : Set
+Main = Prim.IO Unit
 
 import IO
 open import Level
@@ -77,8 +81,6 @@ module _ {a} {A B : Set a} where
  _<<_ : IO A → IO B → IO A
  ma << mb = ma >>= λ a → a <$ mb
 
-open import Foreign.Haskell
-
 module ListIO where
 
  module _ {a} {A : Set a} where
@@ -126,7 +128,14 @@ open import Agda.Builtin.Char
 open import Data.String
 open import System.FilePath.Posix
 import Sized.IO.Primitive as Prim
+open import Sized.IO.Primitive
+  using (BufferMode ; NoBuffering ; LineBuffering ; BlockBuffering ;
+         Handle ; stdin ; stdout ; stderr)
+  public
 
+hSetBuffering : Handle → BufferMode → IO Unit
+hGetBuffering : Handle → IO BufferMode
+hFlush : Handle → IO Unit
 getChar        : IO Char
 getLine        : IO String
 getContents    : IO Costring
@@ -137,6 +146,9 @@ putStr         : Costring → IO Unit
 putStrLn       : Costring → IO Unit
 readFiniteFile : FilePath → IO String
 
+hSetBuffering  = λ h b → lift (Prim.hSetBuffering h b)
+hGetBuffering  = λ h → lift (Prim.hGetBuffering h)
+hFlush         = λ h → lift (Prim.hFlush h)
 getChar        = lift Prim.getChar
 getLine        = lift Prim.getLine
 getContents    = lift Prim.getContents
