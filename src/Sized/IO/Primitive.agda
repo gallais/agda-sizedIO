@@ -8,11 +8,15 @@ open import Data.Maybe.Base
 open import Foreign.Haskell
 
 postulate
-  getChar : IO Char
-  getLine : IO String
+  interact : (String → String) → IO Unit
+  putChar  : Char → IO Unit
+  getChar  : IO Char
+  getLine  : IO String
 
-{-# FOREIGN GHC import Data.Text            #-}
-{-# COMPILE GHC getChar = getChar           #-}
+{-# FOREIGN GHC import Data.Text #-}
+{-# COMPILE GHC interact = \ f -> interact (unpack . f . pack) #-}
+{-# COMPILE GHC putChar = putChar #-}
+{-# COMPILE GHC getChar = getChar #-}
 {-# COMPILE GHC getLine = fmap pack getLine #-}
 
 data BufferMode : Set where

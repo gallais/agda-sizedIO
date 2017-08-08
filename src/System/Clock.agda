@@ -1,6 +1,7 @@
 module System.Clock where
 
 open import Data.Bool.Base
+open import Data.Product
 open import Agda.Builtin.Nat
 open import Sized.IO
 open import Foreign.Haskell.Extras
@@ -23,6 +24,15 @@ diff (mkTime ss sns) (mkTime es ens) =
 
 getTime : Clock → IO Time
 getTime c = (λ { (mkPair a b) → mkTime a b }) <$> lift (Prim.getTime c)
+
+time : {A : Set} → IO A → IO (A × Time)
+time io = getTime Realtime >>= λ start →
+          io               >>= λ a     →
+          getTime Realtime >>= λ end   →
+          return (a , diff start end)
+
+time′ : {A : Set} → IO A → IO Time
+time′ io = proj₂ <$> time io
 
 open import Data.Unit
 open import Data.Nat.Base as ℕ

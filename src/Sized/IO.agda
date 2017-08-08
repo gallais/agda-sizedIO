@@ -133,15 +133,17 @@ open import Sized.IO.Primitive
          Handle ; stdin ; stdout ; stderr)
   public
 
-hSetBuffering : Handle → BufferMode → IO Unit
-hGetBuffering : Handle → IO BufferMode
-hFlush : Handle → IO Unit
+hSetBuffering  : Handle → BufferMode → IO Unit
+hGetBuffering  : Handle → IO BufferMode
+hFlush         : Handle → IO Unit
+interact       : (String → String) → IO Unit
 getChar        : IO Char
 getLine        : IO String
 getContents    : IO Costring
 readFile       : FilePath → IO Costring
 writeFile      : FilePath → Costring → IO Unit
 appendFile     : FilePath → Costring → IO Unit
+putChar        : Char → IO Unit
 putStr         : Costring → IO Unit
 putStrLn       : Costring → IO Unit
 readFiniteFile : FilePath → IO String
@@ -149,12 +151,14 @@ readFiniteFile : FilePath → IO String
 hSetBuffering  = λ h b → lift (Prim.hSetBuffering h b)
 hGetBuffering  = λ h → lift (Prim.hGetBuffering h)
 hFlush         = λ h → lift (Prim.hFlush h)
+interact       = λ f → lift (Prim.interact f)
 getChar        = lift Prim.getChar
 getLine        = lift Prim.getLine
 getContents    = lift Prim.getContents
 readFile       = λ fp → lift (Prim.readFile (getFilePath fp))
 writeFile      = λ fp cstr → lift (Prim.writeFile (getFilePath fp) cstr)
 appendFile     = λ fp cstr → lift (Prim.appendFile (getFilePath fp) cstr)
+putChar        = λ c → lift (Prim.putChar c)
 putStr         = λ cstr → lift (Prim.putStr cstr)
 putStrLn       = λ cstr → lift (Prim.putStrLn cstr)
 readFiniteFile = λ fp → lift (Prim.readFiniteFile (getFilePath fp))
