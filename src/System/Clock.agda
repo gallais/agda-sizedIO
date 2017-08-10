@@ -41,18 +41,20 @@ open import Data.Nat.DivMod
 open import Data.Nat.Properties
 open import Data.Fin
 open import Data.String.Base hiding (show)
+open import Data.String.Extras
 open import Data.Sum
 open import Relation.Nullary
 open import Relation.Nullary.Decidable
 open import Relation.Binary.PropositionalEquality
 
 show : Time → Fin 9 → String
-show (mkTime s ns) prec =
-  NatShow.show s
-  ++ "s"
-  ++ NatShow.show ((ns div (10 ^ (9 ∸ toℕ prec))) {exp-nz 10 (9 ∸ toℕ prec)})
+show (mkTime s ns) prec = secs ++ "s" ++ padLeft '0' decimals nsecs where
+  decimals  = toℕ prec
+  secs      = NatShow.show s
+  nsecs     = NatShow.show ((ns div (10 ^ (9 ∸ decimals)))
+                           {exp-nz 10 (9 ∸ decimals)})
 
-  where
+   where
 
     _^_ : ℕ → ℕ → ℕ
     x ^ n = ℕ.fold 1 (x *_) n
