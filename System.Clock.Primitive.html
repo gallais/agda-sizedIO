@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >System.Clock.Primitive</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Keyword"
+      >module</a
+      > <a name="8" href="System.Clock.Primitive.html" class="Module"
+      >System.Clock.Primitive</a
+      > <a name="31" class="Keyword"
+      >where</a
+      >
+
+<a name="38" class="Keyword"
+      >open</a
+      > <a name="43" class="Keyword"
+      >import</a
+      > <a name="50" href="Agda.Builtin.Nat.html" class="Module"
+      >Agda.Builtin.Nat</a
+      >
+<a name="67" class="Keyword"
+      >open</a
+      > <a name="72" class="Keyword"
+      >import</a
+      > <a name="79" href="IO.Primitive.html" class="Module"
+      >IO.Primitive</a
+      >
+<a name="92" class="Keyword"
+      >open</a
+      > <a name="97" class="Keyword"
+      >import</a
+      > <a name="104" href="Foreign.Haskell.Extras.html" class="Module"
+      >Foreign.Haskell.Extras</a
+      >
+
+<a name="128" class="Keyword"
+      >data</a
+      > <a name="Clock" href="System.Clock.Primitive.html#Clock" class="Datatype"
+      >Clock</a
+      > <a name="139" class="Symbol"
+      >:</a
+      > <a name="141" class="PrimitiveType"
+      >Set</a
+      > <a name="145" class="Keyword"
+      >where</a
+      >
+  <a name="Clock.Monotonic" href="System.Clock.Primitive.html#Clock.Monotonic" class="InductiveConstructor"
+      >Monotonic</a
+      > <a name="Clock.Realtime" href="System.Clock.Primitive.html#Clock.Realtime" class="InductiveConstructor"
+      >Realtime</a
+      > <a name="Clock.ProcessCPUTime" href="System.Clock.Primitive.html#Clock.ProcessCPUTime" class="InductiveConstructor"
+      >ProcessCPUTime</a
+      > <a name="187" class="Symbol"
+      >:</a
+      > <a name="189" href="System.Clock.Primitive.html#Clock" class="Datatype"
+      >Clock</a
+      >
+  <a name="Clock.ThreadCPUTime" href="System.Clock.Primitive.html#Clock.ThreadCPUTime" class="InductiveConstructor"
+      >ThreadCPUTime</a
+      > <a name="Clock.MonotonicRaw" href="System.Clock.Primitive.html#Clock.MonotonicRaw" class="InductiveConstructor"
+      >MonotonicRaw</a
+      > <a name="Clock.Boottime" href="System.Clock.Primitive.html#Clock.Boottime" class="InductiveConstructor"
+      >Boottime</a
+      > <a name="233" class="Symbol"
+      >:</a
+      > <a name="235" href="System.Clock.Primitive.html#Clock" class="Datatype"
+      >Clock</a
+      >
+  <a name="Clock.MonotonicCoarse" href="System.Clock.Primitive.html#Clock.MonotonicCoarse" class="InductiveConstructor"
+      >MonotonicCoarse</a
+      > <a name="Clock.RealtimeCoarse" href="System.Clock.Primitive.html#Clock.RealtimeCoarse" class="InductiveConstructor"
+      >RealtimeCoarse</a
+      > <a name="274" class="Symbol"
+      >:</a
+      > <a name="276" href="System.Clock.Primitive.html#Clock" class="Datatype"
+      >Clock</a
+      >
+
+<a name="283" class="Symbol"
+      >{-#</a
+      > <a name="287" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="299" href="System.Clock.Primitive.html#Clock" class="Datatype"
+      >Clock</a
+      > = data Clock (Monotonic | Realtime | ProcessCPUTime
+                                   | ThreadCPUTime | MonotonicRaw | Boottime
+                                   | MonotonicCoarse | RealtimeCoarse )
+<a name="506" class="Symbol"
+      >#-}</a
+      >
+
+<a name="511" class="Keyword"
+      >postulate</a
+      > <a name="getTime" href="System.Clock.Primitive.html#getTime" class="Postulate"
+      >getTime</a
+      > <a name="529" class="Symbol"
+      >:</a
+      > <a name="531" href="System.Clock.Primitive.html#Clock" class="Datatype"
+      >Clock</a
+      > <a name="537" class="Symbol"
+      >&#8594;</a
+      > <a name="539" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="542" class="Symbol"
+      >(</a
+      ><a name="543" href="Foreign.Haskell.Extras.html#Pair" class="Datatype"
+      >Pair</a
+      > <a name="548" href="Agda.Builtin.Nat.html#Nat" class="Datatype"
+      >Nat</a
+      > <a name="552" href="Agda.Builtin.Nat.html#Nat" class="Datatype"
+      >Nat</a
+      ><a name="555" class="Symbol"
+      >)</a
+      >
+
+<a name="558" class="Symbol"
+      >{-#</a
+      > <a name="562" class="Keyword"
+      >FOREIGN</a
+      > GHC import System.Clock  <a name="595" class="Symbol"
+      >#-}</a
+      >
+<a name="599" class="Symbol"
+      >{-#</a
+      > <a name="603" class="Keyword"
+      >FOREIGN</a
+      > GHC import Data.Function <a name="636" class="Symbol"
+      >#-}</a
+      >
+<a name="640" class="Symbol"
+      >{-#</a
+      > <a name="644" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="656" href="System.Clock.Primitive.html#getTime" class="Postulate"
+      >getTime</a
+      > = fmap (\ (TimeSpec a b) -&gt; ((,) `on` fromIntegral) a b) . getTime <a name="731" class="Symbol"
+      >#-}</a
+      >
+</pre
+    ></body
+  ></html
+>

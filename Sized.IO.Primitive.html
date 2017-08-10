@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Sized.IO.Primitive</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Keyword"
+      >module</a
+      > <a name="8" href="Sized.IO.Primitive.html" class="Module"
+      >Sized.IO.Primitive</a
+      > <a name="27" class="Keyword"
+      >where</a
+      >
+
+<a name="34" class="Keyword"
+      >open</a
+      > <a name="39" class="Keyword"
+      >import</a
+      > <a name="46" href="IO.Primitive.html" class="Module"
+      >IO.Primitive</a
+      >
+<a name="59" class="Keyword"
+      >open</a
+      > <a name="64" class="Keyword"
+      >import</a
+      > <a name="71" href="Agda.Builtin.Nat.html" class="Module"
+      >Agda.Builtin.Nat</a
+      >
+<a name="88" class="Keyword"
+      >open</a
+      > <a name="93" class="Keyword"
+      >import</a
+      > <a name="100" href="Agda.Builtin.Char.html" class="Module"
+      >Agda.Builtin.Char</a
+      >
+<a name="118" class="Keyword"
+      >open</a
+      > <a name="123" class="Keyword"
+      >import</a
+      > <a name="130" href="Agda.Builtin.String.html" class="Module"
+      >Agda.Builtin.String</a
+      >
+<a name="150" class="Keyword"
+      >open</a
+      > <a name="155" class="Keyword"
+      >import</a
+      > <a name="162" href="Data.Maybe.Base.html" class="Module"
+      >Data.Maybe.Base</a
+      >
+<a name="178" class="Keyword"
+      >open</a
+      > <a name="183" class="Keyword"
+      >import</a
+      > <a name="190" href="Foreign.Haskell.html" class="Module"
+      >Foreign.Haskell</a
+      >
+
+<a name="207" class="Keyword"
+      >postulate</a
+      >
+  <a name="getChar" href="Sized.IO.Primitive.html#getChar" class="Postulate"
+      >getChar</a
+      > <a name="227" class="Symbol"
+      >:</a
+      > <a name="229" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="232" href="Agda.Builtin.Char.html#Char" class="Postulate"
+      >Char</a
+      >
+  <a name="getLine" href="Sized.IO.Primitive.html#getLine" class="Postulate"
+      >getLine</a
+      > <a name="247" class="Symbol"
+      >:</a
+      > <a name="249" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="252" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      >
+
+<a name="260" class="Symbol"
+      >{-#</a
+      > <a name="264" class="Keyword"
+      >FOREIGN</a
+      > GHC import Data.Text            <a name="304" class="Symbol"
+      >#-}</a
+      >
+<a name="308" class="Symbol"
+      >{-#</a
+      > <a name="312" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="324" href="Sized.IO.Primitive.html#getChar" class="Postulate"
+      >getChar</a
+      > = getChar           <a name="352" class="Symbol"
+      >#-}</a
+      >
+<a name="356" class="Symbol"
+      >{-#</a
+      > <a name="360" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="372" href="Sized.IO.Primitive.html#getLine" class="Postulate"
+      >getLine</a
+      > = fmap pack getLine <a name="400" class="Symbol"
+      >#-}</a
+      >
+
+<a name="405" class="Keyword"
+      >data</a
+      > <a name="BufferMode" href="Sized.IO.Primitive.html#BufferMode" class="Datatype"
+      >BufferMode</a
+      > <a name="421" class="Symbol"
+      >:</a
+      > <a name="423" class="PrimitiveType"
+      >Set</a
+      > <a name="427" class="Keyword"
+      >where</a
+      >
+  <a name="BufferMode.NoBuffering" href="Sized.IO.Primitive.html#BufferMode.NoBuffering" class="InductiveConstructor"
+      >NoBuffering</a
+      > <a name="BufferMode.LineBuffering" href="Sized.IO.Primitive.html#BufferMode.LineBuffering" class="InductiveConstructor"
+      >LineBuffering</a
+      > <a name="461" class="Symbol"
+      >:</a
+      > <a name="463" href="Sized.IO.Primitive.html#BufferMode" class="Datatype"
+      >BufferMode</a
+      >
+  <a name="BufferMode.BlockBuffering" href="Sized.IO.Primitive.html#BufferMode.BlockBuffering" class="InductiveConstructor"
+      >BlockBuffering</a
+      > <a name="491" class="Symbol"
+      >:</a
+      > <a name="493" href="Data.Maybe.Base.html#Maybe" class="Datatype"
+      >Maybe</a
+      > <a name="499" href="Agda.Builtin.Nat.html#Nat" class="Datatype"
+      >Nat</a
+      > <a name="503" class="Symbol"
+      >&#8594;</a
+      > <a name="505" href="Sized.IO.Primitive.html#BufferMode" class="Datatype"
+      >BufferMode</a
+      >
+
+<a name="517" class="Keyword"
+      >postulate</a
+      >
+  <a name="Handle" href="Sized.IO.Primitive.html#Handle" class="Postulate"
+      >Handle</a
+      > <a name="536" class="Symbol"
+      >:</a
+      > <a name="538" class="PrimitiveType"
+      >Set</a
+      >
+  <a name="stdin" href="Sized.IO.Primitive.html#stdin" class="Postulate"
+      >stdin</a
+      > <a name="stdout" href="Sized.IO.Primitive.html#stdout" class="Postulate"
+      >stdout</a
+      > <a name="stderr" href="Sized.IO.Primitive.html#stderr" class="Postulate"
+      >stderr</a
+      > <a name="564" class="Symbol"
+      >:</a
+      > <a name="566" href="Sized.IO.Primitive.html#Handle" class="Postulate"
+      >Handle</a
+      >
+  <a name="hSetBuffering" href="Sized.IO.Primitive.html#hSetBuffering" class="Postulate"
+      >hSetBuffering</a
+      > <a name="589" class="Symbol"
+      >:</a
+      > <a name="591" href="Sized.IO.Primitive.html#Handle" class="Postulate"
+      >Handle</a
+      > <a name="598" class="Symbol"
+      >&#8594;</a
+      > <a name="600" href="Sized.IO.Primitive.html#BufferMode" class="Datatype"
+      >BufferMode</a
+      > <a name="611" class="Symbol"
+      >&#8594;</a
+      > <a name="613" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="616" href="Foreign.Haskell.html#Unit" class="Datatype"
+      >Unit</a
+      >
+  <a name="hGetBuffering" href="Sized.IO.Primitive.html#hGetBuffering" class="Postulate"
+      >hGetBuffering</a
+      > <a name="637" class="Symbol"
+      >:</a
+      > <a name="639" href="Sized.IO.Primitive.html#Handle" class="Postulate"
+      >Handle</a
+      > <a name="646" class="Symbol"
+      >&#8594;</a
+      > <a name="648" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="651" href="Sized.IO.Primitive.html#BufferMode" class="Datatype"
+      >BufferMode</a
+      >
+  <a name="hFlush" href="Sized.IO.Primitive.html#hFlush" class="Postulate"
+      >hFlush</a
+      > <a name="671" class="Symbol"
+      >:</a
+      > <a name="673" href="Sized.IO.Primitive.html#Handle" class="Postulate"
+      >Handle</a
+      > <a name="680" class="Symbol"
+      >&#8594;</a
+      > <a name="682" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="685" href="Foreign.Haskell.html#Unit" class="Datatype"
+      >Unit</a
+      >
+
+<a name="691" class="Symbol"
+      >{-#</a
+      > <a name="695" class="Keyword"
+      >FOREIGN</a
+      > GHC import System.IO <a name="724" class="Symbol"
+      >#-}</a
+      >
+<a name="728" class="Symbol"
+      >{-#</a
+      > <a name="732" class="Keyword"
+      >FOREIGN</a
+      > GHC import qualified MAlonzo.Code.Data.Maybe.Base <a name="790" class="Symbol"
+      >#-}</a
+      >
+<a name="794" class="Symbol"
+      >{-#</a
+      > <a name="798" class="Keyword"
+      >FOREIGN</a
+      > GHC data AgdaBufferMode = AgdaNoBuffering | AgdaLineBuffering | AgdaBlockBuffering (Maybe Integer) <a name="905" class="Symbol"
+      >#-}</a
+      >
+<a name="909" class="Symbol"
+      >{-#</a
+      > <a name="913" class="Keyword"
+      >FOREIGN</a
+      > GHC toBufferMode = \ x -&gt; case x of
+                                        AgdaNoBuffering -&gt; NoBuffering
+                                        AgdaLineBuffering -&gt; LineBuffering
+                                        AgdaBlockBuffering m -&gt; BlockBuffering (fmap fromIntegral m)
+<a name="1204" class="Symbol"
+      >#-}</a
+      >
+<a name="1208" class="Symbol"
+      >{-#</a
+      > <a name="1212" class="Keyword"
+      >FOREIGN</a
+      > GHC fromBufferMode = \ x -&gt; case x of
+                                          NoBuffering -&gt; AgdaNoBuffering
+                                          LineBuffering -&gt; AgdaLineBuffering
+                                          BlockBuffering m -&gt; AgdaBlockBuffering (fmap fromIntegral m)
+<a name="1511" class="Symbol"
+      >#-}</a
+      >
+<a name="1515" class="Symbol"
+      >{-#</a
+      > <a name="1519" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1531" href="Sized.IO.Primitive.html#BufferMode" class="Datatype"
+      >BufferMode</a
+      > = data AgdaBufferMode (AgdaNoBuffering | AgdaLineBuffering | AgdaBlockBuffering) <a name="1623" class="Symbol"
+      >#-}</a
+      >
+<a name="1627" class="Symbol"
+      >{-#</a
+      > <a name="1631" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1643" href="Sized.IO.Primitive.html#Handle" class="Postulate"
+      >Handle</a
+      > = type Handle <a name="1664" class="Symbol"
+      >#-}</a
+      >
+<a name="1668" class="Symbol"
+      >{-#</a
+      > <a name="1672" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1684" href="Sized.IO.Primitive.html#stdin" class="Postulate"
+      >stdin</a
+      > = stdin <a name="1698" class="Symbol"
+      >#-}</a
+      >
+<a name="1702" class="Symbol"
+      >{-#</a
+      > <a name="1706" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1718" href="Sized.IO.Primitive.html#stdout" class="Postulate"
+      >stdout</a
+      > = stdout <a name="1734" class="Symbol"
+      >#-}</a
+      >
+<a name="1738" class="Symbol"
+      >{-#</a
+      > <a name="1742" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1754" href="Sized.IO.Primitive.html#stderr" class="Postulate"
+      >stderr</a
+      > = stderr <a name="1770" class="Symbol"
+      >#-}</a
+      >
+<a name="1774" class="Symbol"
+      >{-#</a
+      > <a name="1778" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1790" href="Sized.IO.Primitive.html#hSetBuffering" class="Postulate"
+      >hSetBuffering</a
+      > = fmap (. toBufferMode) hSetBuffering <a name="1842" class="Symbol"
+      >#-}</a
+      >
+<a name="1846" class="Symbol"
+      >{-#</a
+      > <a name="1850" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1862" href="Sized.IO.Primitive.html#hGetBuffering" class="Postulate"
+      >hGetBuffering</a
+      > = fmap fromBufferMode . hGetBuffering <a name="1914" class="Symbol"
+      >#-}</a
+      >
+<a name="1918" class="Symbol"
+      >{-#</a
+      > <a name="1922" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1934" href="Sized.IO.Primitive.html#hFlush" class="Postulate"
+      >hFlush</a
+      > = hFlush <a name="1950" class="Symbol"
+      >#-}</a
+      >
+</pre
+    ></body
+  ></html
+>

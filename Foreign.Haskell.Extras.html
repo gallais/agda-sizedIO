@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Foreign.Haskell.Extras</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Keyword"
+      >module</a
+      > <a name="8" href="Foreign.Haskell.Extras.html" class="Module"
+      >Foreign.Haskell.Extras</a
+      > <a name="31" class="Keyword"
+      >where</a
+      >
+
+<a name="38" class="Keyword"
+      >open</a
+      > <a name="43" class="Keyword"
+      >import</a
+      > <a name="50" href="Level.html" class="Module"
+      >Level</a
+      >
+<a name="56" class="Keyword"
+      >open</a
+      > <a name="61" class="Keyword"
+      >import</a
+      > <a name="68" href="Foreign.Haskell.html" class="Module"
+      >Foreign.Haskell</a
+      >
+
+<a name="85" class="Keyword"
+      >data</a
+      > <a name="Pair" href="Foreign.Haskell.Extras.html#Pair" class="Datatype"
+      >Pair</a
+      > <a name="95" class="Symbol"
+      >{</a
+      ><a name="96" href="Foreign.Haskell.Extras.html#96" class="Bound"
+      >a</a
+      > <a name="98" href="Foreign.Haskell.Extras.html#98" class="Bound"
+      >b</a
+      ><a name="99" class="Symbol"
+      >}</a
+      > <a name="101" class="Symbol"
+      >(</a
+      ><a name="102" href="Foreign.Haskell.Extras.html#102" class="Bound"
+      >A</a
+      > <a name="104" class="Symbol"
+      >:</a
+      > <a name="106" class="PrimitiveType"
+      >Set</a
+      > <a name="110" href="Foreign.Haskell.Extras.html#96" class="Bound"
+      >a</a
+      ><a name="111" class="Symbol"
+      >)</a
+      > <a name="113" class="Symbol"
+      >(</a
+      ><a name="114" href="Foreign.Haskell.Extras.html#114" class="Bound"
+      >B</a
+      > <a name="116" class="Symbol"
+      >:</a
+      > <a name="118" class="PrimitiveType"
+      >Set</a
+      > <a name="122" href="Foreign.Haskell.Extras.html#98" class="Bound"
+      >b</a
+      ><a name="123" class="Symbol"
+      >)</a
+      > <a name="125" class="Symbol"
+      >:</a
+      > <a name="127" class="PrimitiveType"
+      >Set</a
+      > <a name="131" class="Symbol"
+      >(</a
+      ><a name="132" href="Foreign.Haskell.Extras.html#96" class="Bound"
+      >a</a
+      > <a name="134" href="Agda.Primitive.html#_&#8852;_" class="Primitive Operator"
+      >&#8852;</a
+      > <a name="136" href="Foreign.Haskell.Extras.html#98" class="Bound"
+      >b</a
+      ><a name="137" class="Symbol"
+      >)</a
+      > <a name="139" class="Keyword"
+      >where</a
+      >
+  <a name="Pair.mkPair" href="Foreign.Haskell.Extras.html#Pair.mkPair" class="InductiveConstructor"
+      >mkPair</a
+      > <a name="154" class="Symbol"
+      >:</a
+      > <a name="156" href="Foreign.Haskell.Extras.html#102" class="Bound"
+      >A</a
+      > <a name="158" class="Symbol"
+      >&#8594;</a
+      > <a name="160" href="Foreign.Haskell.Extras.html#114" class="Bound"
+      >B</a
+      > <a name="162" class="Symbol"
+      >&#8594;</a
+      > <a name="164" href="Foreign.Haskell.Extras.html#Pair" class="Datatype"
+      >Pair</a
+      > <a name="169" href="Foreign.Haskell.Extras.html#102" class="Bound"
+      >A</a
+      > <a name="171" href="Foreign.Haskell.Extras.html#114" class="Bound"
+      >B</a
+      >
+
+<a name="174" class="Symbol"
+      >{-#</a
+      > <a name="178" class="Keyword"
+      >FOREIGN</a
+      > GHC type Pair a b = (,) <a name="210" class="Symbol"
+      >#-}</a
+      >
+<a name="214" class="Symbol"
+      >{-#</a
+      > <a name="218" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="230" href="Foreign.Haskell.Extras.html#Pair" class="Datatype"
+      >Pair</a
+      > = data MAlonzo.Code.Foreign.Haskell.Extras.Pair ((,)) <a name="289" class="Symbol"
+      >#-}</a
+      >
+
+</pre
+    ></body
+  ></html
+>

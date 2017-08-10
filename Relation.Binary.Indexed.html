@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Relation.Binary.Indexed</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------</a
+      >
+<a name="74" class="Comment"
+      >-- The Agda standard library</a
+      >
+<a name="103" class="Comment"
+      >--</a
+      >
+<a name="106" class="Comment"
+      >-- Indexed binary relations</a
+      >
+<a name="134" class="Comment"
+      >------------------------------------------------------------------------</a
+      >
+
+<a name="208" class="Keyword"
+      >module</a
+      > <a name="215" href="Relation.Binary.Indexed.html" class="Module"
+      >Relation.Binary.Indexed</a
+      > <a name="239" class="Keyword"
+      >where</a
+      >
+
+<a name="246" class="Keyword"
+      >import</a
+      > <a name="253" href="Relation.Binary.html" class="Module"
+      >Relation.Binary</a
+      > <a name="269" class="Symbol"
+      >as</a
+      > <a name="272" class="Module"
+      >B</a
+      >
+
+<a name="275" class="Keyword"
+      >open</a
+      > <a name="280" class="Keyword"
+      >import</a
+      > <a name="287" href="Relation.Binary.Indexed.Core.html" class="Module"
+      >Relation.Binary.Indexed.Core</a
+      > <a name="316" class="Keyword"
+      >public</a
+      >
+
+<a name="324" class="Comment"
+      >-- By &quot;instantiating&quot; an indexed setoid one gets an ordinary setoid.</a
+      >
+
+<a name="_at_" href="Relation.Binary.Indexed.html#_at_" class="Function Operator"
+      >_at_</a
+      > <a name="399" class="Symbol"
+      >:</a
+      > <a name="401" class="Symbol"
+      >&#8704;</a
+      > <a name="403" class="Symbol"
+      >{</a
+      ><a name="404" href="Relation.Binary.Indexed.html#404" class="Bound"
+      >i</a
+      > <a name="406" href="Relation.Binary.Indexed.html#406" class="Bound"
+      >s&#8321;</a
+      > <a name="409" href="Relation.Binary.Indexed.html#409" class="Bound"
+      >s&#8322;</a
+      ><a name="411" class="Symbol"
+      >}</a
+      > <a name="413" class="Symbol"
+      >{</a
+      ><a name="414" href="Relation.Binary.Indexed.html#414" class="Bound"
+      >I</a
+      > <a name="416" class="Symbol"
+      >:</a
+      > <a name="418" class="PrimitiveType"
+      >Set</a
+      > <a name="422" href="Relation.Binary.Indexed.html#404" class="Bound"
+      >i</a
+      ><a name="423" class="Symbol"
+      >}</a
+      > <a name="425" class="Symbol"
+      >&#8594;</a
+      > <a name="427" href="Relation.Binary.Indexed.Core.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="434" href="Relation.Binary.Indexed.html#414" class="Bound"
+      >I</a
+      > <a name="436" href="Relation.Binary.Indexed.html#406" class="Bound"
+      >s&#8321;</a
+      > <a name="439" href="Relation.Binary.Indexed.html#409" class="Bound"
+      >s&#8322;</a
+      > <a name="442" class="Symbol"
+      >&#8594;</a
+      > <a name="444" href="Relation.Binary.Indexed.html#414" class="Bound"
+      >I</a
+      > <a name="446" class="Symbol"
+      >&#8594;</a
+      > <a name="448" href="Relation.Binary.html#Setoid" class="Record"
+      >B.Setoid</a
+      > <a name="457" class="Symbol"
+      >_</a
+      > <a name="459" class="Symbol"
+      >_</a
+      >
+<a name="461" href="Relation.Binary.Indexed.html#461" class="Bound"
+      >S</a
+      > <a name="463" href="Relation.Binary.Indexed.html#_at_" class="Function Operator"
+      >at</a
+      > <a name="466" href="Relation.Binary.Indexed.html#466" class="Bound"
+      >i</a
+      > <a name="468" class="Symbol"
+      >=</a
+      > <a name="470" class="Keyword"
+      >record</a
+      >
+  <a name="479" class="Symbol"
+      >{</a
+      > <a name="481" class="Field"
+      >Carrier</a
+      >       <a name="495" class="Symbol"
+      >=</a
+      > <a name="497" href="Relation.Binary.Indexed.Core.html#S.Carrier" class="Function"
+      >S.Carrier</a
+      > <a name="507" href="Relation.Binary.Indexed.html#466" class="Bound"
+      >i</a
+      >
+  <a name="511" class="Symbol"
+      >;</a
+      > <a name="513" class="Field Operator"
+      >_&#8776;_</a
+      >           <a name="527" class="Symbol"
+      >=</a
+      > <a name="529" href="Relation.Binary.Indexed.Core.html#S._&#8776;_" class="Function Operator"
+      >S._&#8776;_</a
+      >
+  <a name="537" class="Symbol"
+      >;</a
+      > <a name="539" class="Field"
+      >isEquivalence</a
+      > <a name="553" class="Symbol"
+      >=</a
+      > <a name="555" class="Keyword"
+      >record</a
+      >
+    <a name="566" class="Symbol"
+      >{</a
+      > <a name="568" class="Field"
+      >refl</a
+      >  <a name="574" class="Symbol"
+      >=</a
+      > <a name="576" href="Relation.Binary.Indexed.Core.html#S.refl" class="Function"
+      >S.refl</a
+      >
+    <a name="587" class="Symbol"
+      >;</a
+      > <a name="589" class="Field"
+      >sym</a
+      >   <a name="595" class="Symbol"
+      >=</a
+      > <a name="597" href="Relation.Binary.Indexed.Core.html#S.sym" class="Function"
+      >S.sym</a
+      >
+    <a name="607" class="Symbol"
+      >;</a
+      > <a name="609" class="Field"
+      >trans</a
+      > <a name="615" class="Symbol"
+      >=</a
+      > <a name="617" href="Relation.Binary.Indexed.Core.html#S.trans" class="Function"
+      >S.trans</a
+      >
+    <a name="629" class="Symbol"
+      >}</a
+      >
+  <a name="633" class="Symbol"
+      >}</a
+      > <a name="635" class="Keyword"
+      >where</a
+      > <a name="641" class="Keyword"
+      >module</a
+      > <a name="S" href="Relation.Binary.Indexed.html#S" class="Module"
+      >S</a
+      > <a name="650" class="Symbol"
+      >=</a
+      > <a name="652" href="Relation.Binary.Indexed.Core.html#Setoid" class="Module"
+      >Setoid</a
+      > <a name="659" href="Relation.Binary.Indexed.html#461" class="Bound"
+      >S</a
+      >
+
+<a name="662" class="Comment"
+      >------------------------------------------------------------------------</a
+      >
+<a name="735" class="Comment"
+      >-- Simple properties of indexed binary relations</a
+      >
+
+<a name="785" class="Comment"
+      >-- Generalised implication.</a
+      >
+
+<a name="814" class="Keyword"
+      >infixr</a
+      > <a name="821" class="Number"
+      >4</a
+      > <a name="_=[_]&#8658;_" href="Relation.Binary.Indexed.html#_=[_]&#8658;_" class="Function Operator"
+      >_=[_]&#8658;_</a
+      >
+
+<a name="_=[_]&#8658;_" href="Relation.Binary.Indexed.html#_=[_]&#8658;_" class="Function Operator"
+      >_=[_]&#8658;_</a
+      > <a name="840" class="Symbol"
+      >:</a
+      > <a name="842" class="Symbol"
+      >&#8704;</a
+      > <a name="844" class="Symbol"
+      >{</a
+      ><a name="845" href="Relation.Binary.Indexed.html#845" class="Bound"
+      >a</a
+      > <a name="847" href="Relation.Binary.Indexed.html#847" class="Bound"
+      >b</a
+      > <a name="849" href="Relation.Binary.Indexed.html#849" class="Bound"
+      >&#8467;&#8321;</a
+      > <a name="852" href="Relation.Binary.Indexed.html#852" class="Bound"
+      >&#8467;&#8322;</a
+      ><a name="854" class="Symbol"
+      >}</a
+      > <a name="856" class="Symbol"
+      >{</a
+      ><a name="857" href="Relation.Binary.Indexed.html#857" class="Bound"
+      >A</a
+      > <a name="859" class="Symbol"
+      >:</a
+      > <a name="861" class="PrimitiveType"
+      >Set</a
+      > <a name="865" href="Relation.Binary.Indexed.html#845" class="Bound"
+      >a</a
+      ><a name="866" class="Symbol"
+      >}</a
+      > <a name="868" class="Symbol"
+      >{</a
+      ><a name="869" href="Relation.Binary.Indexed.html#869" class="Bound"
+      >B</a
+      > <a name="871" class="Symbol"
+      >:</a
+      > <a name="873" href="Relation.Binary.Indexed.html#857" class="Bound"
+      >A</a
+      > <a name="875" class="Symbol"
+      >&#8594;</a
+      > <a name="877" class="PrimitiveType"
+      >Set</a
+      > <a name="881" href="Relation.Binary.Indexed.html#847" class="Bound"
+      >b</a
+      ><a name="882" class="Symbol"
+      >}</a
+      > <a name="884" class="Symbol"
+      >&#8594;</a
+      >
+          <a name="896" href="Relation.Binary.Core.html#Rel" class="Function"
+      >B.Rel</a
+      > <a name="902" href="Relation.Binary.Indexed.html#857" class="Bound"
+      >A</a
+      > <a name="904" href="Relation.Binary.Indexed.html#849" class="Bound"
+      >&#8467;&#8321;</a
+      > <a name="907" class="Symbol"
+      >&#8594;</a
+      > <a name="909" class="Symbol"
+      >((</a
+      ><a name="911" href="Relation.Binary.Indexed.html#911" class="Bound"
+      >x</a
+      > <a name="913" class="Symbol"
+      >:</a
+      > <a name="915" href="Relation.Binary.Indexed.html#857" class="Bound"
+      >A</a
+      ><a name="916" class="Symbol"
+      >)</a
+      > <a name="918" class="Symbol"
+      >&#8594;</a
+      > <a name="920" href="Relation.Binary.Indexed.html#869" class="Bound"
+      >B</a
+      > <a name="922" href="Relation.Binary.Indexed.html#911" class="Bound"
+      >x</a
+      ><a name="923" class="Symbol"
+      >)</a
+      > <a name="925" class="Symbol"
+      >&#8594;</a
+      > <a name="927" href="Relation.Binary.Indexed.Core.html#Rel" class="Function"
+      >Rel</a
+      > <a name="931" href="Relation.Binary.Indexed.html#869" class="Bound"
+      >B</a
+      > <a name="933" href="Relation.Binary.Indexed.html#852" class="Bound"
+      >&#8467;&#8322;</a
+      > <a name="936" class="Symbol"
+      >&#8594;</a
+      > <a name="938" class="PrimitiveType"
+      >Set</a
+      > <a name="942" class="Symbol"
+      >_</a
+      >
+<a name="944" href="Relation.Binary.Indexed.html#944" class="Bound"
+      >P</a
+      > <a name="946" href="Relation.Binary.Indexed.html#_=[_]&#8658;_" class="Function Operator"
+      >=[</a
+      > <a name="949" href="Relation.Binary.Indexed.html#949" class="Bound"
+      >f</a
+      > <a name="951" href="Relation.Binary.Indexed.html#_=[_]&#8658;_" class="Function Operator"
+      >]&#8658;</a
+      > <a name="954" href="Relation.Binary.Indexed.html#954" class="Bound"
+      >Q</a
+      > <a name="956" class="Symbol"
+      >=</a
+      > <a name="958" class="Symbol"
+      >&#8704;</a
+      > <a name="960" class="Symbol"
+      >{</a
+      ><a name="961" href="Relation.Binary.Indexed.html#961" class="Bound"
+      >i</a
+      > <a name="963" href="Relation.Binary.Indexed.html#963" class="Bound"
+      >j</a
+      ><a name="964" class="Symbol"
+      >}</a
+      > <a name="966" class="Symbol"
+      >&#8594;</a
+      > <a name="968" href="Relation.Binary.Indexed.html#944" class="Bound"
+      >P</a
+      > <a name="970" href="Relation.Binary.Indexed.html#961" class="Bound"
+      >i</a
+      > <a name="972" href="Relation.Binary.Indexed.html#963" class="Bound"
+      >j</a
+      > <a name="974" class="Symbol"
+      >&#8594;</a
+      > <a name="976" href="Relation.Binary.Indexed.html#954" class="Bound"
+      >Q</a
+      > <a name="978" class="Symbol"
+      >(</a
+      ><a name="979" href="Relation.Binary.Indexed.html#949" class="Bound"
+      >f</a
+      > <a name="981" href="Relation.Binary.Indexed.html#961" class="Bound"
+      >i</a
+      ><a name="982" class="Symbol"
+      >)</a
+      > <a name="984" class="Symbol"
+      >(</a
+      ><a name="985" href="Relation.Binary.Indexed.html#949" class="Bound"
+      >f</a
+      > <a name="987" href="Relation.Binary.Indexed.html#963" class="Bound"
+      >j</a
+      ><a name="988" class="Symbol"
+      >)</a
+      >
+</pre
+    ></body
+  ></html
+>

@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >System.Environment.Primitive</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Keyword"
+      >module</a
+      > <a name="8" href="System.Environment.Primitive.html" class="Module"
+      >System.Environment.Primitive</a
+      > <a name="37" class="Keyword"
+      >where</a
+      >
+
+<a name="44" class="Keyword"
+      >open</a
+      > <a name="49" class="Keyword"
+      >import</a
+      > <a name="56" href="IO.Primitive.html" class="Module"
+      >IO.Primitive</a
+      >
+<a name="69" class="Keyword"
+      >open</a
+      > <a name="74" class="Keyword"
+      >import</a
+      > <a name="81" href="Agda.Builtin.String.html" class="Module"
+      >Agda.Builtin.String</a
+      >
+<a name="101" class="Keyword"
+      >open</a
+      > <a name="106" class="Keyword"
+      >import</a
+      > <a name="113" href="Data.Maybe.Base.html" class="Module"
+      >Data.Maybe.Base</a
+      >
+<a name="129" class="Keyword"
+      >open</a
+      > <a name="134" class="Keyword"
+      >import</a
+      > <a name="141" href="Agda.Builtin.List.html" class="Module"
+      >Agda.Builtin.List</a
+      >
+<a name="159" class="Keyword"
+      >open</a
+      > <a name="164" class="Keyword"
+      >import</a
+      > <a name="171" href="Foreign.Haskell.html" class="Module"
+      >Foreign.Haskell</a
+      >
+<a name="187" class="Keyword"
+      >open</a
+      > <a name="192" class="Keyword"
+      >import</a
+      > <a name="199" href="Foreign.Haskell.Extras.html" class="Module"
+      >Foreign.Haskell.Extras</a
+      >
+<a name="222" class="Keyword"
+      >open</a
+      > <a name="227" class="Keyword"
+      >import</a
+      > <a name="234" href="System.FilePath.Posix.html" class="Module"
+      >System.FilePath.Posix</a
+      >
+
+<a name="257" class="Keyword"
+      >postulate</a
+      >
+
+  <a name="getArgs" href="System.Environment.Primitive.html#getArgs" class="Postulate"
+      >getArgs</a
+      >           <a name="288" class="Symbol"
+      >:</a
+      > <a name="290" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="293" class="Symbol"
+      >(</a
+      ><a name="294" href="Agda.Builtin.List.html#List" class="Datatype"
+      >List</a
+      > <a name="299" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      ><a name="305" class="Symbol"
+      >)</a
+      >
+  <a name="getProgName" href="System.Environment.Primitive.html#getProgName" class="Postulate"
+      >getProgName</a
+      >       <a name="327" class="Symbol"
+      >:</a
+      > <a name="329" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="332" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      >
+  <a name="getExecutablePath" href="System.Environment.Primitive.html#getExecutablePath" class="Postulate"
+      >getExecutablePath</a
+      > <a name="359" class="Symbol"
+      >:</a
+      > <a name="361" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="364" href="System.FilePath.Posix.html#FilePath" class="Postulate"
+      >FilePath</a
+      >
+  <a name="lookupEnv" href="System.Environment.Primitive.html#lookupEnv" class="Postulate"
+      >lookupEnv</a
+      >         <a name="393" class="Symbol"
+      >:</a
+      > <a name="395" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      > <a name="402" class="Symbol"
+      >&#8594;</a
+      > <a name="404" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="407" class="Symbol"
+      >(</a
+      ><a name="408" href="Data.Maybe.Base.html#Maybe" class="Datatype"
+      >Maybe</a
+      > <a name="414" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      ><a name="420" class="Symbol"
+      >)</a
+      >
+  <a name="setEnv" href="System.Environment.Primitive.html#setEnv" class="Postulate"
+      >setEnv</a
+      >            <a name="442" class="Symbol"
+      >:</a
+      > <a name="444" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      > <a name="451" class="Symbol"
+      >&#8594;</a
+      > <a name="453" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      > <a name="460" class="Symbol"
+      >&#8594;</a
+      > <a name="462" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="465" href="Foreign.Haskell.html#Unit" class="Datatype"
+      >Unit</a
+      >
+  <a name="unsetEnv" href="System.Environment.Primitive.html#unsetEnv" class="Postulate"
+      >unsetEnv</a
+      >          <a name="490" class="Symbol"
+      >:</a
+      > <a name="492" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      > <a name="499" class="Symbol"
+      >&#8594;</a
+      > <a name="501" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="504" href="Foreign.Haskell.html#Unit" class="Datatype"
+      >Unit</a
+      >
+  <a name="withArgs" href="System.Environment.Primitive.html#withArgs" class="Postulate"
+      >withArgs</a
+      >          <a name="529" class="Symbol"
+      >:</a
+      > <a name="531" class="Symbol"
+      >&#8704;</a
+      > <a name="533" class="Symbol"
+      >{</a
+      ><a name="534" href="System.Environment.Primitive.html#534" class="Bound"
+      >a</a
+      ><a name="535" class="Symbol"
+      >}</a
+      > <a name="537" class="Symbol"
+      >{</a
+      ><a name="538" href="System.Environment.Primitive.html#538" class="Bound"
+      >A</a
+      > <a name="540" class="Symbol"
+      >:</a
+      > <a name="542" class="PrimitiveType"
+      >Set</a
+      > <a name="546" href="System.Environment.Primitive.html#534" class="Bound"
+      >a</a
+      ><a name="547" class="Symbol"
+      >}</a
+      > <a name="549" class="Symbol"
+      >&#8594;</a
+      > <a name="551" href="Agda.Builtin.List.html#List" class="Datatype"
+      >List</a
+      > <a name="556" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      > <a name="563" class="Symbol"
+      >&#8594;</a
+      > <a name="565" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="568" href="System.Environment.Primitive.html#538" class="Bound"
+      >A</a
+      > <a name="570" class="Symbol"
+      >&#8594;</a
+      > <a name="572" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="575" href="System.Environment.Primitive.html#538" class="Bound"
+      >A</a
+      >
+  <a name="withProgName" href="System.Environment.Primitive.html#withProgName" class="Postulate"
+      >withProgName</a
+      >      <a name="597" class="Symbol"
+      >:</a
+      > <a name="599" class="Symbol"
+      >&#8704;</a
+      > <a name="601" class="Symbol"
+      >{</a
+      ><a name="602" href="System.Environment.Primitive.html#602" class="Bound"
+      >a</a
+      ><a name="603" class="Symbol"
+      >}</a
+      > <a name="605" class="Symbol"
+      >{</a
+      ><a name="606" href="System.Environment.Primitive.html#606" class="Bound"
+      >A</a
+      > <a name="608" class="Symbol"
+      >:</a
+      > <a name="610" class="PrimitiveType"
+      >Set</a
+      > <a name="614" href="System.Environment.Primitive.html#602" class="Bound"
+      >a</a
+      ><a name="615" class="Symbol"
+      >}</a
+      > <a name="617" class="Symbol"
+      >&#8594;</a
+      > <a name="619" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      > <a name="626" class="Symbol"
+      >&#8594;</a
+      > <a name="628" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="631" href="System.Environment.Primitive.html#606" class="Bound"
+      >A</a
+      > <a name="633" class="Symbol"
+      >&#8594;</a
+      > <a name="635" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="638" href="System.Environment.Primitive.html#606" class="Bound"
+      >A</a
+      >
+  <a name="getEnvironment" href="System.Environment.Primitive.html#getEnvironment" class="Postulate"
+      >getEnvironment</a
+      >    <a name="660" class="Symbol"
+      >:</a
+      > <a name="662" href="Agda.Builtin.IO.html#IO" class="Postulate"
+      >IO</a
+      > <a name="665" class="Symbol"
+      >(</a
+      ><a name="666" href="Agda.Builtin.List.html#List" class="Datatype"
+      >List</a
+      > <a name="671" class="Symbol"
+      >(</a
+      ><a name="672" href="Foreign.Haskell.Extras.html#Pair" class="Datatype"
+      >Pair</a
+      > <a name="677" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      > <a name="684" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      ><a name="690" class="Symbol"
+      >))</a
+      >
+
+<a name="694" class="Symbol"
+      >{-#</a
+      > <a name="698" class="Keyword"
+      >FOREIGN</a
+      > GHC import qualified System.Environment as SE                                        <a name="791" class="Symbol"
+      >#-}</a
+      >
+<a name="795" class="Symbol"
+      >{-#</a
+      > <a name="799" class="Keyword"
+      >FOREIGN</a
+      > GHC import Data.Text                                                                 <a name="892" class="Symbol"
+      >#-}</a
+      >
+<a name="896" class="Symbol"
+      >{-#</a
+      > <a name="900" class="Keyword"
+      >FOREIGN</a
+      > GHC import Data.Function                                                             <a name="993" class="Symbol"
+      >#-}</a
+      >
+<a name="997" class="Symbol"
+      >{-#</a
+      > <a name="1001" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1013" href="System.Environment.Primitive.html#getArgs" class="Postulate"
+      >getArgs</a
+      >           = fmap (fmap pack) SE.getArgs                                  <a name="1094" class="Symbol"
+      >#-}</a
+      >
+<a name="1098" class="Symbol"
+      >{-#</a
+      > <a name="1102" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1114" href="System.Environment.Primitive.html#getProgName" class="Postulate"
+      >getProgName</a
+      >       = fmap pack SE.getProgName                                     <a name="1195" class="Symbol"
+      >#-}</a
+      >
+<a name="1199" class="Symbol"
+      >{-#</a
+      > <a name="1203" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1215" href="System.Environment.Primitive.html#getExecutablePath" class="Postulate"
+      >getExecutablePath</a
+      > = SE.getExecutablePath                                         <a name="1296" class="Symbol"
+      >#-}</a
+      >
+<a name="1300" class="Symbol"
+      >{-#</a
+      > <a name="1304" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1316" href="System.Environment.Primitive.html#lookupEnv" class="Postulate"
+      >lookupEnv</a
+      >         = fmap (fmap pack) . SE.lookupEnv . unpack                     <a name="1397" class="Symbol"
+      >#-}</a
+      >
+<a name="1401" class="Symbol"
+      >{-#</a
+      > <a name="1405" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1417" href="System.Environment.Primitive.html#setEnv" class="Postulate"
+      >setEnv</a
+      >            = SE.setEnv `on` unpack                                        <a name="1498" class="Symbol"
+      >#-}</a
+      >
+<a name="1502" class="Symbol"
+      >{-#</a
+      > <a name="1506" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1518" href="System.Environment.Primitive.html#unsetEnv" class="Postulate"
+      >unsetEnv</a
+      >          = SE.unsetEnv . unpack                                         <a name="1599" class="Symbol"
+      >#-}</a
+      >
+<a name="1603" class="Symbol"
+      >{-#</a
+      > <a name="1607" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1619" href="System.Environment.Primitive.html#withArgs" class="Postulate"
+      >withArgs</a
+      >          = \ _ _ -&gt; SE.withArgs . fmap unpack                           <a name="1700" class="Symbol"
+      >#-}</a
+      >
+<a name="1704" class="Symbol"
+      >{-#</a
+      > <a name="1708" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1720" href="System.Environment.Primitive.html#withProgName" class="Postulate"
+      >withProgName</a
+      >      = \ _ _ -&gt; SE.withProgName . unpack                            <a name="1801" class="Symbol"
+      >#-}</a
+      >
+<a name="1805" class="Symbol"
+      >{-#</a
+      > <a name="1809" class="Keyword"
+      >COMPILE</a
+      > GHC <a name="1821" href="System.Environment.Primitive.html#getEnvironment" class="Postulate"
+      >getEnvironment</a
+      >    = fmap (fmap (\ (a, b) -&gt; (pack a, pack b))) SE.getEnvironment <a name="1902" class="Symbol"
+      >#-}</a
+      >
+</pre
+    ></body
+  ></html
+>

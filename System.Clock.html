@@ -1,0 +1,729 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >System.Clock</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Keyword"
+      >module</a
+      > <a name="8" href="System.Clock.html" class="Module"
+      >System.Clock</a
+      > <a name="21" class="Keyword"
+      >where</a
+      >
+
+<a name="28" class="Keyword"
+      >open</a
+      > <a name="33" class="Keyword"
+      >import</a
+      > <a name="40" href="Data.Bool.Base.html" class="Module"
+      >Data.Bool.Base</a
+      >
+<a name="55" class="Keyword"
+      >open</a
+      > <a name="60" class="Keyword"
+      >import</a
+      > <a name="67" href="Agda.Builtin.Nat.html" class="Module"
+      >Agda.Builtin.Nat</a
+      >
+<a name="84" class="Keyword"
+      >open</a
+      > <a name="89" class="Keyword"
+      >import</a
+      > <a name="96" href="Sized.IO.html" class="Module"
+      >Sized.IO</a
+      >
+<a name="105" class="Keyword"
+      >open</a
+      > <a name="110" class="Keyword"
+      >import</a
+      > <a name="117" href="Foreign.Haskell.Extras.html" class="Module"
+      >Foreign.Haskell.Extras</a
+      >
+<a name="140" class="Keyword"
+      >open</a
+      > <a name="145" class="Keyword"
+      >import</a
+      > <a name="152" href="System.Clock.Primitive.html" class="Module"
+      >System.Clock.Primitive</a
+      > <a name="175" class="Symbol"
+      >as</a
+      > <a name="178" class="Module"
+      >Prim</a
+      >
+  <a name="185" class="Keyword"
+      >using</a
+      > <a name="191" class="Symbol"
+      >(</a
+      ><a name="192" href="System.Clock.Primitive.html#Clock" class="Datatype"
+      >Clock</a
+      > <a name="198" class="Symbol"
+      >;</a
+      > <a name="200" href="System.Clock.Primitive.html#Clock.Monotonic" class="InductiveConstructor"
+      >Monotonic</a
+      > <a name="210" class="Symbol"
+      >;</a
+      > <a name="212" href="System.Clock.Primitive.html#Clock.Realtime" class="InductiveConstructor"
+      >Realtime</a
+      > <a name="221" class="Symbol"
+      >;</a
+      > <a name="223" href="System.Clock.Primitive.html#Clock.ProcessCPUTime" class="InductiveConstructor"
+      >ProcessCPUTime</a
+      >
+               <a name="253" class="Symbol"
+      >;</a
+      > <a name="255" href="System.Clock.Primitive.html#Clock.ThreadCPUTime" class="InductiveConstructor"
+      >ThreadCPUTime</a
+      > <a name="269" class="Symbol"
+      >;</a
+      > <a name="271" href="System.Clock.Primitive.html#Clock.MonotonicRaw" class="InductiveConstructor"
+      >MonotonicRaw</a
+      > <a name="284" class="Symbol"
+      >;</a
+      > <a name="286" href="System.Clock.Primitive.html#Clock.Boottime" class="InductiveConstructor"
+      >Boottime</a
+      >
+               <a name="310" class="Symbol"
+      >;</a
+      > <a name="312" href="System.Clock.Primitive.html#Clock.MonotonicCoarse" class="InductiveConstructor"
+      >MonotonicCoarse</a
+      > <a name="328" class="Symbol"
+      >;</a
+      > <a name="330" href="System.Clock.Primitive.html#Clock.RealtimeCoarse" class="InductiveConstructor"
+      >RealtimeCoarse</a
+      ><a name="344" class="Symbol"
+      >)</a
+      > <a name="346" class="Keyword"
+      >public</a
+      >
+
+<a name="354" class="Keyword"
+      >record</a
+      > <a name="Time" href="System.Clock.html#Time" class="Record"
+      >Time</a
+      > <a name="366" class="Symbol"
+      >:</a
+      > <a name="368" class="PrimitiveType"
+      >Set</a
+      > <a name="372" class="Keyword"
+      >where</a
+      >
+  <a name="380" class="Keyword"
+      >constructor</a
+      > <a name="Time.mkTime" href="System.Clock.html#Time.mkTime" class="InductiveConstructor"
+      >mkTime</a
+      >
+  <a name="401" class="Keyword"
+      >field</a
+      > <a name="Time.seconds" href="System.Clock.html#Time.seconds" class="Field"
+      >seconds</a
+      >     <a name="419" class="Symbol"
+      >:</a
+      > <a name="421" href="Agda.Builtin.Nat.html#Nat" class="Datatype"
+      >Nat</a
+      >
+        <a name="Time.nanoseconds" href="System.Clock.html#Time.nanoseconds" class="Field"
+      >nanoseconds</a
+      > <a name="445" class="Symbol"
+      >:</a
+      > <a name="447" href="Agda.Builtin.Nat.html#Nat" class="Datatype"
+      >Nat</a
+      >
+<a name="451" class="Keyword"
+      >open</a
+      > <a name="456" href="System.Clock.html#Time" class="Module"
+      >Time</a
+      > <a name="461" class="Keyword"
+      >public</a
+      >
+
+<a name="diff" href="System.Clock.html#diff" class="Function"
+      >diff</a
+      > <a name="474" class="Symbol"
+      >:</a
+      > <a name="476" href="System.Clock.html#Time" class="Record"
+      >Time</a
+      > <a name="481" class="Symbol"
+      >&#8594;</a
+      > <a name="483" href="System.Clock.html#Time" class="Record"
+      >Time</a
+      > <a name="488" class="Symbol"
+      >&#8594;</a
+      > <a name="490" href="System.Clock.html#Time" class="Record"
+      >Time</a
+      >
+<a name="495" href="System.Clock.html#diff" class="Function"
+      >diff</a
+      > <a name="500" class="Symbol"
+      >(</a
+      ><a name="501" href="System.Clock.html#Time.mkTime" class="InductiveConstructor"
+      >mkTime</a
+      > <a name="508" href="System.Clock.html#508" class="Bound"
+      >ss</a
+      > <a name="511" href="System.Clock.html#511" class="Bound"
+      >sns</a
+      ><a name="514" class="Symbol"
+      >)</a
+      > <a name="516" class="Symbol"
+      >(</a
+      ><a name="517" href="System.Clock.html#Time.mkTime" class="InductiveConstructor"
+      >mkTime</a
+      > <a name="524" href="System.Clock.html#524" class="Bound"
+      >es</a
+      > <a name="527" href="System.Clock.html#527" class="Bound"
+      >ens</a
+      ><a name="530" class="Symbol"
+      >)</a
+      > <a name="532" class="Symbol"
+      >=</a
+      >
+  <a name="536" href="Data.Bool.Base.html#if_then_else_" class="Function Operator"
+      >if</a
+      > <a name="539" href="System.Clock.html#527" class="Bound"
+      >ens</a
+      > <a name="543" href="Agda.Builtin.Nat.html#_&lt;_" class="Primitive Operator"
+      >&lt;</a
+      > <a name="545" href="System.Clock.html#511" class="Bound"
+      >sns</a
+      >
+  <a name="551" href="Data.Bool.Base.html#if_then_else_" class="Function Operator"
+      >then</a
+      > <a name="556" href="System.Clock.html#Time.mkTime" class="InductiveConstructor"
+      >mkTime</a
+      > <a name="563" class="Symbol"
+      >(</a
+      ><a name="564" href="System.Clock.html#524" class="Bound"
+      >es</a
+      > <a name="567" href="Agda.Builtin.Nat.html#_-_" class="Primitive Operator"
+      >-</a
+      > <a name="569" href="Agda.Builtin.Nat.html#Nat.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="573" href="System.Clock.html#508" class="Bound"
+      >ss</a
+      ><a name="575" class="Symbol"
+      >)</a
+      > <a name="577" class="Symbol"
+      >((</a
+      ><a name="579" class="Number"
+      >1000000000</a
+      > <a name="590" href="Agda.Builtin.Nat.html#_+_" class="Primitive Operator"
+      >+</a
+      > <a name="592" href="System.Clock.html#527" class="Bound"
+      >ens</a
+      ><a name="595" class="Symbol"
+      >)</a
+      > <a name="597" href="Agda.Builtin.Nat.html#_-_" class="Primitive Operator"
+      >-</a
+      > <a name="599" href="System.Clock.html#511" class="Bound"
+      >sns</a
+      ><a name="602" class="Symbol"
+      >)</a
+      >
+  <a name="606" href="Data.Bool.Base.html#if_then_else_" class="Function Operator"
+      >else</a
+      > <a name="611" href="System.Clock.html#Time.mkTime" class="InductiveConstructor"
+      >mkTime</a
+      > <a name="618" class="Symbol"
+      >(</a
+      ><a name="619" href="System.Clock.html#524" class="Bound"
+      >es</a
+      > <a name="622" href="Agda.Builtin.Nat.html#_-_" class="Primitive Operator"
+      >-</a
+      > <a name="624" href="System.Clock.html#508" class="Bound"
+      >ss</a
+      ><a name="626" class="Symbol"
+      >)</a
+      > <a name="628" class="Symbol"
+      >(</a
+      ><a name="629" href="System.Clock.html#527" class="Bound"
+      >ens</a
+      > <a name="633" href="Agda.Builtin.Nat.html#_-_" class="Primitive Operator"
+      >-</a
+      > <a name="635" href="System.Clock.html#511" class="Bound"
+      >sns</a
+      ><a name="638" class="Symbol"
+      >)</a
+      >
+
+<a name="getTime" href="System.Clock.html#getTime" class="Function"
+      >getTime</a
+      > <a name="649" class="Symbol"
+      >:</a
+      > <a name="651" href="System.Clock.Primitive.html#Clock" class="Datatype"
+      >Clock</a
+      > <a name="657" class="Symbol"
+      >&#8594;</a
+      > <a name="659" href="Sized.IO.html#IO" class="Function"
+      >IO</a
+      > <a name="662" href="System.Clock.html#Time" class="Record"
+      >Time</a
+      >
+<a name="667" href="System.Clock.html#getTime" class="Function"
+      >getTime</a
+      > <a name="675" href="System.Clock.html#675" class="Bound"
+      >c</a
+      > <a name="677" class="Symbol"
+      >=</a
+      > <a name="679" class="Symbol"
+      >(&#955;</a
+      > <a name="682" class="Symbol"
+      >{</a
+      > <a name="684" class="Symbol"
+      >(</a
+      ><a name="685" href="Foreign.Haskell.Extras.html#Pair.mkPair" class="InductiveConstructor"
+      >mkPair</a
+      > <a name="692" href="System.Clock.html#692" class="Bound"
+      >a</a
+      > <a name="694" href="System.Clock.html#694" class="Bound"
+      >b</a
+      ><a name="695" class="Symbol"
+      >)</a
+      > <a name="697" class="Symbol"
+      >&#8594;</a
+      > <a name="699" href="System.Clock.html#Time.mkTime" class="InductiveConstructor"
+      >mkTime</a
+      > <a name="706" href="System.Clock.html#692" class="Bound"
+      >a</a
+      > <a name="708" href="System.Clock.html#694" class="Bound"
+      >b</a
+      > <a name="710" class="Symbol"
+      >})</a
+      > <a name="713" href="Sized.IO.html#1565" class="Function Operator"
+      >&lt;$&gt;</a
+      > <a name="717" href="Sized.IO.html#IO&#8242;.lift" class="InductiveConstructor"
+      >lift</a
+      > <a name="722" class="Symbol"
+      >(</a
+      ><a name="723" href="System.Clock.Primitive.html#getTime" class="Postulate"
+      >Prim.getTime</a
+      > <a name="736" href="System.Clock.html#675" class="Bound"
+      >c</a
+      ><a name="737" class="Symbol"
+      >)</a
+      >
+
+<a name="740" class="Keyword"
+      >open</a
+      > <a name="745" class="Keyword"
+      >import</a
+      > <a name="752" href="Data.Unit.html" class="Module"
+      >Data.Unit</a
+      >
+<a name="762" class="Keyword"
+      >open</a
+      > <a name="767" class="Keyword"
+      >import</a
+      > <a name="774" href="Data.Nat.Base.html" class="Module"
+      >Data.Nat.Base</a
+      > <a name="788" class="Symbol"
+      >as</a
+      > <a name="791" class="Module"
+      >&#8469;</a
+      >
+<a name="793" class="Keyword"
+      >import</a
+      > <a name="800" href="Data.Nat.Show.html" class="Module"
+      >Data.Nat.Show</a
+      > <a name="814" class="Symbol"
+      >as</a
+      > <a name="817" class="Module"
+      >NatShow</a
+      >
+<a name="825" class="Keyword"
+      >open</a
+      > <a name="830" class="Keyword"
+      >import</a
+      > <a name="837" href="Data.Nat.DivMod.html" class="Module"
+      >Data.Nat.DivMod</a
+      >
+<a name="853" class="Keyword"
+      >open</a
+      > <a name="858" class="Keyword"
+      >import</a
+      > <a name="865" href="Data.Nat.Properties.html" class="Module"
+      >Data.Nat.Properties</a
+      >
+<a name="885" class="Keyword"
+      >open</a
+      > <a name="890" class="Keyword"
+      >import</a
+      > <a name="897" href="Data.Fin.html" class="Module"
+      >Data.Fin</a
+      >
+<a name="906" class="Keyword"
+      >open</a
+      > <a name="911" class="Keyword"
+      >import</a
+      > <a name="918" href="Data.String.Base.html" class="Module"
+      >Data.String.Base</a
+      > <a name="935" class="Keyword"
+      >hiding</a
+      > <a name="942" class="Symbol"
+      >(</a
+      ><a name="943" href="Data.String.Base.html#show" class="Function"
+      >show</a
+      ><a name="947" class="Symbol"
+      >)</a
+      >
+<a name="949" class="Keyword"
+      >open</a
+      > <a name="954" class="Keyword"
+      >import</a
+      > <a name="961" href="Data.Sum.html" class="Module"
+      >Data.Sum</a
+      >
+<a name="970" class="Keyword"
+      >open</a
+      > <a name="975" class="Keyword"
+      >import</a
+      > <a name="982" href="Relation.Nullary.html" class="Module"
+      >Relation.Nullary</a
+      >
+<a name="999" class="Keyword"
+      >open</a
+      > <a name="1004" class="Keyword"
+      >import</a
+      > <a name="1011" href="Relation.Nullary.Decidable.html" class="Module"
+      >Relation.Nullary.Decidable</a
+      >
+<a name="1038" class="Keyword"
+      >open</a
+      > <a name="1043" class="Keyword"
+      >import</a
+      > <a name="1050" href="Relation.Binary.PropositionalEquality.html" class="Module"
+      >Relation.Binary.PropositionalEquality</a
+      >
+
+<a name="show" href="System.Clock.html#show" class="Function"
+      >show</a
+      > <a name="1094" class="Symbol"
+      >:</a
+      > <a name="1096" href="System.Clock.html#Time" class="Record"
+      >Time</a
+      > <a name="1101" class="Symbol"
+      >&#8594;</a
+      > <a name="1103" href="Data.Fin.html#Fin" class="Datatype"
+      >Fin</a
+      > <a name="1107" class="Number"
+      >9</a
+      > <a name="1109" class="Symbol"
+      >&#8594;</a
+      > <a name="1111" href="Agda.Builtin.String.html#String" class="Postulate"
+      >String</a
+      >
+<a name="1118" href="System.Clock.html#show" class="Function"
+      >show</a
+      > <a name="1123" class="Symbol"
+      >(</a
+      ><a name="1124" href="System.Clock.html#Time.mkTime" class="InductiveConstructor"
+      >mkTime</a
+      > <a name="1131" href="System.Clock.html#1131" class="Bound"
+      >s</a
+      > <a name="1133" href="System.Clock.html#1133" class="Bound"
+      >ns</a
+      ><a name="1135" class="Symbol"
+      >)</a
+      > <a name="1137" href="System.Clock.html#1137" class="Bound"
+      >prec</a
+      > <a name="1142" class="Symbol"
+      >=</a
+      >
+  <a name="1146" href="Data.Nat.Show.html#show" class="Function"
+      >NatShow.show</a
+      > <a name="1159" href="System.Clock.html#1131" class="Bound"
+      >s</a
+      >
+  <a name="1163" href="Data.String.Base.html#_++_" class="Function Operator"
+      >++</a
+      > <a name="1166" class="String"
+      >&quot;s&quot;</a
+      >
+  <a name="1172" href="Data.String.Base.html#_++_" class="Function Operator"
+      >++</a
+      > <a name="1175" href="Data.Nat.Show.html#show" class="Function"
+      >NatShow.show</a
+      > <a name="1188" class="Symbol"
+      >((</a
+      ><a name="1190" href="System.Clock.html#1133" class="Bound"
+      >ns</a
+      > <a name="1193" href="Data.Nat.DivMod.html#_div_" class="Function Operator"
+      >div</a
+      > <a name="1197" class="Symbol"
+      >(</a
+      ><a name="1198" class="Number"
+      >10</a
+      > <a name="1201" href="System.Clock.html#1262" class="Function Operator"
+      >^</a
+      > <a name="1203" class="Symbol"
+      >(</a
+      ><a name="1204" class="Number"
+      >9</a
+      > <a name="1206" href="Agda.Builtin.Nat.html#_&#8760;_" class="Primitive Operator"
+      >&#8760;</a
+      > <a name="1208" href="Data.Fin.html#to&#8469;" class="Function"
+      >to&#8469;</a
+      > <a name="1212" href="System.Clock.html#1137" class="Bound"
+      >prec</a
+      ><a name="1216" class="Symbol"
+      >)))</a
+      > <a name="1220" class="Symbol"
+      >{</a
+      ><a name="1221" href="System.Clock.html#1313" class="Function"
+      >exp-nz</a
+      > <a name="1228" class="Number"
+      >10</a
+      > <a name="1231" class="Symbol"
+      >(</a
+      ><a name="1232" class="Number"
+      >9</a
+      > <a name="1234" href="Agda.Builtin.Nat.html#_&#8760;_" class="Primitive Operator"
+      >&#8760;</a
+      > <a name="1236" href="Data.Fin.html#to&#8469;" class="Function"
+      >to&#8469;</a
+      > <a name="1240" href="System.Clock.html#1137" class="Bound"
+      >prec</a
+      ><a name="1244" class="Symbol"
+      >)})</a
+      >
+
+  <a name="1251" class="Keyword"
+      >where</a
+      >
+
+    <a name="1262" href="System.Clock.html#1262" class="Function Operator"
+      >_^_</a
+      > <a name="1266" class="Symbol"
+      >:</a
+      > <a name="1268" href="Agda.Builtin.Nat.html#&#8469;" class="Datatype"
+      >&#8469;</a
+      > <a name="1270" class="Symbol"
+      >&#8594;</a
+      > <a name="1272" href="Agda.Builtin.Nat.html#&#8469;" class="Datatype"
+      >&#8469;</a
+      > <a name="1274" class="Symbol"
+      >&#8594;</a
+      > <a name="1276" href="Agda.Builtin.Nat.html#&#8469;" class="Datatype"
+      >&#8469;</a
+      >
+    <a name="1282" href="System.Clock.html#1282" class="Bound"
+      >x</a
+      > <a name="1284" href="System.Clock.html#1262" class="Function Operator"
+      >^</a
+      > <a name="1286" href="System.Clock.html#1286" class="Bound"
+      >n</a
+      > <a name="1288" class="Symbol"
+      >=</a
+      > <a name="1290" href="Data.Nat.Base.html#fold" class="Function"
+      >&#8469;.fold</a
+      > <a name="1297" class="Number"
+      >1</a
+      > <a name="1299" class="Symbol"
+      >(</a
+      ><a name="1300" href="System.Clock.html#1282" class="Bound"
+      >x</a
+      > <a name="1302" href="Agda.Builtin.Nat.html#_*_" class="Primitive Operator"
+      >*_</a
+      ><a name="1304" class="Symbol"
+      >)</a
+      > <a name="1306" href="System.Clock.html#1286" class="Bound"
+      >n</a
+      >
+
+    <a name="1313" href="System.Clock.html#1313" class="Function"
+      >exp-nz</a
+      > <a name="1320" class="Symbol"
+      >:</a
+      > <a name="1322" class="Symbol"
+      >&#8704;</a
+      > <a name="1324" href="System.Clock.html#1324" class="Bound"
+      >x</a
+      > <a name="1326" href="System.Clock.html#1326" class="Bound"
+      >n</a
+      > <a name="1328" class="Symbol"
+      >{</a
+      ><a name="1329" href="System.Clock.html#1329" class="Bound"
+      >x&#8800;0</a
+      > <a name="1333" class="Symbol"
+      >:</a
+      > <a name="1335" href="Relation.Nullary.Decidable.html#False" class="Function"
+      >False</a
+      > <a name="1341" class="Symbol"
+      >(</a
+      ><a name="1342" href="System.Clock.html#1324" class="Bound"
+      >x</a
+      > <a name="1344" href="Data.Nat.Base.html#_&#8799;_" class="Function Operator"
+      >&#8469;.&#8799;</a
+      > <a name="1348" class="Number"
+      >0</a
+      ><a name="1349" class="Symbol"
+      >)}</a
+      > <a name="1352" class="Symbol"
+      >&#8594;</a
+      > <a name="1354" href="Relation.Nullary.Decidable.html#False" class="Function"
+      >False</a
+      > <a name="1360" class="Symbol"
+      >(</a
+      ><a name="1361" href="System.Clock.html#1324" class="Bound"
+      >x</a
+      > <a name="1363" href="System.Clock.html#1262" class="Function Operator"
+      >^</a
+      > <a name="1365" href="System.Clock.html#1326" class="Bound"
+      >n</a
+      > <a name="1367" href="Data.Nat.Base.html#_&#8799;_" class="Function Operator"
+      >&#8469;.&#8799;</a
+      > <a name="1371" class="Number"
+      >0</a
+      ><a name="1372" class="Symbol"
+      >)</a
+      >
+    <a name="1378" href="System.Clock.html#1313" class="Function"
+      >exp-nz</a
+      > <a name="1385" href="System.Clock.html#1385" class="Bound"
+      >x</a
+      > <a name="1387" href="Agda.Builtin.Nat.html#Nat.zero" class="InductiveConstructor"
+      >zero</a
+      >    <a name="1395" class="Symbol"
+      >=</a
+      > <a name="1397" href="Agda.Builtin.Unit.html#&#8868;.tt" class="InductiveConstructor"
+      >tt</a
+      >
+    <a name="1404" href="System.Clock.html#1313" class="Function"
+      >exp-nz</a
+      > <a name="1411" href="System.Clock.html#1411" class="Bound"
+      >x</a
+      > <a name="1413" class="Symbol"
+      >(</a
+      ><a name="1414" href="Agda.Builtin.Nat.html#Nat.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1418" href="System.Clock.html#1418" class="Bound"
+      >n</a
+      ><a name="1419" class="Symbol"
+      >)</a
+      > <a name="1421" class="Symbol"
+      >{</a
+      ><a name="1422" href="System.Clock.html#1422" class="Bound"
+      >x&#8800;0</a
+      ><a name="1425" class="Symbol"
+      >}</a
+      > <a name="1427" class="Keyword"
+      >with</a
+      > <a name="1432" href="System.Clock.html#1411" class="Bound"
+      >x</a
+      > <a name="1434" href="System.Clock.html#1262" class="Function Operator"
+      >^</a
+      > <a name="1436" class="Symbol"
+      >(</a
+      ><a name="1437" href="Agda.Builtin.Nat.html#Nat.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1441" href="System.Clock.html#1418" class="Bound"
+      >n</a
+      ><a name="1442" class="Symbol"
+      >)</a
+      > <a name="1444" href="Data.Nat.Base.html#_&#8799;_" class="Function Operator"
+      >&#8469;.&#8799;</a
+      > <a name="1448" class="Number"
+      >0</a
+      >
+    <a name="1454" class="Symbol"
+      >...</a
+      > <a name="1458" class="Symbol"
+      >|</a
+      > <a name="1460" href="Relation.Nullary.html#Dec.no" class="InductiveConstructor"
+      >no</a
+      > <a name="1463" href="System.Clock.html#1463" class="Bound"
+      >&#172;p</a
+      > <a name="1466" class="Symbol"
+      >=</a
+      > <a name="1468" href="Agda.Builtin.Unit.html#&#8868;.tt" class="InductiveConstructor"
+      >tt</a
+      >
+    <a name="1475" class="Symbol"
+      >...</a
+      > <a name="1479" class="Symbol"
+      >|</a
+      > <a name="1481" href="Relation.Nullary.html#Dec.yes" class="InductiveConstructor"
+      >yes</a
+      > <a name="1485" href="System.Clock.html#1485" class="Bound"
+      >p</a
+      > <a name="1487" class="Keyword"
+      >with</a
+      > <a name="1492" href="Data.Nat.Properties.html#i*j&#8801;0&#8658;i&#8801;0&#8744;j&#8801;0" class="Function"
+      >i*j&#8801;0&#8658;i&#8801;0&#8744;j&#8801;0</a
+      > <a name="1506" class="Bound"
+      >x</a
+      > <a name="1508" href="System.Clock.html#1485" class="Bound"
+      >p</a
+      >
+    <a name="1514" class="Symbol"
+      >...</a
+      > <a name="1518" class="Symbol"
+      >|</a
+      > <a name="1520" href="Data.Sum.html#_&#8846;_.inj&#8321;" class="InductiveConstructor"
+      >inj&#8321;</a
+      > <a name="1525" href="System.Clock.html#1525" class="Bound"
+      >x&#8801;0</a
+      >   <a name="1531" class="Keyword"
+      >rewrite</a
+      > <a name="1539" href="System.Clock.html#1525" class="Bound"
+      >x&#8801;0</a
+      > <a name="1543" class="Symbol"
+      >=</a
+      > <a name="1545" class="Bound"
+      >x&#8800;0</a
+      >
+    <a name="1553" class="Symbol"
+      >...</a
+      > <a name="1557" class="Symbol"
+      >|</a
+      > <a name="1559" href="Data.Sum.html#_&#8846;_.inj&#8322;" class="InductiveConstructor"
+      >inj&#8322;</a
+      > <a name="1564" href="System.Clock.html#1564" class="Bound"
+      >x^n&#8801;0</a
+      > <a name="1570" class="Symbol"
+      >=</a
+      > <a name="1572" href="Relation.Binary.PropositionalEquality.Core.html#subst" class="Function"
+      >subst</a
+      > <a name="1578" class="Symbol"
+      >(&#955;</a
+      > <a name="1581" href="System.Clock.html#1581" class="Bound"
+      >x</a
+      > <a name="1583" class="Symbol"
+      >&#8594;</a
+      > <a name="1585" href="Relation.Nullary.Decidable.html#False" class="Function"
+      >False</a
+      > <a name="1591" class="Symbol"
+      >(</a
+      ><a name="1592" href="System.Clock.html#1581" class="Bound"
+      >x</a
+      > <a name="1594" href="Data.Nat.Base.html#_&#8799;_" class="Function Operator"
+      >&#8469;.&#8799;</a
+      > <a name="1598" class="Number"
+      >0</a
+      ><a name="1599" class="Symbol"
+      >))</a
+      > <a name="1602" href="System.Clock.html#1564" class="Bound"
+      >x^n&#8801;0</a
+      > <a name="1608" class="Symbol"
+      >(</a
+      ><a name="1609" href="System.Clock.html#1313" class="Function"
+      >exp-nz</a
+      > <a name="1616" class="Bound"
+      >x</a
+      > <a name="1618" class="Bound"
+      >n</a
+      > <a name="1620" class="Symbol"
+      >{</a
+      ><a name="1621" class="Bound"
+      >x&#8800;0</a
+      ><a name="1624" class="Symbol"
+      >})</a
+      >
+</pre
+    ></body
+  ></html
+>

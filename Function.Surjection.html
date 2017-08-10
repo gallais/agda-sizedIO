@@ -1,0 +1,1056 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Function.Surjection</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Comment"
+      >------------------------------------------------------------------------</a
+      >
+<a name="74" class="Comment"
+      >-- The Agda standard library</a
+      >
+<a name="103" class="Comment"
+      >--</a
+      >
+<a name="106" class="Comment"
+      >-- Surjections</a
+      >
+<a name="121" class="Comment"
+      >------------------------------------------------------------------------</a
+      >
+
+<a name="195" class="Keyword"
+      >module</a
+      > <a name="202" href="Function.Surjection.html" class="Module"
+      >Function.Surjection</a
+      > <a name="222" class="Keyword"
+      >where</a
+      >
+
+<a name="229" class="Keyword"
+      >open</a
+      > <a name="234" class="Keyword"
+      >import</a
+      > <a name="241" href="Level.html" class="Module"
+      >Level</a
+      >
+<a name="247" class="Keyword"
+      >open</a
+      > <a name="252" class="Keyword"
+      >import</a
+      > <a name="259" href="Function.Equality.html" class="Module"
+      >Function.Equality</a
+      > <a name="277" class="Symbol"
+      >as</a
+      > <a name="280" class="Module"
+      >F</a
+      >
+  <a name="284" class="Keyword"
+      >using</a
+      > <a name="290" class="Symbol"
+      >(</a
+      ><a name="291" href="Function.Equality.html#_&#10230;_" class="Function Operator"
+      >_&#10230;_</a
+      ><a name="294" class="Symbol"
+      >)</a
+      > <a name="296" class="Keyword"
+      >renaming</a
+      > <a name="305" class="Symbol"
+      >(</a
+      ><a name="306" href="Function.Equality.html#_&#8728;_" class="Function Operator"
+      >_&#8728;_</a
+      > <a name="310" class="Symbol"
+      >to</a
+      > <a name="313" href="Function.Equality.html#_&#8728;_" class="Function Operator"
+      >_&#10218;&#8728;&#10219;_</a
+      ><a name="318" class="Symbol"
+      >)</a
+      >
+<a name="320" class="Keyword"
+      >open</a
+      > <a name="325" class="Keyword"
+      >import</a
+      > <a name="332" href="Function.Equivalence.html" class="Module"
+      >Function.Equivalence</a
+      > <a name="353" class="Keyword"
+      >using</a
+      > <a name="359" class="Symbol"
+      >(</a
+      ><a name="360" href="Function.Equivalence.html#Equivalence" class="Record"
+      >Equivalence</a
+      ><a name="371" class="Symbol"
+      >)</a
+      >
+<a name="373" class="Keyword"
+      >open</a
+      > <a name="378" class="Keyword"
+      >import</a
+      > <a name="385" href="Function.Injection.html" class="Module"
+      >Function.Injection</a
+      >           <a name="414" class="Keyword"
+      >hiding</a
+      > <a name="421" class="Symbol"
+      >(</a
+      ><a name="422" href="Function.Injection.html#id" class="Function"
+      >id</a
+      ><a name="424" class="Symbol"
+      >;</a
+      > <a name="426" href="Function.Injection.html#_&#8728;_" class="Function Operator"
+      >_&#8728;_</a
+      ><a name="429" class="Symbol"
+      >)</a
+      >
+<a name="431" class="Keyword"
+      >open</a
+      > <a name="436" class="Keyword"
+      >import</a
+      > <a name="443" href="Function.LeftInverse.html" class="Module"
+      >Function.LeftInverse</a
+      > <a name="464" class="Symbol"
+      >as</a
+      > <a name="467" class="Module"
+      >Left</a
+      > <a name="472" class="Keyword"
+      >hiding</a
+      > <a name="479" class="Symbol"
+      >(</a
+      ><a name="480" href="Function.LeftInverse.html#id" class="Function"
+      >id</a
+      ><a name="482" class="Symbol"
+      >;</a
+      > <a name="484" href="Function.LeftInverse.html#_&#8728;_" class="Function Operator"
+      >_&#8728;_</a
+      ><a name="487" class="Symbol"
+      >)</a
+      >
+<a name="489" class="Keyword"
+      >open</a
+      > <a name="494" class="Keyword"
+      >import</a
+      > <a name="501" href="Data.Product.html" class="Module"
+      >Data.Product</a
+      >
+<a name="514" class="Keyword"
+      >open</a
+      > <a name="519" class="Keyword"
+      >import</a
+      > <a name="526" href="Relation.Binary.html" class="Module"
+      >Relation.Binary</a
+      >
+<a name="542" class="Keyword"
+      >import</a
+      > <a name="549" href="Relation.Binary.PropositionalEquality.html" class="Module"
+      >Relation.Binary.PropositionalEquality</a
+      > <a name="587" class="Symbol"
+      >as</a
+      > <a name="590" class="Module"
+      >P</a
+      >
+
+<a name="593" class="Comment"
+      >-- Surjective functions.</a
+      >
+
+<a name="619" class="Keyword"
+      >record</a
+      > <a name="Surjective" href="Function.Surjection.html#Surjective" class="Record"
+      >Surjective</a
+      > <a name="637" class="Symbol"
+      >{</a
+      ><a name="638" href="Function.Surjection.html#638" class="Bound"
+      >f&#8321;</a
+      > <a name="641" href="Function.Surjection.html#641" class="Bound"
+      >f&#8322;</a
+      > <a name="644" href="Function.Surjection.html#644" class="Bound"
+      >t&#8321;</a
+      > <a name="647" href="Function.Surjection.html#647" class="Bound"
+      >t&#8322;</a
+      ><a name="649" class="Symbol"
+      >}</a
+      >
+                  <a name="669" class="Symbol"
+      >{</a
+      ><a name="670" href="Function.Surjection.html#670" class="Bound"
+      >From</a
+      > <a name="675" class="Symbol"
+      >:</a
+      > <a name="677" href="Relation.Binary.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="684" href="Function.Surjection.html#638" class="Bound"
+      >f&#8321;</a
+      > <a name="687" href="Function.Surjection.html#641" class="Bound"
+      >f&#8322;</a
+      ><a name="689" class="Symbol"
+      >}</a
+      > <a name="691" class="Symbol"
+      >{</a
+      ><a name="692" href="Function.Surjection.html#692" class="Bound"
+      >To</a
+      > <a name="695" class="Symbol"
+      >:</a
+      > <a name="697" href="Relation.Binary.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="704" href="Function.Surjection.html#644" class="Bound"
+      >t&#8321;</a
+      > <a name="707" href="Function.Surjection.html#647" class="Bound"
+      >t&#8322;</a
+      ><a name="709" class="Symbol"
+      >}</a
+      >
+                  <a name="729" class="Symbol"
+      >(</a
+      ><a name="730" href="Function.Surjection.html#730" class="Bound"
+      >to</a
+      > <a name="733" class="Symbol"
+      >:</a
+      > <a name="735" href="Function.Surjection.html#670" class="Bound"
+      >From</a
+      > <a name="740" href="Function.Equality.html#_&#10230;_" class="Function Operator"
+      >&#10230;</a
+      > <a name="742" href="Function.Surjection.html#692" class="Bound"
+      >To</a
+      ><a name="744" class="Symbol"
+      >)</a
+      > <a name="746" class="Symbol"
+      >:</a
+      >
+                  <a name="766" class="PrimitiveType"
+      >Set</a
+      > <a name="770" class="Symbol"
+      >(</a
+      ><a name="771" href="Function.Surjection.html#638" class="Bound"
+      >f&#8321;</a
+      > <a name="774" href="Agda.Primitive.html#_&#8852;_" class="Primitive Operator"
+      >&#8852;</a
+      > <a name="776" href="Function.Surjection.html#641" class="Bound"
+      >f&#8322;</a
+      > <a name="779" href="Agda.Primitive.html#_&#8852;_" class="Primitive Operator"
+      >&#8852;</a
+      > <a name="781" href="Function.Surjection.html#644" class="Bound"
+      >t&#8321;</a
+      > <a name="784" href="Agda.Primitive.html#_&#8852;_" class="Primitive Operator"
+      >&#8852;</a
+      > <a name="786" href="Function.Surjection.html#647" class="Bound"
+      >t&#8322;</a
+      ><a name="788" class="Symbol"
+      >)</a
+      > <a name="790" class="Keyword"
+      >where</a
+      >
+  <a name="798" class="Keyword"
+      >field</a
+      >
+    <a name="Surjective.from" href="Function.Surjection.html#Surjective.from" class="Field"
+      >from</a
+      >             <a name="825" class="Symbol"
+      >:</a
+      > <a name="827" href="Function.Surjection.html#692" class="Bound"
+      >To</a
+      > <a name="830" href="Function.Equality.html#_&#10230;_" class="Function Operator"
+      >&#10230;</a
+      > <a name="832" href="Function.Surjection.html#670" class="Bound"
+      >From</a
+      >
+    <a name="Surjective.right-inverse-of" href="Function.Surjection.html#Surjective.right-inverse-of" class="Field"
+      >right-inverse-of</a
+      > <a name="858" class="Symbol"
+      >:</a
+      > <a name="860" href="Function.Surjection.html#Surjective.from" class="Field"
+      >from</a
+      > <a name="865" href="Function.LeftInverse.html#_RightInverseOf_" class="Function Operator"
+      >RightInverseOf</a
+      > <a name="880" href="Function.Surjection.html#730" class="Bound"
+      >to</a
+      >
+
+<a name="884" class="Comment"
+      >-- The set of all surjections from one setoid to another.</a
+      >
+
+<a name="943" class="Keyword"
+      >record</a
+      > <a name="Surjection" href="Function.Surjection.html#Surjection" class="Record"
+      >Surjection</a
+      > <a name="961" class="Symbol"
+      >{</a
+      ><a name="962" href="Function.Surjection.html#962" class="Bound"
+      >f&#8321;</a
+      > <a name="965" href="Function.Surjection.html#965" class="Bound"
+      >f&#8322;</a
+      > <a name="968" href="Function.Surjection.html#968" class="Bound"
+      >t&#8321;</a
+      > <a name="971" href="Function.Surjection.html#971" class="Bound"
+      >t&#8322;</a
+      ><a name="973" class="Symbol"
+      >}</a
+      >
+                  <a name="993" class="Symbol"
+      >(</a
+      ><a name="994" href="Function.Surjection.html#994" class="Bound"
+      >From</a
+      > <a name="999" class="Symbol"
+      >:</a
+      > <a name="1001" href="Relation.Binary.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="1008" href="Function.Surjection.html#962" class="Bound"
+      >f&#8321;</a
+      > <a name="1011" href="Function.Surjection.html#965" class="Bound"
+      >f&#8322;</a
+      ><a name="1013" class="Symbol"
+      >)</a
+      > <a name="1015" class="Symbol"
+      >(</a
+      ><a name="1016" href="Function.Surjection.html#1016" class="Bound"
+      >To</a
+      > <a name="1019" class="Symbol"
+      >:</a
+      > <a name="1021" href="Relation.Binary.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="1028" href="Function.Surjection.html#968" class="Bound"
+      >t&#8321;</a
+      > <a name="1031" href="Function.Surjection.html#971" class="Bound"
+      >t&#8322;</a
+      ><a name="1033" class="Symbol"
+      >)</a
+      > <a name="1035" class="Symbol"
+      >:</a
+      >
+                  <a name="1055" class="PrimitiveType"
+      >Set</a
+      > <a name="1059" class="Symbol"
+      >(</a
+      ><a name="1060" href="Function.Surjection.html#962" class="Bound"
+      >f&#8321;</a
+      > <a name="1063" href="Agda.Primitive.html#_&#8852;_" class="Primitive Operator"
+      >&#8852;</a
+      > <a name="1065" href="Function.Surjection.html#965" class="Bound"
+      >f&#8322;</a
+      > <a name="1068" href="Agda.Primitive.html#_&#8852;_" class="Primitive Operator"
+      >&#8852;</a
+      > <a name="1070" href="Function.Surjection.html#968" class="Bound"
+      >t&#8321;</a
+      > <a name="1073" href="Agda.Primitive.html#_&#8852;_" class="Primitive Operator"
+      >&#8852;</a
+      > <a name="1075" href="Function.Surjection.html#971" class="Bound"
+      >t&#8322;</a
+      ><a name="1077" class="Symbol"
+      >)</a
+      > <a name="1079" class="Keyword"
+      >where</a
+      >
+  <a name="1087" class="Keyword"
+      >field</a
+      >
+    <a name="Surjection.to" href="Function.Surjection.html#Surjection.to" class="Field"
+      >to</a
+      >         <a name="1108" class="Symbol"
+      >:</a
+      > <a name="1110" href="Function.Surjection.html#994" class="Bound"
+      >From</a
+      > <a name="1115" href="Function.Equality.html#_&#10230;_" class="Function Operator"
+      >&#10230;</a
+      > <a name="1117" href="Function.Surjection.html#1016" class="Bound"
+      >To</a
+      >
+    <a name="Surjection.surjective" href="Function.Surjection.html#Surjection.surjective" class="Field"
+      >surjective</a
+      > <a name="1135" class="Symbol"
+      >:</a
+      > <a name="1137" href="Function.Surjection.html#Surjective" class="Record"
+      >Surjective</a
+      > <a name="1148" href="Function.Surjection.html#Surjection.to" class="Field"
+      >to</a
+      >
+
+  <a name="1154" class="Keyword"
+      >open</a
+      > <a name="1159" href="Function.Surjection.html#Surjective" class="Module"
+      >Surjective</a
+      > <a name="1170" href="Function.Surjection.html#Surjection.surjective" class="Field"
+      >surjective</a
+      > <a name="1181" class="Keyword"
+      >public</a
+      >
+
+  <a name="Surjection.right-inverse" href="Function.Surjection.html#Surjection.right-inverse" class="Function"
+      >right-inverse</a
+      > <a name="1205" class="Symbol"
+      >:</a
+      > <a name="1207" href="Function.LeftInverse.html#RightInverse" class="Function"
+      >RightInverse</a
+      > <a name="1220" href="Function.Surjection.html#994" class="Bound"
+      >From</a
+      > <a name="1225" href="Function.Surjection.html#1016" class="Bound"
+      >To</a
+      >
+  <a name="1230" href="Function.Surjection.html#Surjection.right-inverse" class="Function"
+      >right-inverse</a
+      > <a name="1244" class="Symbol"
+      >=</a
+      > <a name="1246" class="Keyword"
+      >record</a
+      >
+    <a name="1257" class="Symbol"
+      >{</a
+      > <a name="1259" class="Field"
+      >to</a
+      >              <a name="1275" class="Symbol"
+      >=</a
+      > <a name="1277" href="Function.Surjection.html#808" class="Function"
+      >from</a
+      >
+    <a name="1286" class="Symbol"
+      >;</a
+      > <a name="1288" class="Field"
+      >from</a
+      >            <a name="1304" class="Symbol"
+      >=</a
+      > <a name="1306" href="Function.Surjection.html#Surjection.to" class="Field"
+      >to</a
+      >
+    <a name="1313" class="Symbol"
+      >;</a
+      > <a name="1315" class="Field"
+      >left-inverse-of</a
+      > <a name="1331" class="Symbol"
+      >=</a
+      > <a name="1333" href="Function.Surjection.html#841" class="Function"
+      >right-inverse-of</a
+      >
+    <a name="1354" class="Symbol"
+      >}</a
+      >
+
+  <a name="1359" class="Keyword"
+      >open</a
+      > <a name="1364" href="Function.LeftInverse.html#LeftInverse" class="Module"
+      >LeftInverse</a
+      > <a name="1376" href="Function.Surjection.html#Surjection.right-inverse" class="Function"
+      >right-inverse</a
+      > <a name="1390" class="Keyword"
+      >public</a
+      >
+    <a name="1401" class="Keyword"
+      >using</a
+      > <a name="1407" class="Symbol"
+      >()</a
+      > <a name="1410" class="Keyword"
+      >renaming</a
+      > <a name="1419" class="Symbol"
+      >(</a
+      >to-from <a name="1428" class="Symbol"
+      >to</a
+      > from-to<a name="1438" class="Symbol"
+      >)</a
+      >
+
+  <a name="Surjection.injective" href="Function.Surjection.html#Surjection.injective" class="Function"
+      >injective</a
+      > <a name="1453" class="Symbol"
+      >:</a
+      > <a name="1455" href="Function.Injection.html#Injective" class="Function"
+      >Injective</a
+      > <a name="1465" href="Function.Surjection.html#808" class="Function"
+      >from</a
+      >
+  <a name="1472" href="Function.Surjection.html#Surjection.injective" class="Function"
+      >injective</a
+      > <a name="1482" class="Symbol"
+      >=</a
+      > <a name="1484" href="Function.LeftInverse.html#LeftInverse.injective" class="Function"
+      >LeftInverse.injective</a
+      > <a name="1506" href="Function.Surjection.html#Surjection.right-inverse" class="Function"
+      >right-inverse</a
+      >
+
+  <a name="Surjection.injection" href="Function.Surjection.html#Surjection.injection" class="Function"
+      >injection</a
+      > <a name="1533" class="Symbol"
+      >:</a
+      > <a name="1535" href="Function.Injection.html#Injection" class="Record"
+      >Injection</a
+      > <a name="1545" href="Function.Surjection.html#1016" class="Bound"
+      >To</a
+      > <a name="1548" href="Function.Surjection.html#994" class="Bound"
+      >From</a
+      >
+  <a name="1555" href="Function.Surjection.html#Surjection.injection" class="Function"
+      >injection</a
+      > <a name="1565" class="Symbol"
+      >=</a
+      > <a name="1567" href="Function.LeftInverse.html#LeftInverse.injection" class="Function"
+      >LeftInverse.injection</a
+      > <a name="1589" href="Function.Surjection.html#Surjection.right-inverse" class="Function"
+      >right-inverse</a
+      >
+
+  <a name="Surjection.equivalence" href="Function.Surjection.html#Surjection.equivalence" class="Function"
+      >equivalence</a
+      > <a name="1618" class="Symbol"
+      >:</a
+      > <a name="1620" href="Function.Equivalence.html#Equivalence" class="Record"
+      >Equivalence</a
+      > <a name="1632" href="Function.Surjection.html#994" class="Bound"
+      >From</a
+      > <a name="1637" href="Function.Surjection.html#1016" class="Bound"
+      >To</a
+      >
+  <a name="1642" href="Function.Surjection.html#Surjection.equivalence" class="Function"
+      >equivalence</a
+      > <a name="1654" class="Symbol"
+      >=</a
+      > <a name="1656" class="Keyword"
+      >record</a
+      >
+    <a name="1667" class="Symbol"
+      >{</a
+      > <a name="1669" class="Field"
+      >to</a
+      >   <a name="1674" class="Symbol"
+      >=</a
+      > <a name="1676" href="Function.Surjection.html#Surjection.to" class="Field"
+      >to</a
+      >
+    <a name="1683" class="Symbol"
+      >;</a
+      > <a name="1685" class="Field"
+      >from</a
+      > <a name="1690" class="Symbol"
+      >=</a
+      > <a name="1692" href="Function.Surjection.html#808" class="Function"
+      >from</a
+      >
+    <a name="1701" class="Symbol"
+      >}</a
+      >
+
+<a name="1704" class="Comment"
+      >-- Right inverses can be turned into surjections.</a
+      >
+
+<a name="fromRightInverse" href="Function.Surjection.html#fromRightInverse" class="Function"
+      >fromRightInverse</a
+      > <a name="1772" class="Symbol"
+      >:</a
+      >
+  <a name="1776" class="Symbol"
+      >&#8704;</a
+      > <a name="1778" class="Symbol"
+      >{</a
+      ><a name="1779" href="Function.Surjection.html#1779" class="Bound"
+      >f&#8321;</a
+      > <a name="1782" href="Function.Surjection.html#1782" class="Bound"
+      >f&#8322;</a
+      > <a name="1785" href="Function.Surjection.html#1785" class="Bound"
+      >t&#8321;</a
+      > <a name="1788" href="Function.Surjection.html#1788" class="Bound"
+      >t&#8322;</a
+      ><a name="1790" class="Symbol"
+      >}</a
+      > <a name="1792" class="Symbol"
+      >{</a
+      ><a name="1793" href="Function.Surjection.html#1793" class="Bound"
+      >From</a
+      > <a name="1798" class="Symbol"
+      >:</a
+      > <a name="1800" href="Relation.Binary.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="1807" href="Function.Surjection.html#1779" class="Bound"
+      >f&#8321;</a
+      > <a name="1810" href="Function.Surjection.html#1782" class="Bound"
+      >f&#8322;</a
+      ><a name="1812" class="Symbol"
+      >}</a
+      > <a name="1814" class="Symbol"
+      >{</a
+      ><a name="1815" href="Function.Surjection.html#1815" class="Bound"
+      >To</a
+      > <a name="1818" class="Symbol"
+      >:</a
+      > <a name="1820" href="Relation.Binary.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="1827" href="Function.Surjection.html#1785" class="Bound"
+      >t&#8321;</a
+      > <a name="1830" href="Function.Surjection.html#1788" class="Bound"
+      >t&#8322;</a
+      ><a name="1832" class="Symbol"
+      >}</a
+      > <a name="1834" class="Symbol"
+      >&#8594;</a
+      >
+  <a name="1838" href="Function.LeftInverse.html#RightInverse" class="Function"
+      >RightInverse</a
+      > <a name="1851" href="Function.Surjection.html#1793" class="Bound"
+      >From</a
+      > <a name="1856" href="Function.Surjection.html#1815" class="Bound"
+      >To</a
+      > <a name="1859" class="Symbol"
+      >&#8594;</a
+      > <a name="1861" href="Function.Surjection.html#Surjection" class="Record"
+      >Surjection</a
+      > <a name="1872" href="Function.Surjection.html#1793" class="Bound"
+      >From</a
+      > <a name="1877" href="Function.Surjection.html#1815" class="Bound"
+      >To</a
+      >
+<a name="1880" href="Function.Surjection.html#fromRightInverse" class="Function"
+      >fromRightInverse</a
+      > <a name="1897" href="Function.Surjection.html#1897" class="Bound"
+      >r</a
+      > <a name="1899" class="Symbol"
+      >=</a
+      > <a name="1901" class="Keyword"
+      >record</a
+      >
+  <a name="1910" class="Symbol"
+      >{</a
+      > <a name="1912" class="Field"
+      >to</a
+      >         <a name="1923" class="Symbol"
+      >=</a
+      > <a name="1925" href="Function.LeftInverse.html#1223" class="Field"
+      >from</a
+      >
+  <a name="1932" class="Symbol"
+      >;</a
+      > <a name="1934" class="Field"
+      >surjective</a
+      > <a name="1945" class="Symbol"
+      >=</a
+      > <a name="1947" class="Keyword"
+      >record</a
+      >
+    <a name="1958" class="Symbol"
+      >{</a
+      > <a name="1960" class="Field"
+      >from</a
+      >             <a name="1977" class="Symbol"
+      >=</a
+      > <a name="1979" href="Function.LeftInverse.html#1191" class="Field"
+      >to</a
+      >
+    <a name="1986" class="Symbol"
+      >;</a
+      > <a name="1988" class="Field"
+      >right-inverse-of</a
+      > <a name="2005" class="Symbol"
+      >=</a
+      > <a name="2007" href="Function.LeftInverse.html#1255" class="Field"
+      >left-inverse-of</a
+      >
+    <a name="2027" class="Symbol"
+      >}</a
+      >
+  <a name="2031" class="Symbol"
+      >}</a
+      > <a name="2033" class="Keyword"
+      >where</a
+      > <a name="2039" class="Keyword"
+      >open</a
+      > <a name="2044" href="Function.LeftInverse.html#LeftInverse" class="Module"
+      >LeftInverse</a
+      > <a name="2056" href="Function.Surjection.html#1897" class="Bound"
+      >r</a
+      >
+
+<a name="2059" class="Comment"
+      >-- The set of all surjections from one set to another.</a
+      >
+
+<a name="2115" class="Keyword"
+      >infix</a
+      > <a name="2121" class="Number"
+      >3</a
+      > <a name="_&#8608;_" href="Function.Surjection.html#_&#8608;_" class="Function Operator"
+      >_&#8608;_</a
+      >
+
+<a name="_&#8608;_" href="Function.Surjection.html#_&#8608;_" class="Function Operator"
+      >_&#8608;_</a
+      > <a name="2132" class="Symbol"
+      >:</a
+      > <a name="2134" class="Symbol"
+      >&#8704;</a
+      > <a name="2136" class="Symbol"
+      >{</a
+      ><a name="2137" href="Function.Surjection.html#2137" class="Bound"
+      >f</a
+      > <a name="2139" href="Function.Surjection.html#2139" class="Bound"
+      >t</a
+      ><a name="2140" class="Symbol"
+      >}</a
+      > <a name="2142" class="Symbol"
+      >&#8594;</a
+      > <a name="2144" class="PrimitiveType"
+      >Set</a
+      > <a name="2148" href="Function.Surjection.html#2137" class="Bound"
+      >f</a
+      > <a name="2150" class="Symbol"
+      >&#8594;</a
+      > <a name="2152" class="PrimitiveType"
+      >Set</a
+      > <a name="2156" href="Function.Surjection.html#2139" class="Bound"
+      >t</a
+      > <a name="2158" class="Symbol"
+      >&#8594;</a
+      > <a name="2160" class="PrimitiveType"
+      >Set</a
+      > <a name="2164" class="Symbol"
+      >_</a
+      >
+<a name="2166" href="Function.Surjection.html#2166" class="Bound"
+      >From</a
+      > <a name="2171" href="Function.Surjection.html#_&#8608;_" class="Function Operator"
+      >&#8608;</a
+      > <a name="2173" href="Function.Surjection.html#2173" class="Bound"
+      >To</a
+      > <a name="2176" class="Symbol"
+      >=</a
+      > <a name="2178" href="Function.Surjection.html#Surjection" class="Record"
+      >Surjection</a
+      > <a name="2189" class="Symbol"
+      >(</a
+      ><a name="2190" href="Relation.Binary.PropositionalEquality.html#setoid" class="Function"
+      >P.setoid</a
+      > <a name="2199" href="Function.Surjection.html#2166" class="Bound"
+      >From</a
+      ><a name="2203" class="Symbol"
+      >)</a
+      > <a name="2205" class="Symbol"
+      >(</a
+      ><a name="2206" href="Relation.Binary.PropositionalEquality.html#setoid" class="Function"
+      >P.setoid</a
+      > <a name="2215" href="Function.Surjection.html#2173" class="Bound"
+      >To</a
+      ><a name="2217" class="Symbol"
+      >)</a
+      >
+
+<a name="2220" class="Comment"
+      >-- Identity and composition.</a
+      >
+
+<a name="id" href="Function.Surjection.html#id" class="Function"
+      >id</a
+      > <a name="2253" class="Symbol"
+      >:</a
+      > <a name="2255" class="Symbol"
+      >&#8704;</a
+      > <a name="2257" class="Symbol"
+      >{</a
+      ><a name="2258" href="Function.Surjection.html#2258" class="Bound"
+      >s&#8321;</a
+      > <a name="2261" href="Function.Surjection.html#2261" class="Bound"
+      >s&#8322;</a
+      ><a name="2263" class="Symbol"
+      >}</a
+      > <a name="2265" class="Symbol"
+      >{</a
+      ><a name="2266" href="Function.Surjection.html#2266" class="Bound"
+      >S</a
+      > <a name="2268" class="Symbol"
+      >:</a
+      > <a name="2270" href="Relation.Binary.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="2277" href="Function.Surjection.html#2258" class="Bound"
+      >s&#8321;</a
+      > <a name="2280" href="Function.Surjection.html#2261" class="Bound"
+      >s&#8322;</a
+      ><a name="2282" class="Symbol"
+      >}</a
+      > <a name="2284" class="Symbol"
+      >&#8594;</a
+      > <a name="2286" href="Function.Surjection.html#Surjection" class="Record"
+      >Surjection</a
+      > <a name="2297" href="Function.Surjection.html#2266" class="Bound"
+      >S</a
+      > <a name="2299" href="Function.Surjection.html#2266" class="Bound"
+      >S</a
+      >
+<a name="2301" href="Function.Surjection.html#id" class="Function"
+      >id</a
+      > <a name="2304" class="Symbol"
+      >{</a
+      ><a name="2305" class="Argument"
+      >S</a
+      > <a name="2307" class="Symbol"
+      >=</a
+      > <a name="2309" href="Function.Surjection.html#2309" class="Bound"
+      >S</a
+      ><a name="2310" class="Symbol"
+      >}</a
+      > <a name="2312" class="Symbol"
+      >=</a
+      > <a name="2314" class="Keyword"
+      >record</a
+      >
+  <a name="2323" class="Symbol"
+      >{</a
+      > <a name="2325" class="Field"
+      >to</a
+      >         <a name="2336" class="Symbol"
+      >=</a
+      > <a name="2338" href="Function.Equality.html#id" class="Function"
+      >F.id</a
+      >
+  <a name="2345" class="Symbol"
+      >;</a
+      > <a name="2347" class="Field"
+      >surjective</a
+      > <a name="2358" class="Symbol"
+      >=</a
+      > <a name="2360" class="Keyword"
+      >record</a
+      >
+    <a name="2371" class="Symbol"
+      >{</a
+      > <a name="2373" class="Field"
+      >from</a
+      >             <a name="2390" class="Symbol"
+      >=</a
+      > <a name="2392" href="Function.LeftInverse.html#LeftInverse.to" class="Field"
+      >LeftInverse.to</a
+      >              <a name="2420" href="Function.Surjection.html#2497" class="Function"
+      >id&#8242;</a
+      >
+    <a name="2428" class="Symbol"
+      >;</a
+      > <a name="2430" class="Field"
+      >right-inverse-of</a
+      > <a name="2447" class="Symbol"
+      >=</a
+      > <a name="2449" href="Function.LeftInverse.html#LeftInverse.left-inverse-of" class="Field"
+      >LeftInverse.left-inverse-of</a
+      > <a name="2477" href="Function.Surjection.html#2497" class="Function"
+      >id&#8242;</a
+      >
+    <a name="2485" class="Symbol"
+      >}</a
+      >
+  <a name="2489" class="Symbol"
+      >}</a
+      > <a name="2491" class="Keyword"
+      >where</a
+      > <a name="2497" href="Function.Surjection.html#2497" class="Function"
+      >id&#8242;</a
+      > <a name="2501" class="Symbol"
+      >=</a
+      > <a name="2503" href="Function.LeftInverse.html#id" class="Function"
+      >Left.id</a
+      > <a name="2511" class="Symbol"
+      >{</a
+      ><a name="2512" class="Argument"
+      >S</a
+      > <a name="2514" class="Symbol"
+      >=</a
+      > <a name="2516" href="Function.Surjection.html#2309" class="Bound"
+      >S</a
+      ><a name="2517" class="Symbol"
+      >}</a
+      >
+
+<a name="2520" class="Keyword"
+      >infixr</a
+      > <a name="2527" class="Number"
+      >9</a
+      > <a name="_&#8728;_" href="Function.Surjection.html#_&#8728;_" class="Function Operator"
+      >_&#8728;_</a
+      >
+
+<a name="_&#8728;_" href="Function.Surjection.html#_&#8728;_" class="Function Operator"
+      >_&#8728;_</a
+      > <a name="2538" class="Symbol"
+      >:</a
+      > <a name="2540" class="Symbol"
+      >&#8704;</a
+      > <a name="2542" class="Symbol"
+      >{</a
+      ><a name="2543" href="Function.Surjection.html#2543" class="Bound"
+      >f&#8321;</a
+      > <a name="2546" href="Function.Surjection.html#2546" class="Bound"
+      >f&#8322;</a
+      > <a name="2549" href="Function.Surjection.html#2549" class="Bound"
+      >m&#8321;</a
+      > <a name="2552" href="Function.Surjection.html#2552" class="Bound"
+      >m&#8322;</a
+      > <a name="2555" href="Function.Surjection.html#2555" class="Bound"
+      >t&#8321;</a
+      > <a name="2558" href="Function.Surjection.html#2558" class="Bound"
+      >t&#8322;</a
+      ><a name="2560" class="Symbol"
+      >}</a
+      >
+        <a name="2570" class="Symbol"
+      >{</a
+      ><a name="2571" href="Function.Surjection.html#2571" class="Bound"
+      >F</a
+      > <a name="2573" class="Symbol"
+      >:</a
+      > <a name="2575" href="Relation.Binary.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="2582" href="Function.Surjection.html#2543" class="Bound"
+      >f&#8321;</a
+      > <a name="2585" href="Function.Surjection.html#2546" class="Bound"
+      >f&#8322;</a
+      ><a name="2587" class="Symbol"
+      >}</a
+      > <a name="2589" class="Symbol"
+      >{</a
+      ><a name="2590" href="Function.Surjection.html#2590" class="Bound"
+      >M</a
+      > <a name="2592" class="Symbol"
+      >:</a
+      > <a name="2594" href="Relation.Binary.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="2601" href="Function.Surjection.html#2549" class="Bound"
+      >m&#8321;</a
+      > <a name="2604" href="Function.Surjection.html#2552" class="Bound"
+      >m&#8322;</a
+      ><a name="2606" class="Symbol"
+      >}</a
+      > <a name="2608" class="Symbol"
+      >{</a
+      ><a name="2609" href="Function.Surjection.html#2609" class="Bound"
+      >T</a
+      > <a name="2611" class="Symbol"
+      >:</a
+      > <a name="2613" href="Relation.Binary.html#Setoid" class="Record"
+      >Setoid</a
+      > <a name="2620" href="Function.Surjection.html#2555" class="Bound"
+      >t&#8321;</a
+      > <a name="2623" href="Function.Surjection.html#2558" class="Bound"
+      >t&#8322;</a
+      ><a name="2625" class="Symbol"
+      >}</a
+      > <a name="2627" class="Symbol"
+      >&#8594;</a
+      >
+      <a name="2635" href="Function.Surjection.html#Surjection" class="Record"
+      >Surjection</a
+      > <a name="2646" href="Function.Surjection.html#2590" class="Bound"
+      >M</a
+      > <a name="2648" href="Function.Surjection.html#2609" class="Bound"
+      >T</a
+      > <a name="2650" class="Symbol"
+      >&#8594;</a
+      > <a name="2652" href="Function.Surjection.html#Surjection" class="Record"
+      >Surjection</a
+      > <a name="2663" href="Function.Surjection.html#2571" class="Bound"
+      >F</a
+      > <a name="2665" href="Function.Surjection.html#2590" class="Bound"
+      >M</a
+      > <a name="2667" class="Symbol"
+      >&#8594;</a
+      > <a name="2669" href="Function.Surjection.html#Surjection" class="Record"
+      >Surjection</a
+      > <a name="2680" href="Function.Surjection.html#2571" class="Bound"
+      >F</a
+      > <a name="2682" href="Function.Surjection.html#2609" class="Bound"
+      >T</a
+      >
+<a name="2684" href="Function.Surjection.html#2684" class="Bound"
+      >f</a
+      > <a name="2686" href="Function.Surjection.html#_&#8728;_" class="Function Operator"
+      >&#8728;</a
+      > <a name="2688" href="Function.Surjection.html#2688" class="Bound"
+      >g</a
+      > <a name="2690" class="Symbol"
+      >=</a
+      > <a name="2692" class="Keyword"
+      >record</a
+      >
+  <a name="2701" class="Symbol"
+      >{</a
+      > <a name="2703" class="Field"
+      >to</a
+      >         <a name="2714" class="Symbol"
+      >=</a
+      > <a name="2716" href="Function.Surjection.html#Surjection.to" class="Field"
+      >to</a
+      > <a name="2719" href="Function.Surjection.html#2684" class="Bound"
+      >f</a
+      > <a name="2721" href="Function.Equality.html#_&#10218;&#8728;&#10219;_" class="Function Operator"
+      >&#10218;&#8728;&#10219;</a
+      > <a name="2725" href="Function.Surjection.html#Surjection.to" class="Field"
+      >to</a
+      > <a name="2728" href="Function.Surjection.html#2688" class="Bound"
+      >g</a
+      >
+  <a name="2732" class="Symbol"
+      >;</a
+      > <a name="2734" class="Field"
+      >surjective</a
+      > <a name="2745" class="Symbol"
+      >=</a
+      > <a name="2747" class="Keyword"
+      >record</a
+      >
+    <a name="2758" class="Symbol"
+      >{</a
+      > <a name="2760" class="Field"
+      >from</a
+      >             <a name="2777" class="Symbol"
+      >=</a
+      > <a name="2779" href="Function.LeftInverse.html#LeftInverse.to" class="Field"
+      >LeftInverse.to</a
+      >              <a name="2807" href="Function.Surjection.html#2906" class="Function"
+      >g&#8728;f</a
+      >
+    <a name="2815" class="Symbol"
+      >;</a
+      > <a name="2817" class="Field"
+      >right-inverse-of</a
+      > <a name="2834" class="Symbol"
+      >=</a
+      > <a name="2836" href="Function.LeftInverse.html#LeftInverse.left-inverse-of" class="Field"
+      >LeftInverse.left-inverse-of</a
+      > <a name="2864" href="Function.Surjection.html#2906" class="Function"
+      >g&#8728;f</a
+      >
+    <a name="2872" class="Symbol"
+      >}</a
+      >
+  <a name="2876" class="Symbol"
+      >}</a
+      >
+  <a name="2880" class="Keyword"
+      >where</a
+      >
+  <a name="2888" class="Keyword"
+      >open</a
+      > <a name="2893" href="Function.Surjection.html#Surjection" class="Module"
+      >Surjection</a
+      >
+  <a name="2906" href="Function.Surjection.html#2906" class="Function"
+      >g&#8728;f</a
+      > <a name="2910" class="Symbol"
+      >=</a
+      > <a name="2912" href="Function.LeftInverse.html#_&#8728;_" class="Function Operator"
+      >Left._&#8728;_</a
+      > <a name="2921" class="Symbol"
+      >(</a
+      ><a name="2922" href="Function.Surjection.html#Surjection.right-inverse" class="Function"
+      >right-inverse</a
+      > <a name="2936" href="Function.Surjection.html#2688" class="Bound"
+      >g</a
+      ><a name="2937" class="Symbol"
+      >)</a
+      > <a name="2939" class="Symbol"
+      >(</a
+      ><a name="2940" href="Function.Surjection.html#Surjection.right-inverse" class="Function"
+      >right-inverse</a
+      > <a name="2954" href="Function.Surjection.html#2684" class="Bound"
+      >f</a
+      ><a name="2955" class="Symbol"
+      >)</a
+      >
+</pre
+    ></body
+  ></html
+>

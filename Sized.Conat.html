@@ -1,0 +1,1912 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >Sized.Conat</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Keyword"
+      >module</a
+      > <a name="8" href="Sized.Conat.html" class="Module"
+      >Sized.Conat</a
+      > <a name="20" class="Keyword"
+      >where</a
+      >
+
+<a name="27" class="Keyword"
+      >open</a
+      > <a name="32" class="Keyword"
+      >import</a
+      > <a name="39" href="Size.html" class="Module"
+      >Size</a
+      >
+
+<a name="45" class="Keyword"
+      >data</a
+      >    <a name="Conat&#8242;" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="60" class="Symbol"
+      >(</a
+      ><a name="61" href="Sized.Conat.html#61" class="Bound"
+      >i</a
+      > <a name="63" class="Symbol"
+      >:</a
+      > <a name="65" href="Agda.Builtin.Size.html#Size" class="Postulate"
+      >Size</a
+      ><a name="69" class="Symbol"
+      >)</a
+      > <a name="71" class="Symbol"
+      >:</a
+      > <a name="73" class="PrimitiveType"
+      >Set</a
+      >
+<a name="77" class="Keyword"
+      >record</a
+      > <a name="&#8734;Conat&#8242;" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="92" class="Symbol"
+      >(</a
+      ><a name="93" href="Sized.Conat.html#93" class="Bound"
+      >i</a
+      > <a name="95" class="Symbol"
+      >:</a
+      > <a name="97" href="Agda.Builtin.Size.html#Size" class="Postulate"
+      >Size</a
+      ><a name="101" class="Symbol"
+      >)</a
+      > <a name="103" class="Symbol"
+      >:</a
+      > <a name="105" class="PrimitiveType"
+      >Set</a
+      >
+
+<a name="110" class="Keyword"
+      >data</a
+      > <a name="115" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="122" href="Sized.Conat.html#122" class="Bound"
+      >i</a
+      > <a name="124" class="Keyword"
+      >where</a
+      >
+  <a name="Conat&#8242;.zero" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      > <a name="137" class="Symbol"
+      >:</a
+      > <a name="139" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="146" href="Sized.Conat.html#122" class="Bound"
+      >i</a
+      >
+  <a name="Conat&#8242;.suc" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      >  <a name="155" class="Symbol"
+      >:</a
+      > <a name="157" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="165" href="Sized.Conat.html#122" class="Bound"
+      >i</a
+      > <a name="167" class="Symbol"
+      >&#8594;</a
+      > <a name="169" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="176" href="Sized.Conat.html#122" class="Bound"
+      >i</a
+      >
+
+<a name="179" class="Keyword"
+      >record</a
+      > <a name="186" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > i <a name="196" class="Keyword"
+      >where</a
+      >
+  <a name="204" class="Keyword"
+      >coinductive</a
+      >
+  <a name="218" class="Keyword"
+      >constructor</a
+      > <a name="&#8734;Conat&#8242;.delay" href="Sized.Conat.html#&#8734;Conat&#8242;.delay" class="CoinductiveConstructor"
+      >delay</a
+      >
+  <a name="238" class="Keyword"
+      >field</a
+      > <a name="&#8734;Conat&#8242;.force" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >force</a
+      > <a name="250" class="Symbol"
+      >:</a
+      > <a name="252" class="Symbol"
+      >{</a
+      ><a name="253" href="Sized.Conat.html#253" class="Bound"
+      >j</a
+      > <a name="255" class="Symbol"
+      >:</a
+      > <a name="257" href="Agda.Builtin.Size.html#Size&lt;_" class="Postulate Operator"
+      >Size&lt;</a
+      > <a name="263" href="Sized.Conat.html#194" class="Bound"
+      >i</a
+      ><a name="264" class="Symbol"
+      >}</a
+      > <a name="266" class="Symbol"
+      >&#8594;</a
+      > <a name="268" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="275" href="Sized.Conat.html#253" class="Bound"
+      >j</a
+      >
+
+<a name="Conat" href="Sized.Conat.html#Conat" class="Function"
+      >Conat</a
+      > <a name="284" class="Symbol"
+      >:</a
+      > <a name="286" class="PrimitiveType"
+      >Set</a
+      >
+<a name="290" href="Sized.Conat.html#Conat" class="Function"
+      >Conat</a
+      > <a name="296" class="Symbol"
+      >=</a
+      > <a name="298" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="305" href="Agda.Builtin.Size.html#&#8734;" class="Postulate"
+      >&#8734;</a
+      >
+
+<a name="&#8734;Conat" href="Sized.Conat.html#&#8734;Conat" class="Function"
+      >&#8734;Conat</a
+      > <a name="315" class="Symbol"
+      >:</a
+      > <a name="317" class="PrimitiveType"
+      >Set</a
+      >
+<a name="321" href="Sized.Conat.html#&#8734;Conat" class="Function"
+      >&#8734;Conat</a
+      > <a name="328" class="Symbol"
+      >=</a
+      > <a name="330" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="338" href="Agda.Builtin.Size.html#&#8734;" class="Postulate"
+      >&#8734;</a
+      >
+
+<a name="_+_" href="Sized.Conat.html#_+_" class="Function Operator"
+      >_+_</a
+      >  <a name="346" class="Symbol"
+      >:</a
+      > <a name="348" class="Symbol"
+      >&#8704;</a
+      > <a name="350" class="Symbol"
+      >{</a
+      ><a name="351" href="Sized.Conat.html#351" class="Bound"
+      >i</a
+      ><a name="352" class="Symbol"
+      >}</a
+      > <a name="354" class="Symbol"
+      >&#8594;</a
+      > <a name="356" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="363" href="Sized.Conat.html#351" class="Bound"
+      >i</a
+      > <a name="365" class="Symbol"
+      >&#8594;</a
+      > <a name="367" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="374" href="Sized.Conat.html#351" class="Bound"
+      >i</a
+      > <a name="376" class="Symbol"
+      >&#8594;</a
+      > <a name="378" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="385" href="Sized.Conat.html#351" class="Bound"
+      >i</a
+      >
+<a name="_&#8734;+_" href="Sized.Conat.html#_&#8734;+_" class="Function Operator"
+      >_&#8734;+_</a
+      > <a name="392" class="Symbol"
+      >:</a
+      > <a name="394" class="Symbol"
+      >&#8704;</a
+      > <a name="396" class="Symbol"
+      >{</a
+      ><a name="397" href="Sized.Conat.html#397" class="Bound"
+      >i</a
+      ><a name="398" class="Symbol"
+      >}</a
+      > <a name="400" class="Symbol"
+      >&#8594;</a
+      > <a name="402" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="410" href="Sized.Conat.html#397" class="Bound"
+      >i</a
+      > <a name="412" class="Symbol"
+      >&#8594;</a
+      > <a name="414" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="421" href="Sized.Conat.html#397" class="Bound"
+      >i</a
+      > <a name="423" class="Symbol"
+      >&#8594;</a
+      > <a name="425" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="433" href="Sized.Conat.html#397" class="Bound"
+      >i</a
+      >
+
+<a name="436" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      >  <a name="442" href="Sized.Conat.html#_+_" class="Function Operator"
+      >+</a
+      > <a name="444" href="Sized.Conat.html#444" class="Bound"
+      >n</a
+      > <a name="446" class="Symbol"
+      >=</a
+      > <a name="448" href="Sized.Conat.html#444" class="Bound"
+      >n</a
+      >
+<a name="450" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="454" href="Sized.Conat.html#454" class="Bound"
+      >m</a
+      > <a name="456" href="Sized.Conat.html#_+_" class="Function Operator"
+      >+</a
+      > <a name="458" href="Sized.Conat.html#458" class="Bound"
+      >n</a
+      > <a name="460" class="Symbol"
+      >=</a
+      > <a name="462" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="466" class="Symbol"
+      >(</a
+      ><a name="467" href="Sized.Conat.html#454" class="Bound"
+      >m</a
+      > <a name="469" href="Sized.Conat.html#_&#8734;+_" class="Function Operator"
+      >&#8734;+</a
+      > <a name="472" href="Sized.Conat.html#458" class="Bound"
+      >n</a
+      ><a name="473" class="Symbol"
+      >)</a
+      >
+<a name="475" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="489" class="Symbol"
+      >(</a
+      ><a name="490" href="Sized.Conat.html#490" class="Bound"
+      >m</a
+      > <a name="492" href="Sized.Conat.html#_&#8734;+_" class="Function Operator"
+      >&#8734;+</a
+      > <a name="495" href="Sized.Conat.html#495" class="Bound"
+      >n</a
+      ><a name="496" class="Symbol"
+      >)</a
+      > <a name="498" class="Symbol"
+      >=</a
+      > <a name="500" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="514" href="Sized.Conat.html#490" class="Bound"
+      >m</a
+      > <a name="516" href="Sized.Conat.html#_+_" class="Function Operator"
+      >+</a
+      > <a name="518" href="Sized.Conat.html#495" class="Bound"
+      >n</a
+      >
+
+<a name="_&#8851;_" href="Sized.Conat.html#_&#8851;_" class="Function Operator"
+      >_&#8851;_</a
+      >  <a name="526" class="Symbol"
+      >:</a
+      > <a name="528" class="Symbol"
+      >&#8704;</a
+      > <a name="530" class="Symbol"
+      >{</a
+      ><a name="531" href="Sized.Conat.html#531" class="Bound"
+      >i</a
+      ><a name="532" class="Symbol"
+      >}</a
+      > <a name="534" class="Symbol"
+      >&#8594;</a
+      > <a name="536" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="543" href="Sized.Conat.html#531" class="Bound"
+      >i</a
+      > <a name="545" class="Symbol"
+      >&#8594;</a
+      > <a name="547" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="554" href="Sized.Conat.html#531" class="Bound"
+      >i</a
+      > <a name="556" class="Symbol"
+      >&#8594;</a
+      > <a name="558" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="565" href="Sized.Conat.html#531" class="Bound"
+      >i</a
+      >
+<a name="_&#8734;&#8851;_" href="Sized.Conat.html#_&#8734;&#8851;_" class="Function Operator"
+      >_&#8734;&#8851;_</a
+      > <a name="572" class="Symbol"
+      >:</a
+      > <a name="574" class="Symbol"
+      >&#8704;</a
+      > <a name="576" class="Symbol"
+      >{</a
+      ><a name="577" href="Sized.Conat.html#577" class="Bound"
+      >i</a
+      ><a name="578" class="Symbol"
+      >}</a
+      > <a name="580" class="Symbol"
+      >&#8594;</a
+      > <a name="582" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="590" href="Sized.Conat.html#577" class="Bound"
+      >i</a
+      > <a name="592" class="Symbol"
+      >&#8594;</a
+      > <a name="594" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="602" href="Sized.Conat.html#577" class="Bound"
+      >i</a
+      > <a name="604" class="Symbol"
+      >&#8594;</a
+      > <a name="606" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="614" href="Sized.Conat.html#577" class="Bound"
+      >i</a
+      >
+
+<a name="617" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      >  <a name="623" href="Sized.Conat.html#_&#8851;_" class="Function Operator"
+      >&#8851;</a
+      > <a name="625" href="Sized.Conat.html#625" class="Bound"
+      >n</a
+      >     <a name="631" class="Symbol"
+      >=</a
+      > <a name="633" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      >
+<a name="638" href="Sized.Conat.html#638" class="CatchallClause Bound"
+      >m</a
+      ><a name="639" class="CatchallClause"
+      >     </a
+      ><a name="644" href="Sized.Conat.html#_&#8851;_" class="CatchallClause Function Operator"
+      >&#8851;</a
+      ><a name="645" class="CatchallClause"
+      > </a
+      ><a name="646" href="Sized.Conat.html#Conat&#8242;.zero" class="CatchallClause InductiveConstructor"
+      >zero</a
+      >  <a name="652" class="Symbol"
+      >=</a
+      > <a name="654" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      >
+<a name="659" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="663" href="Sized.Conat.html#663" class="Bound"
+      >m</a
+      > <a name="665" href="Sized.Conat.html#_&#8851;_" class="Function Operator"
+      >&#8851;</a
+      > <a name="667" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="671" href="Sized.Conat.html#671" class="Bound"
+      >n</a
+      > <a name="673" class="Symbol"
+      >=</a
+      > <a name="675" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="679" class="Symbol"
+      >(</a
+      ><a name="680" href="Sized.Conat.html#663" class="Bound"
+      >m</a
+      > <a name="682" href="Sized.Conat.html#_&#8734;&#8851;_" class="Function Operator"
+      >&#8734;&#8851;</a
+      > <a name="685" href="Sized.Conat.html#671" class="Bound"
+      >n</a
+      ><a name="686" class="Symbol"
+      >)</a
+      >
+<a name="688" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="702" class="Symbol"
+      >(</a
+      ><a name="703" href="Sized.Conat.html#703" class="Bound"
+      >m</a
+      > <a name="705" href="Sized.Conat.html#_&#8734;&#8851;_" class="Function Operator"
+      >&#8734;&#8851;</a
+      > <a name="708" href="Sized.Conat.html#708" class="Bound"
+      >n</a
+      ><a name="709" class="Symbol"
+      >)</a
+      > <a name="711" class="Symbol"
+      >=</a
+      > <a name="713" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="727" href="Sized.Conat.html#703" class="Bound"
+      >m</a
+      > <a name="729" href="Sized.Conat.html#_&#8851;_" class="Function Operator"
+      >&#8851;</a
+      > <a name="731" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="745" href="Sized.Conat.html#708" class="Bound"
+      >n</a
+      >
+
+
+<a name="_&#8852;_" href="Sized.Conat.html#_&#8852;_" class="Function Operator"
+      >_&#8852;_</a
+      >  <a name="754" class="Symbol"
+      >:</a
+      > <a name="756" class="Symbol"
+      >&#8704;</a
+      > <a name="758" class="Symbol"
+      >{</a
+      ><a name="759" href="Sized.Conat.html#759" class="Bound"
+      >i</a
+      ><a name="760" class="Symbol"
+      >}</a
+      > <a name="762" class="Symbol"
+      >&#8594;</a
+      > <a name="764" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="771" href="Sized.Conat.html#759" class="Bound"
+      >i</a
+      > <a name="773" class="Symbol"
+      >&#8594;</a
+      > <a name="775" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="782" href="Sized.Conat.html#759" class="Bound"
+      >i</a
+      > <a name="784" class="Symbol"
+      >&#8594;</a
+      > <a name="786" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="793" href="Sized.Conat.html#759" class="Bound"
+      >i</a
+      >
+<a name="_&#8734;&#8852;_" href="Sized.Conat.html#_&#8734;&#8852;_" class="Function Operator"
+      >_&#8734;&#8852;_</a
+      > <a name="800" class="Symbol"
+      >:</a
+      > <a name="802" class="Symbol"
+      >&#8704;</a
+      > <a name="804" class="Symbol"
+      >{</a
+      ><a name="805" href="Sized.Conat.html#805" class="Bound"
+      >i</a
+      ><a name="806" class="Symbol"
+      >}</a
+      > <a name="808" class="Symbol"
+      >&#8594;</a
+      > <a name="810" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="818" href="Sized.Conat.html#805" class="Bound"
+      >i</a
+      > <a name="820" class="Symbol"
+      >&#8594;</a
+      > <a name="822" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="830" href="Sized.Conat.html#805" class="Bound"
+      >i</a
+      > <a name="832" class="Symbol"
+      >&#8594;</a
+      > <a name="834" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="842" href="Sized.Conat.html#805" class="Bound"
+      >i</a
+      >
+
+<a name="845" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      >  <a name="851" href="Sized.Conat.html#_&#8852;_" class="Function Operator"
+      >&#8852;</a
+      > <a name="853" href="Sized.Conat.html#853" class="Bound"
+      >n</a
+      >     <a name="859" class="Symbol"
+      >=</a
+      > <a name="861" href="Sized.Conat.html#853" class="Bound"
+      >n</a
+      >
+<a name="863" href="Sized.Conat.html#863" class="CatchallClause Bound"
+      >m</a
+      ><a name="864" class="CatchallClause"
+      >     </a
+      ><a name="869" href="Sized.Conat.html#_&#8852;_" class="CatchallClause Function Operator"
+      >&#8852;</a
+      ><a name="870" class="CatchallClause"
+      > </a
+      ><a name="871" href="Sized.Conat.html#Conat&#8242;.zero" class="CatchallClause InductiveConstructor"
+      >zero</a
+      >  <a name="877" class="Symbol"
+      >=</a
+      > <a name="879" href="Sized.Conat.html#863" class="Bound"
+      >m</a
+      >
+<a name="881" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="885" href="Sized.Conat.html#885" class="Bound"
+      >m</a
+      > <a name="887" href="Sized.Conat.html#_&#8852;_" class="Function Operator"
+      >&#8852;</a
+      > <a name="889" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="893" href="Sized.Conat.html#893" class="Bound"
+      >n</a
+      > <a name="895" class="Symbol"
+      >=</a
+      > <a name="897" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="901" class="Symbol"
+      >(</a
+      ><a name="902" href="Sized.Conat.html#885" class="Bound"
+      >m</a
+      > <a name="904" href="Sized.Conat.html#_&#8734;&#8852;_" class="Function Operator"
+      >&#8734;&#8852;</a
+      > <a name="907" href="Sized.Conat.html#893" class="Bound"
+      >n</a
+      ><a name="908" class="Symbol"
+      >)</a
+      >
+<a name="910" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="924" class="Symbol"
+      >(</a
+      ><a name="925" href="Sized.Conat.html#925" class="Bound"
+      >m</a
+      > <a name="927" href="Sized.Conat.html#_&#8734;&#8852;_" class="Function Operator"
+      >&#8734;&#8852;</a
+      > <a name="930" href="Sized.Conat.html#930" class="Bound"
+      >n</a
+      ><a name="931" class="Symbol"
+      >)</a
+      > <a name="933" class="Symbol"
+      >=</a
+      > <a name="935" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="949" href="Sized.Conat.html#925" class="Bound"
+      >m</a
+      > <a name="951" href="Sized.Conat.html#_&#8852;_" class="Function Operator"
+      >&#8852;</a
+      > <a name="953" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="967" href="Sized.Conat.html#930" class="Bound"
+      >n</a
+      >
+
+<a name="970" class="Keyword"
+      >data</a
+      >   <a name="_&#8776;_" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >_&#8776;_</a
+      >  <a name="982" class="Symbol"
+      >{</a
+      ><a name="983" href="Sized.Conat.html#983" class="Bound"
+      >i</a
+      ><a name="984" class="Symbol"
+      >}</a
+      > <a name="986" class="Symbol"
+      >:</a
+      > <a name="988" class="Symbol"
+      >(</a
+      ><a name="989" href="Sized.Conat.html#989" class="Bound"
+      >m</a
+      > <a name="991" href="Sized.Conat.html#991" class="Bound"
+      >n</a
+      > <a name="993" class="Symbol"
+      >:</a
+      > <a name="995" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="1002" href="Sized.Conat.html#983" class="Bound"
+      >i</a
+      ><a name="1003" class="Symbol"
+      >)</a
+      > <a name="1005" class="Symbol"
+      >&#8594;</a
+      > <a name="1007" class="PrimitiveType"
+      >Set</a
+      >
+<a name="1011" class="Keyword"
+      >record</a
+      > <a name="_&#8734;&#8776;_" href="Sized.Conat.html#_&#8734;&#8776;_" class="Record Operator"
+      >_&#8734;&#8776;_</a
+      > <a name="1023" class="Symbol"
+      >{</a
+      ><a name="1024" href="Sized.Conat.html#1024" class="Bound"
+      >i</a
+      ><a name="1025" class="Symbol"
+      >}</a
+      > <a name="1027" class="Symbol"
+      >(</a
+      ><a name="1028" href="Sized.Conat.html#1028" class="Bound"
+      >m</a
+      > <a name="1030" href="Sized.Conat.html#1030" class="Bound"
+      >n</a
+      > <a name="1032" class="Symbol"
+      >:</a
+      > <a name="1034" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="1042" href="Sized.Conat.html#1024" class="Bound"
+      >i</a
+      ><a name="1043" class="Symbol"
+      >)</a
+      > <a name="1045" class="Symbol"
+      >:</a
+      > <a name="1047" class="PrimitiveType"
+      >Set</a
+      >
+
+<a name="1052" class="Keyword"
+      >data</a
+      > <a name="1057" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >_&#8776;_</a
+      > <a name="1061" class="Symbol"
+      >{</a
+      ><a name="1062" href="Sized.Conat.html#1062" class="Bound"
+      >i</a
+      ><a name="1063" class="Symbol"
+      >}</a
+      > <a name="1065" class="Keyword"
+      >where</a
+      >
+  <a name="_&#8776;_.zero" href="Sized.Conat.html#_&#8776;_.zero" class="InductiveConstructor"
+      >zero</a
+      > <a name="1078" class="Symbol"
+      >:</a
+      > <a name="1080" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      > <a name="1085" class="Symbol"
+      >{</a
+      ><a name="1086" href="Sized.Conat.html#1062" class="Bound"
+      >i</a
+      ><a name="1087" class="Symbol"
+      >}</a
+      > <a name="1089" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >&#8776;</a
+      > <a name="1091" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      >
+  <a name="_&#8776;_.suc" href="Sized.Conat.html#_&#8776;_.suc" class="InductiveConstructor"
+      >suc</a
+      >  <a name="1103" class="Symbol"
+      >:</a
+      > <a name="1105" class="Symbol"
+      >&#8704;</a
+      > <a name="1107" class="Symbol"
+      >{</a
+      ><a name="1108" href="Sized.Conat.html#1108" class="Bound"
+      >m</a
+      > <a name="1110" href="Sized.Conat.html#1110" class="Bound"
+      >n</a
+      > <a name="1112" class="Symbol"
+      >:</a
+      > <a name="1114" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="1122" href="Sized.Conat.html#1062" class="Bound"
+      >i</a
+      ><a name="1123" class="Symbol"
+      >}</a
+      > <a name="1125" class="Symbol"
+      >&#8594;</a
+      > <a name="1127" href="Sized.Conat.html#1108" class="Bound"
+      >m</a
+      > <a name="1129" href="Sized.Conat.html#_&#8734;&#8776;_" class="Record Operator"
+      >&#8734;&#8776;</a
+      > <a name="1132" href="Sized.Conat.html#1110" class="Bound"
+      >n</a
+      > <a name="1134" class="Symbol"
+      >&#8594;</a
+      > <a name="1136" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1140" href="Sized.Conat.html#1108" class="Bound"
+      >m</a
+      > <a name="1142" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >&#8776;</a
+      > <a name="1144" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1148" href="Sized.Conat.html#1110" class="Bound"
+      >n</a
+      >
+
+<a name="1151" class="Keyword"
+      >record</a
+      > <a name="1158" href="Sized.Conat.html#_&#8734;&#8776;_" class="Record Operator"
+      >_&#8734;&#8776;_</a
+      > <a name="1163" class="Symbol"
+      >{</a
+      >i<a name="1165" class="Symbol"
+      >}</a
+      > m n <a name="1171" class="Keyword"
+      >where</a
+      >
+  <a name="1179" class="Keyword"
+      >coinductive</a
+      >
+  <a name="1193" class="Keyword"
+      >constructor</a
+      > <a name="_&#8734;&#8776;_.delay" href="Sized.Conat.html#_&#8734;&#8776;_.delay" class="CoinductiveConstructor"
+      >delay</a
+      >
+  <a name="1213" class="Keyword"
+      >field</a
+      > <a name="_&#8734;&#8776;_.force" href="Sized.Conat.html#_&#8734;&#8776;_.force" class="Field"
+      >force</a
+      > <a name="1225" class="Symbol"
+      >:</a
+      > <a name="1227" class="Symbol"
+      >{</a
+      ><a name="1228" href="Sized.Conat.html#1228" class="Bound"
+      >j</a
+      > <a name="1230" class="Symbol"
+      >:</a
+      > <a name="1232" href="Agda.Builtin.Size.html#Size&lt;_" class="Postulate Operator"
+      >Size&lt;</a
+      > <a name="1238" href="Sized.Conat.html#1164" class="Bound"
+      >i</a
+      ><a name="1239" class="Symbol"
+      >}</a
+      > <a name="1241" class="Symbol"
+      >&#8594;</a
+      > <a name="1243" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="1257" href="Sized.Conat.html#1167" class="Bound"
+      >m</a
+      > <a name="1259" class="Symbol"
+      >{</a
+      ><a name="1260" href="Sized.Conat.html#1228" class="Bound"
+      >j</a
+      ><a name="1261" class="Symbol"
+      >}</a
+      > <a name="1263" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >&#8776;</a
+      > <a name="1265" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="1279" href="Sized.Conat.html#1169" class="Bound"
+      >n</a
+      >
+
+<a name="1282" class="Keyword"
+      >module</a
+      > <a name="&#8776;" href="Sized.Conat.html#&#8776;" class="Module"
+      >&#8776;</a
+      > <a name="1291" class="Keyword"
+      >where</a
+      >
+
+  <a name="&#8776;.refl" href="Sized.Conat.html#&#8776;.refl" class="Function"
+      >refl</a
+      >  <a name="1306" class="Symbol"
+      >:</a
+      > <a name="1308" class="Symbol"
+      >&#8704;</a
+      > <a name="1310" class="Symbol"
+      >{</a
+      ><a name="1311" href="Sized.Conat.html#1311" class="Bound"
+      >i</a
+      ><a name="1312" class="Symbol"
+      >}</a
+      > <a name="1314" class="Symbol"
+      >{</a
+      ><a name="1315" href="Sized.Conat.html#1315" class="Bound"
+      >m</a
+      > <a name="1317" class="Symbol"
+      >:</a
+      > <a name="1319" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="1326" href="Sized.Conat.html#1311" class="Bound"
+      >i</a
+      ><a name="1327" class="Symbol"
+      >}</a
+      > <a name="1329" class="Symbol"
+      >&#8594;</a
+      > <a name="1331" href="Sized.Conat.html#1315" class="Bound"
+      >m</a
+      > <a name="1333" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >&#8776;</a
+      > <a name="1335" href="Sized.Conat.html#1315" class="Bound"
+      >m</a
+      >
+  <a name="&#8776;.&#8734;refl" href="Sized.Conat.html#&#8776;.&#8734;refl" class="Function"
+      >&#8734;refl</a
+      > <a name="1345" class="Symbol"
+      >:</a
+      > <a name="1347" class="Symbol"
+      >&#8704;</a
+      > <a name="1349" class="Symbol"
+      >{</a
+      ><a name="1350" href="Sized.Conat.html#1350" class="Bound"
+      >i</a
+      ><a name="1351" class="Symbol"
+      >}</a
+      > <a name="1353" class="Symbol"
+      >{</a
+      ><a name="1354" href="Sized.Conat.html#1354" class="Bound"
+      >m</a
+      > <a name="1356" class="Symbol"
+      >:</a
+      > <a name="1358" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="1366" href="Sized.Conat.html#1350" class="Bound"
+      >i</a
+      ><a name="1367" class="Symbol"
+      >}</a
+      > <a name="1369" class="Symbol"
+      >&#8594;</a
+      > <a name="1371" href="Sized.Conat.html#1354" class="Bound"
+      >m</a
+      > <a name="1373" href="Sized.Conat.html#_&#8734;&#8776;_" class="Record Operator"
+      >&#8734;&#8776;</a
+      > <a name="1376" href="Sized.Conat.html#1354" class="Bound"
+      >m</a
+      >
+
+  <a name="1381" href="Sized.Conat.html#&#8776;.refl" class="Function"
+      >refl</a
+      > <a name="1386" class="Symbol"
+      >{</a
+      ><a name="1387" class="Argument"
+      >m</a
+      > <a name="1389" class="Symbol"
+      >=</a
+      > <a name="1391" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      ><a name="1395" class="Symbol"
+      >}</a
+      >  <a name="1398" class="Symbol"
+      >=</a
+      > <a name="1400" href="Sized.Conat.html#_&#8776;_.zero" class="InductiveConstructor"
+      >zero</a
+      >
+  <a name="1407" href="Sized.Conat.html#&#8776;.refl" class="Function"
+      >refl</a
+      > <a name="1412" class="Symbol"
+      >{</a
+      ><a name="1413" class="Argument"
+      >m</a
+      > <a name="1415" class="Symbol"
+      >=</a
+      > <a name="1417" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1421" href="Sized.Conat.html#1421" class="Bound"
+      >m</a
+      ><a name="1422" class="Symbol"
+      >}</a
+      > <a name="1424" class="Symbol"
+      >=</a
+      > <a name="1426" href="Sized.Conat.html#_&#8776;_.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1430" href="Sized.Conat.html#&#8776;.&#8734;refl" class="Function"
+      >&#8734;refl</a
+      >
+  <a name="1438" href="Sized.Conat.html#_&#8734;&#8776;_.force" class="Field"
+      >_&#8734;&#8776;_.force</a
+      > <a name="1449" href="Sized.Conat.html#&#8776;.&#8734;refl" class="Function"
+      >&#8734;refl</a
+      > <a name="1455" class="Symbol"
+      >=</a
+      > <a name="1457" href="Sized.Conat.html#&#8776;.refl" class="Function"
+      >refl</a
+      >
+
+  <a name="&#8776;.sym" href="Sized.Conat.html#&#8776;.sym" class="Function"
+      >sym</a
+      >  <a name="1470" class="Symbol"
+      >:</a
+      > <a name="1472" class="Symbol"
+      >&#8704;</a
+      > <a name="1474" class="Symbol"
+      >{</a
+      ><a name="1475" href="Sized.Conat.html#1475" class="Bound"
+      >i</a
+      ><a name="1476" class="Symbol"
+      >}</a
+      > <a name="1478" class="Symbol"
+      >{</a
+      ><a name="1479" href="Sized.Conat.html#1479" class="Bound"
+      >m</a
+      > <a name="1481" href="Sized.Conat.html#1481" class="Bound"
+      >n</a
+      > <a name="1483" class="Symbol"
+      >:</a
+      > <a name="1485" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="1492" href="Sized.Conat.html#1475" class="Bound"
+      >i</a
+      ><a name="1493" class="Symbol"
+      >}</a
+      > <a name="1495" class="Symbol"
+      >&#8594;</a
+      > <a name="1497" href="Sized.Conat.html#1479" class="Bound"
+      >m</a
+      > <a name="1499" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >&#8776;</a
+      > <a name="1501" href="Sized.Conat.html#1481" class="Bound"
+      >n</a
+      > <a name="1503" class="Symbol"
+      >&#8594;</a
+      > <a name="1505" href="Sized.Conat.html#1481" class="Bound"
+      >n</a
+      > <a name="1507" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >&#8776;</a
+      > <a name="1509" href="Sized.Conat.html#1479" class="Bound"
+      >m</a
+      >
+  <a name="&#8776;.&#8734;sym" href="Sized.Conat.html#&#8776;.&#8734;sym" class="Function"
+      >&#8734;sym</a
+      > <a name="1518" class="Symbol"
+      >:</a
+      > <a name="1520" class="Symbol"
+      >&#8704;</a
+      > <a name="1522" class="Symbol"
+      >{</a
+      ><a name="1523" href="Sized.Conat.html#1523" class="Bound"
+      >i</a
+      ><a name="1524" class="Symbol"
+      >}</a
+      > <a name="1526" class="Symbol"
+      >{</a
+      ><a name="1527" href="Sized.Conat.html#1527" class="Bound"
+      >m</a
+      > <a name="1529" href="Sized.Conat.html#1529" class="Bound"
+      >n</a
+      > <a name="1531" class="Symbol"
+      >:</a
+      > <a name="1533" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="1541" href="Sized.Conat.html#1523" class="Bound"
+      >i</a
+      ><a name="1542" class="Symbol"
+      >}</a
+      > <a name="1544" class="Symbol"
+      >&#8594;</a
+      > <a name="1546" href="Sized.Conat.html#1527" class="Bound"
+      >m</a
+      > <a name="1548" href="Sized.Conat.html#_&#8734;&#8776;_" class="Record Operator"
+      >&#8734;&#8776;</a
+      > <a name="1551" href="Sized.Conat.html#1529" class="Bound"
+      >n</a
+      > <a name="1553" class="Symbol"
+      >&#8594;</a
+      > <a name="1555" href="Sized.Conat.html#1529" class="Bound"
+      >n</a
+      > <a name="1557" href="Sized.Conat.html#_&#8734;&#8776;_" class="Record Operator"
+      >&#8734;&#8776;</a
+      > <a name="1560" href="Sized.Conat.html#1527" class="Bound"
+      >m</a
+      >
+
+  <a name="1565" href="Sized.Conat.html#&#8776;.sym" class="Function"
+      >sym</a
+      > <a name="1569" href="Sized.Conat.html#_&#8776;_.zero" class="InductiveConstructor"
+      >zero</a
+      >    <a name="1577" class="Symbol"
+      >=</a
+      > <a name="1579" href="Sized.Conat.html#_&#8776;_.zero" class="InductiveConstructor"
+      >zero</a
+      >
+  <a name="1586" href="Sized.Conat.html#&#8776;.sym" class="Function"
+      >sym</a
+      > <a name="1590" class="Symbol"
+      >(</a
+      ><a name="1591" href="Sized.Conat.html#_&#8776;_.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1595" href="Sized.Conat.html#1595" class="Bound"
+      >p</a
+      ><a name="1596" class="Symbol"
+      >)</a
+      > <a name="1598" class="Symbol"
+      >=</a
+      > <a name="1600" href="Sized.Conat.html#_&#8776;_.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1604" class="Symbol"
+      >(</a
+      ><a name="1605" href="Sized.Conat.html#&#8776;.&#8734;sym" class="Function"
+      >&#8734;sym</a
+      > <a name="1610" href="Sized.Conat.html#1595" class="Bound"
+      >p</a
+      ><a name="1611" class="Symbol"
+      >)</a
+      >
+  <a name="1615" href="Sized.Conat.html#_&#8734;&#8776;_.force" class="Field"
+      >_&#8734;&#8776;_.force</a
+      > <a name="1626" class="Symbol"
+      >(</a
+      ><a name="1627" href="Sized.Conat.html#&#8776;.&#8734;sym" class="Function"
+      >&#8734;sym</a
+      > <a name="1632" href="Sized.Conat.html#1632" class="Bound"
+      >p</a
+      ><a name="1633" class="Symbol"
+      >)</a
+      > <a name="1635" class="Symbol"
+      >=</a
+      > <a name="1637" href="Sized.Conat.html#&#8776;.sym" class="Function"
+      >sym</a
+      > <a name="1641" class="Symbol"
+      >(</a
+      ><a name="1642" href="Sized.Conat.html#_&#8734;&#8776;_.force" class="Field"
+      >_&#8734;&#8776;_.force</a
+      > <a name="1653" href="Sized.Conat.html#1632" class="Bound"
+      >p</a
+      ><a name="1654" class="Symbol"
+      >)</a
+      >
+
+  <a name="&#8776;.trans" href="Sized.Conat.html#&#8776;.trans" class="Function"
+      >trans</a
+      >  <a name="1666" class="Symbol"
+      >:</a
+      > <a name="1668" class="Symbol"
+      >&#8704;</a
+      > <a name="1670" class="Symbol"
+      >{</a
+      ><a name="1671" href="Sized.Conat.html#1671" class="Bound"
+      >i</a
+      ><a name="1672" class="Symbol"
+      >}</a
+      > <a name="1674" class="Symbol"
+      >{</a
+      ><a name="1675" href="Sized.Conat.html#1675" class="Bound"
+      >m</a
+      > <a name="1677" href="Sized.Conat.html#1677" class="Bound"
+      >n</a
+      > <a name="1679" href="Sized.Conat.html#1679" class="Bound"
+      >p</a
+      > <a name="1681" class="Symbol"
+      >:</a
+      > <a name="1683" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="1690" href="Sized.Conat.html#1671" class="Bound"
+      >i</a
+      ><a name="1691" class="Symbol"
+      >}</a
+      > <a name="1693" class="Symbol"
+      >&#8594;</a
+      > <a name="1695" href="Sized.Conat.html#1675" class="Bound"
+      >m</a
+      > <a name="1697" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >&#8776;</a
+      > <a name="1699" href="Sized.Conat.html#1677" class="Bound"
+      >n</a
+      > <a name="1701" class="Symbol"
+      >&#8594;</a
+      > <a name="1703" href="Sized.Conat.html#1677" class="Bound"
+      >n</a
+      > <a name="1705" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >&#8776;</a
+      > <a name="1707" href="Sized.Conat.html#1679" class="Bound"
+      >p</a
+      > <a name="1709" class="Symbol"
+      >&#8594;</a
+      > <a name="1711" href="Sized.Conat.html#1675" class="Bound"
+      >m</a
+      > <a name="1713" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >&#8776;</a
+      > <a name="1715" href="Sized.Conat.html#1679" class="Bound"
+      >p</a
+      >
+  <a name="&#8776;.&#8734;trans" href="Sized.Conat.html#&#8776;.&#8734;trans" class="Function"
+      >&#8734;trans</a
+      > <a name="1726" class="Symbol"
+      >:</a
+      > <a name="1728" class="Symbol"
+      >&#8704;</a
+      > <a name="1730" class="Symbol"
+      >{</a
+      ><a name="1731" href="Sized.Conat.html#1731" class="Bound"
+      >i</a
+      ><a name="1732" class="Symbol"
+      >}</a
+      > <a name="1734" class="Symbol"
+      >{</a
+      ><a name="1735" href="Sized.Conat.html#1735" class="Bound"
+      >m</a
+      > <a name="1737" href="Sized.Conat.html#1737" class="Bound"
+      >n</a
+      > <a name="1739" href="Sized.Conat.html#1739" class="Bound"
+      >p</a
+      > <a name="1741" class="Symbol"
+      >:</a
+      > <a name="1743" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="1751" href="Sized.Conat.html#1731" class="Bound"
+      >i</a
+      ><a name="1752" class="Symbol"
+      >}</a
+      > <a name="1754" class="Symbol"
+      >&#8594;</a
+      > <a name="1756" href="Sized.Conat.html#1735" class="Bound"
+      >m</a
+      > <a name="1758" href="Sized.Conat.html#_&#8734;&#8776;_" class="Record Operator"
+      >&#8734;&#8776;</a
+      > <a name="1761" href="Sized.Conat.html#1737" class="Bound"
+      >n</a
+      > <a name="1763" class="Symbol"
+      >&#8594;</a
+      > <a name="1765" href="Sized.Conat.html#1737" class="Bound"
+      >n</a
+      > <a name="1767" href="Sized.Conat.html#_&#8734;&#8776;_" class="Record Operator"
+      >&#8734;&#8776;</a
+      > <a name="1770" href="Sized.Conat.html#1739" class="Bound"
+      >p</a
+      > <a name="1772" class="Symbol"
+      >&#8594;</a
+      > <a name="1774" href="Sized.Conat.html#1735" class="Bound"
+      >m</a
+      > <a name="1776" href="Sized.Conat.html#_&#8734;&#8776;_" class="Record Operator"
+      >&#8734;&#8776;</a
+      > <a name="1779" href="Sized.Conat.html#1739" class="Bound"
+      >p</a
+      >
+
+  <a name="1784" href="Sized.Conat.html#&#8776;.trans" class="Function"
+      >trans</a
+      > <a name="1790" href="Sized.Conat.html#_&#8776;_.zero" class="InductiveConstructor"
+      >zero</a
+      >    <a name="1798" href="Sized.Conat.html#_&#8776;_.zero" class="InductiveConstructor"
+      >zero</a
+      >    <a name="1806" class="Symbol"
+      >=</a
+      > <a name="1808" href="Sized.Conat.html#_&#8776;_.zero" class="InductiveConstructor"
+      >zero</a
+      >
+  <a name="1815" href="Sized.Conat.html#&#8776;.trans" class="Function"
+      >trans</a
+      > <a name="1821" class="Symbol"
+      >(</a
+      ><a name="1822" href="Sized.Conat.html#_&#8776;_.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1826" href="Sized.Conat.html#1826" class="Bound"
+      >p</a
+      ><a name="1827" class="Symbol"
+      >)</a
+      > <a name="1829" class="Symbol"
+      >(</a
+      ><a name="1830" href="Sized.Conat.html#_&#8776;_.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1834" href="Sized.Conat.html#1834" class="Bound"
+      >q</a
+      ><a name="1835" class="Symbol"
+      >)</a
+      > <a name="1837" class="Symbol"
+      >=</a
+      > <a name="1839" href="Sized.Conat.html#_&#8776;_.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="1843" class="Symbol"
+      >(</a
+      ><a name="1844" href="Sized.Conat.html#&#8776;.&#8734;trans" class="Function"
+      >&#8734;trans</a
+      > <a name="1851" href="Sized.Conat.html#1826" class="Bound"
+      >p</a
+      > <a name="1853" href="Sized.Conat.html#1834" class="Bound"
+      >q</a
+      ><a name="1854" class="Symbol"
+      >)</a
+      >
+  <a name="1858" href="Sized.Conat.html#_&#8734;&#8776;_.force" class="Field"
+      >_&#8734;&#8776;_.force</a
+      > <a name="1869" class="Symbol"
+      >(</a
+      ><a name="1870" href="Sized.Conat.html#&#8776;.&#8734;trans" class="Function"
+      >&#8734;trans</a
+      > <a name="1877" href="Sized.Conat.html#1877" class="Bound"
+      >p</a
+      > <a name="1879" href="Sized.Conat.html#1879" class="Bound"
+      >q</a
+      ><a name="1880" class="Symbol"
+      >)</a
+      > <a name="1882" class="Symbol"
+      >=</a
+      > <a name="1884" href="Sized.Conat.html#&#8776;.trans" class="Function"
+      >trans</a
+      > <a name="1890" class="Symbol"
+      >(</a
+      ><a name="1891" href="Sized.Conat.html#_&#8734;&#8776;_.force" class="Field"
+      >_&#8734;&#8776;_.force</a
+      > <a name="1902" href="Sized.Conat.html#1877" class="Bound"
+      >p</a
+      ><a name="1903" class="Symbol"
+      >)</a
+      > <a name="1905" class="Symbol"
+      >(</a
+      ><a name="1906" href="Sized.Conat.html#_&#8734;&#8776;_.force" class="Field"
+      >_&#8734;&#8776;_.force</a
+      > <a name="1917" href="Sized.Conat.html#1879" class="Bound"
+      >q</a
+      ><a name="1918" class="Symbol"
+      >)</a
+      >
+
+
+<a name="1922" class="Keyword"
+      >data</a
+      >   <a name="_&#8804;_" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >_&#8804;_</a
+      >  <a name="1934" class="Symbol"
+      >{</a
+      ><a name="1935" href="Sized.Conat.html#1935" class="Bound"
+      >i</a
+      ><a name="1936" class="Symbol"
+      >}</a
+      > <a name="1938" class="Symbol"
+      >:</a
+      > <a name="1940" class="Symbol"
+      >(</a
+      ><a name="1941" href="Sized.Conat.html#1941" class="Bound"
+      >m</a
+      > <a name="1943" href="Sized.Conat.html#1943" class="Bound"
+      >n</a
+      > <a name="1945" class="Symbol"
+      >:</a
+      > <a name="1947" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="1954" href="Sized.Conat.html#1935" class="Bound"
+      >i</a
+      ><a name="1955" class="Symbol"
+      >)</a
+      > <a name="1957" class="Symbol"
+      >&#8594;</a
+      > <a name="1959" class="PrimitiveType"
+      >Set</a
+      >
+<a name="1963" class="Keyword"
+      >record</a
+      > <a name="_&#8734;&#8804;_" href="Sized.Conat.html#_&#8734;&#8804;_" class="Record Operator"
+      >_&#8734;&#8804;_</a
+      > <a name="1975" class="Symbol"
+      >{</a
+      ><a name="1976" href="Sized.Conat.html#1976" class="Bound"
+      >i</a
+      ><a name="1977" class="Symbol"
+      >}</a
+      > <a name="1979" class="Symbol"
+      >(</a
+      ><a name="1980" href="Sized.Conat.html#1980" class="Bound"
+      >m</a
+      > <a name="1982" href="Sized.Conat.html#1982" class="Bound"
+      >n</a
+      > <a name="1984" class="Symbol"
+      >:</a
+      > <a name="1986" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="1994" href="Sized.Conat.html#1976" class="Bound"
+      >i</a
+      ><a name="1995" class="Symbol"
+      >)</a
+      > <a name="1997" class="Symbol"
+      >:</a
+      > <a name="1999" class="PrimitiveType"
+      >Set</a
+      >
+
+<a name="2004" class="Keyword"
+      >data</a
+      > <a name="2009" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >_&#8804;_</a
+      > <a name="2013" class="Symbol"
+      >{</a
+      ><a name="2014" href="Sized.Conat.html#2014" class="Bound"
+      >i</a
+      ><a name="2015" class="Symbol"
+      >}</a
+      > <a name="2017" class="Keyword"
+      >where</a
+      >
+  <a name="_&#8804;_.z&#8804;n" href="Sized.Conat.html#_&#8804;_.z&#8804;n" class="InductiveConstructor"
+      >z&#8804;n</a
+      > <a name="2029" class="Symbol"
+      >:</a
+      > <a name="2031" class="Symbol"
+      >&#8704;</a
+      > <a name="2033" class="Symbol"
+      >{</a
+      ><a name="2034" href="Sized.Conat.html#2034" class="Bound"
+      >m</a
+      > <a name="2036" class="Symbol"
+      >:</a
+      > <a name="2038" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="2045" href="Sized.Conat.html#2014" class="Bound"
+      >i</a
+      ><a name="2046" class="Symbol"
+      >}</a
+      > <a name="2048" class="Symbol"
+      >&#8594;</a
+      > <a name="2050" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      > <a name="2055" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >&#8804;</a
+      > <a name="2057" href="Sized.Conat.html#2034" class="Bound"
+      >m</a
+      >
+  <a name="_&#8804;_.s&#8804;s" href="Sized.Conat.html#_&#8804;_.s&#8804;s" class="InductiveConstructor"
+      >s&#8804;s</a
+      > <a name="2065" class="Symbol"
+      >:</a
+      > <a name="2067" class="Symbol"
+      >&#8704;</a
+      > <a name="2069" class="Symbol"
+      >{</a
+      ><a name="2070" href="Sized.Conat.html#2070" class="Bound"
+      >m</a
+      > <a name="2072" href="Sized.Conat.html#2072" class="Bound"
+      >n</a
+      > <a name="2074" class="Symbol"
+      >:</a
+      > <a name="2076" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="2084" href="Sized.Conat.html#2014" class="Bound"
+      >i</a
+      ><a name="2085" class="Symbol"
+      >}</a
+      > <a name="2087" class="Symbol"
+      >&#8594;</a
+      > <a name="2089" href="Sized.Conat.html#2070" class="Bound"
+      >m</a
+      > <a name="2091" href="Sized.Conat.html#_&#8734;&#8804;_" class="Record Operator"
+      >&#8734;&#8804;</a
+      > <a name="2094" href="Sized.Conat.html#2072" class="Bound"
+      >n</a
+      > <a name="2096" class="Symbol"
+      >&#8594;</a
+      > <a name="2098" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="2102" href="Sized.Conat.html#2070" class="Bound"
+      >m</a
+      > <a name="2104" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >&#8804;</a
+      > <a name="2106" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="2110" href="Sized.Conat.html#2072" class="Bound"
+      >n</a
+      >
+
+<a name="2113" class="Keyword"
+      >record</a
+      > <a name="2120" href="Sized.Conat.html#_&#8734;&#8804;_" class="Record Operator"
+      >_&#8734;&#8804;_</a
+      > <a name="2125" class="Symbol"
+      >{</a
+      >i<a name="2127" class="Symbol"
+      >}</a
+      > m n <a name="2133" class="Keyword"
+      >where</a
+      >
+  <a name="2141" class="Keyword"
+      >coinductive</a
+      >
+  <a name="2155" class="Keyword"
+      >constructor</a
+      > <a name="_&#8734;&#8804;_.delay" href="Sized.Conat.html#_&#8734;&#8804;_.delay" class="CoinductiveConstructor"
+      >delay</a
+      >
+  <a name="2175" class="Keyword"
+      >field</a
+      > <a name="_&#8734;&#8804;_.force" href="Sized.Conat.html#_&#8734;&#8804;_.force" class="Field"
+      >force</a
+      > <a name="2187" class="Symbol"
+      >:</a
+      > <a name="2189" class="Symbol"
+      >{</a
+      ><a name="2190" href="Sized.Conat.html#2190" class="Bound"
+      >j</a
+      > <a name="2192" class="Symbol"
+      >:</a
+      > <a name="2194" href="Agda.Builtin.Size.html#Size&lt;_" class="Postulate Operator"
+      >Size&lt;</a
+      > <a name="2200" href="Sized.Conat.html#2126" class="Bound"
+      >i</a
+      ><a name="2201" class="Symbol"
+      >}</a
+      > <a name="2203" class="Symbol"
+      >&#8594;</a
+      > <a name="2205" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="2219" href="Sized.Conat.html#2129" class="Bound"
+      >m</a
+      > <a name="2221" class="Symbol"
+      >{</a
+      ><a name="2222" href="Sized.Conat.html#2190" class="Bound"
+      >j</a
+      ><a name="2223" class="Symbol"
+      >}</a
+      > <a name="2225" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >&#8804;</a
+      > <a name="2227" href="Sized.Conat.html#&#8734;Conat&#8242;.force" class="Field"
+      >&#8734;Conat&#8242;.force</a
+      > <a name="2241" href="Sized.Conat.html#2131" class="Bound"
+      >n</a
+      >
+
+<a name="2244" class="Keyword"
+      >module</a
+      > <a name="&#8804;" href="Sized.Conat.html#&#8804;" class="Module"
+      >&#8804;</a
+      > <a name="2253" class="Keyword"
+      >where</a
+      >
+
+  <a name="&#8804;.refl" href="Sized.Conat.html#&#8804;.refl" class="Function"
+      >refl</a
+      >  <a name="2268" class="Symbol"
+      >:</a
+      > <a name="2270" class="Symbol"
+      >&#8704;</a
+      > <a name="2272" class="Symbol"
+      >{</a
+      ><a name="2273" href="Sized.Conat.html#2273" class="Bound"
+      >i</a
+      ><a name="2274" class="Symbol"
+      >}</a
+      > <a name="2276" class="Symbol"
+      >{</a
+      ><a name="2277" href="Sized.Conat.html#2277" class="Bound"
+      >m</a
+      > <a name="2279" class="Symbol"
+      >:</a
+      > <a name="2281" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="2288" href="Sized.Conat.html#2273" class="Bound"
+      >i</a
+      ><a name="2289" class="Symbol"
+      >}</a
+      > <a name="2291" class="Symbol"
+      >&#8594;</a
+      > <a name="2293" href="Sized.Conat.html#2277" class="Bound"
+      >m</a
+      > <a name="2295" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >&#8804;</a
+      > <a name="2297" href="Sized.Conat.html#2277" class="Bound"
+      >m</a
+      >
+  <a name="&#8804;.&#8734;refl" href="Sized.Conat.html#&#8804;.&#8734;refl" class="Function"
+      >&#8734;refl</a
+      > <a name="2307" class="Symbol"
+      >:</a
+      > <a name="2309" class="Symbol"
+      >&#8704;</a
+      > <a name="2311" class="Symbol"
+      >{</a
+      ><a name="2312" href="Sized.Conat.html#2312" class="Bound"
+      >i</a
+      ><a name="2313" class="Symbol"
+      >}</a
+      > <a name="2315" class="Symbol"
+      >{</a
+      ><a name="2316" href="Sized.Conat.html#2316" class="Bound"
+      >m</a
+      > <a name="2318" class="Symbol"
+      >:</a
+      > <a name="2320" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="2328" href="Sized.Conat.html#2312" class="Bound"
+      >i</a
+      ><a name="2329" class="Symbol"
+      >}</a
+      > <a name="2331" class="Symbol"
+      >&#8594;</a
+      > <a name="2333" href="Sized.Conat.html#2316" class="Bound"
+      >m</a
+      > <a name="2335" href="Sized.Conat.html#_&#8734;&#8804;_" class="Record Operator"
+      >&#8734;&#8804;</a
+      > <a name="2338" href="Sized.Conat.html#2316" class="Bound"
+      >m</a
+      >
+
+  <a name="2343" href="Sized.Conat.html#&#8804;.refl" class="Function"
+      >refl</a
+      > <a name="2348" class="Symbol"
+      >{</a
+      ><a name="2349" class="Argument"
+      >m</a
+      > <a name="2351" class="Symbol"
+      >=</a
+      > <a name="2353" href="Sized.Conat.html#Conat&#8242;.zero" class="InductiveConstructor"
+      >zero</a
+      ><a name="2357" class="Symbol"
+      >}</a
+      >  <a name="2360" class="Symbol"
+      >=</a
+      > <a name="2362" href="Sized.Conat.html#_&#8804;_.z&#8804;n" class="InductiveConstructor"
+      >z&#8804;n</a
+      >
+  <a name="2368" href="Sized.Conat.html#&#8804;.refl" class="Function"
+      >refl</a
+      > <a name="2373" class="Symbol"
+      >{</a
+      ><a name="2374" class="Argument"
+      >m</a
+      > <a name="2376" class="Symbol"
+      >=</a
+      > <a name="2378" href="Sized.Conat.html#Conat&#8242;.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="2382" href="Sized.Conat.html#2382" class="Bound"
+      >m</a
+      ><a name="2383" class="Symbol"
+      >}</a
+      > <a name="2385" class="Symbol"
+      >=</a
+      > <a name="2387" href="Sized.Conat.html#_&#8804;_.s&#8804;s" class="InductiveConstructor"
+      >s&#8804;s</a
+      > <a name="2391" href="Sized.Conat.html#&#8804;.&#8734;refl" class="Function"
+      >&#8734;refl</a
+      >
+  <a name="2399" href="Sized.Conat.html#_&#8734;&#8804;_.force" class="Field"
+      >_&#8734;&#8804;_.force</a
+      > <a name="2410" href="Sized.Conat.html#&#8804;.&#8734;refl" class="Function"
+      >&#8734;refl</a
+      > <a name="2416" class="Symbol"
+      >=</a
+      > <a name="2418" href="Sized.Conat.html#&#8804;.refl" class="Function"
+      >refl</a
+      >
+
+
+  <a name="&#8804;.antisym" href="Sized.Conat.html#&#8804;.antisym" class="Function"
+      >antisym</a
+      >  <a name="2436" class="Symbol"
+      >:</a
+      > <a name="2438" class="Symbol"
+      >&#8704;</a
+      > <a name="2440" class="Symbol"
+      >{</a
+      ><a name="2441" href="Sized.Conat.html#2441" class="Bound"
+      >i</a
+      ><a name="2442" class="Symbol"
+      >}</a
+      > <a name="2444" class="Symbol"
+      >{</a
+      ><a name="2445" href="Sized.Conat.html#2445" class="Bound"
+      >m</a
+      > <a name="2447" href="Sized.Conat.html#2447" class="Bound"
+      >n</a
+      > <a name="2449" class="Symbol"
+      >:</a
+      > <a name="2451" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="2458" href="Sized.Conat.html#2441" class="Bound"
+      >i</a
+      ><a name="2459" class="Symbol"
+      >}</a
+      > <a name="2461" class="Symbol"
+      >&#8594;</a
+      > <a name="2463" href="Sized.Conat.html#2445" class="Bound"
+      >m</a
+      > <a name="2465" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >&#8804;</a
+      > <a name="2467" href="Sized.Conat.html#2447" class="Bound"
+      >n</a
+      > <a name="2469" class="Symbol"
+      >&#8594;</a
+      > <a name="2471" href="Sized.Conat.html#2447" class="Bound"
+      >n</a
+      > <a name="2473" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >&#8804;</a
+      > <a name="2475" href="Sized.Conat.html#2445" class="Bound"
+      >m</a
+      > <a name="2477" class="Symbol"
+      >&#8594;</a
+      > <a name="2479" href="Sized.Conat.html#2445" class="Bound"
+      >m</a
+      > <a name="2481" href="Sized.Conat.html#_&#8776;_" class="Datatype Operator"
+      >&#8776;</a
+      > <a name="2483" href="Sized.Conat.html#2447" class="Bound"
+      >n</a
+      >
+  <a name="&#8804;.&#8734;antisym" href="Sized.Conat.html#&#8804;.&#8734;antisym" class="Function"
+      >&#8734;antisym</a
+      > <a name="2496" class="Symbol"
+      >:</a
+      > <a name="2498" class="Symbol"
+      >&#8704;</a
+      > <a name="2500" class="Symbol"
+      >{</a
+      ><a name="2501" href="Sized.Conat.html#2501" class="Bound"
+      >i</a
+      ><a name="2502" class="Symbol"
+      >}</a
+      > <a name="2504" class="Symbol"
+      >{</a
+      ><a name="2505" href="Sized.Conat.html#2505" class="Bound"
+      >m</a
+      > <a name="2507" href="Sized.Conat.html#2507" class="Bound"
+      >n</a
+      > <a name="2509" class="Symbol"
+      >:</a
+      > <a name="2511" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="2519" href="Sized.Conat.html#2501" class="Bound"
+      >i</a
+      ><a name="2520" class="Symbol"
+      >}</a
+      > <a name="2522" class="Symbol"
+      >&#8594;</a
+      > <a name="2524" href="Sized.Conat.html#2505" class="Bound"
+      >m</a
+      > <a name="2526" href="Sized.Conat.html#_&#8734;&#8804;_" class="Record Operator"
+      >&#8734;&#8804;</a
+      > <a name="2529" href="Sized.Conat.html#2507" class="Bound"
+      >n</a
+      > <a name="2531" class="Symbol"
+      >&#8594;</a
+      > <a name="2533" href="Sized.Conat.html#2507" class="Bound"
+      >n</a
+      > <a name="2535" href="Sized.Conat.html#_&#8734;&#8804;_" class="Record Operator"
+      >&#8734;&#8804;</a
+      > <a name="2538" href="Sized.Conat.html#2505" class="Bound"
+      >m</a
+      > <a name="2540" class="Symbol"
+      >&#8594;</a
+      > <a name="2542" href="Sized.Conat.html#2505" class="Bound"
+      >m</a
+      > <a name="2544" href="Sized.Conat.html#_&#8734;&#8776;_" class="Record Operator"
+      >&#8734;&#8776;</a
+      > <a name="2547" href="Sized.Conat.html#2507" class="Bound"
+      >n</a
+      >
+
+  <a name="2552" href="Sized.Conat.html#&#8804;.antisym" class="Function"
+      >antisym</a
+      > <a name="2560" href="Sized.Conat.html#_&#8804;_.z&#8804;n" class="InductiveConstructor"
+      >z&#8804;n</a
+      >     <a name="2568" href="Sized.Conat.html#_&#8804;_.z&#8804;n" class="InductiveConstructor"
+      >z&#8804;n</a
+      >     <a name="2576" class="Symbol"
+      >=</a
+      > <a name="2578" href="Sized.Conat.html#_&#8776;_.zero" class="InductiveConstructor"
+      >zero</a
+      >
+  <a name="2585" href="Sized.Conat.html#&#8804;.antisym" class="Function"
+      >antisym</a
+      > <a name="2593" class="Symbol"
+      >(</a
+      ><a name="2594" href="Sized.Conat.html#_&#8804;_.s&#8804;s" class="InductiveConstructor"
+      >s&#8804;s</a
+      > <a name="2598" href="Sized.Conat.html#2598" class="Bound"
+      >p</a
+      ><a name="2599" class="Symbol"
+      >)</a
+      > <a name="2601" class="Symbol"
+      >(</a
+      ><a name="2602" href="Sized.Conat.html#_&#8804;_.s&#8804;s" class="InductiveConstructor"
+      >s&#8804;s</a
+      > <a name="2606" href="Sized.Conat.html#2606" class="Bound"
+      >q</a
+      ><a name="2607" class="Symbol"
+      >)</a
+      > <a name="2609" class="Symbol"
+      >=</a
+      > <a name="2611" href="Sized.Conat.html#_&#8776;_.suc" class="InductiveConstructor"
+      >suc</a
+      > <a name="2615" class="Symbol"
+      >(</a
+      ><a name="2616" href="Sized.Conat.html#&#8804;.&#8734;antisym" class="Function"
+      >&#8734;antisym</a
+      > <a name="2625" href="Sized.Conat.html#2598" class="Bound"
+      >p</a
+      > <a name="2627" href="Sized.Conat.html#2606" class="Bound"
+      >q</a
+      ><a name="2628" class="Symbol"
+      >)</a
+      >
+  <a name="2632" href="Sized.Conat.html#_&#8734;&#8776;_.force" class="Field"
+      >_&#8734;&#8776;_.force</a
+      > <a name="2643" class="Symbol"
+      >(</a
+      ><a name="2644" href="Sized.Conat.html#&#8804;.&#8734;antisym" class="Function"
+      >&#8734;antisym</a
+      > <a name="2653" href="Sized.Conat.html#2653" class="Bound"
+      >p</a
+      > <a name="2655" href="Sized.Conat.html#2655" class="Bound"
+      >q</a
+      ><a name="2656" class="Symbol"
+      >)</a
+      > <a name="2658" class="Symbol"
+      >=</a
+      > <a name="2660" href="Sized.Conat.html#&#8804;.antisym" class="Function"
+      >antisym</a
+      > <a name="2668" class="Symbol"
+      >(</a
+      ><a name="2669" href="Sized.Conat.html#_&#8734;&#8804;_.force" class="Field"
+      >_&#8734;&#8804;_.force</a
+      > <a name="2680" href="Sized.Conat.html#2653" class="Bound"
+      >p</a
+      ><a name="2681" class="Symbol"
+      >)</a
+      > <a name="2683" class="Symbol"
+      >(</a
+      ><a name="2684" href="Sized.Conat.html#_&#8734;&#8804;_.force" class="Field"
+      >_&#8734;&#8804;_.force</a
+      > <a name="2695" href="Sized.Conat.html#2655" class="Bound"
+      >q</a
+      ><a name="2696" class="Symbol"
+      >)</a
+      >
+
+  <a name="&#8804;.trans" href="Sized.Conat.html#&#8804;.trans" class="Function"
+      >trans</a
+      >  <a name="2708" class="Symbol"
+      >:</a
+      > <a name="2710" class="Symbol"
+      >&#8704;</a
+      > <a name="2712" class="Symbol"
+      >{</a
+      ><a name="2713" href="Sized.Conat.html#2713" class="Bound"
+      >i</a
+      ><a name="2714" class="Symbol"
+      >}</a
+      > <a name="2716" class="Symbol"
+      >{</a
+      ><a name="2717" href="Sized.Conat.html#2717" class="Bound"
+      >m</a
+      > <a name="2719" href="Sized.Conat.html#2719" class="Bound"
+      >n</a
+      > <a name="2721" href="Sized.Conat.html#2721" class="Bound"
+      >p</a
+      > <a name="2723" class="Symbol"
+      >:</a
+      > <a name="2725" href="Sized.Conat.html#Conat&#8242;" class="Datatype"
+      >Conat&#8242;</a
+      > <a name="2732" href="Sized.Conat.html#2713" class="Bound"
+      >i</a
+      ><a name="2733" class="Symbol"
+      >}</a
+      > <a name="2735" class="Symbol"
+      >&#8594;</a
+      > <a name="2737" href="Sized.Conat.html#2717" class="Bound"
+      >m</a
+      > <a name="2739" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >&#8804;</a
+      > <a name="2741" href="Sized.Conat.html#2719" class="Bound"
+      >n</a
+      > <a name="2743" class="Symbol"
+      >&#8594;</a
+      > <a name="2745" href="Sized.Conat.html#2719" class="Bound"
+      >n</a
+      > <a name="2747" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >&#8804;</a
+      > <a name="2749" href="Sized.Conat.html#2721" class="Bound"
+      >p</a
+      > <a name="2751" class="Symbol"
+      >&#8594;</a
+      > <a name="2753" href="Sized.Conat.html#2717" class="Bound"
+      >m</a
+      > <a name="2755" href="Sized.Conat.html#_&#8804;_" class="Datatype Operator"
+      >&#8804;</a
+      > <a name="2757" href="Sized.Conat.html#2721" class="Bound"
+      >p</a
+      >
+  <a name="&#8804;.&#8734;trans" href="Sized.Conat.html#&#8804;.&#8734;trans" class="Function"
+      >&#8734;trans</a
+      > <a name="2768" class="Symbol"
+      >:</a
+      > <a name="2770" class="Symbol"
+      >&#8704;</a
+      > <a name="2772" class="Symbol"
+      >{</a
+      ><a name="2773" href="Sized.Conat.html#2773" class="Bound"
+      >i</a
+      ><a name="2774" class="Symbol"
+      >}</a
+      > <a name="2776" class="Symbol"
+      >{</a
+      ><a name="2777" href="Sized.Conat.html#2777" class="Bound"
+      >m</a
+      > <a name="2779" href="Sized.Conat.html#2779" class="Bound"
+      >n</a
+      > <a name="2781" href="Sized.Conat.html#2781" class="Bound"
+      >p</a
+      > <a name="2783" class="Symbol"
+      >:</a
+      > <a name="2785" href="Sized.Conat.html#&#8734;Conat&#8242;" class="Record"
+      >&#8734;Conat&#8242;</a
+      > <a name="2793" href="Sized.Conat.html#2773" class="Bound"
+      >i</a
+      ><a name="2794" class="Symbol"
+      >}</a
+      > <a name="2796" class="Symbol"
+      >&#8594;</a
+      > <a name="2798" href="Sized.Conat.html#2777" class="Bound"
+      >m</a
+      > <a name="2800" href="Sized.Conat.html#_&#8734;&#8804;_" class="Record Operator"
+      >&#8734;&#8804;</a
+      > <a name="2803" href="Sized.Conat.html#2779" class="Bound"
+      >n</a
+      > <a name="2805" class="Symbol"
+      >&#8594;</a
+      > <a name="2807" href="Sized.Conat.html#2779" class="Bound"
+      >n</a
+      > <a name="2809" href="Sized.Conat.html#_&#8734;&#8804;_" class="Record Operator"
+      >&#8734;&#8804;</a
+      > <a name="2812" href="Sized.Conat.html#2781" class="Bound"
+      >p</a
+      > <a name="2814" class="Symbol"
+      >&#8594;</a
+      > <a name="2816" href="Sized.Conat.html#2777" class="Bound"
+      >m</a
+      > <a name="2818" href="Sized.Conat.html#_&#8734;&#8804;_" class="Record Operator"
+      >&#8734;&#8804;</a
+      > <a name="2821" href="Sized.Conat.html#2781" class="Bound"
+      >p</a
+      >
+
+  <a name="2826" href="Sized.Conat.html#&#8804;.trans" class="Function"
+      >trans</a
+      > <a name="2832" href="Sized.Conat.html#_&#8804;_.z&#8804;n" class="InductiveConstructor"
+      >z&#8804;n</a
+      >     <a name="2840" class="Symbol"
+      >_</a
+      >       <a name="2848" class="Symbol"
+      >=</a
+      > <a name="2850" href="Sized.Conat.html#_&#8804;_.z&#8804;n" class="InductiveConstructor"
+      >z&#8804;n</a
+      >
+  <a name="2856" href="Sized.Conat.html#&#8804;.trans" class="Function"
+      >trans</a
+      > <a name="2862" class="Symbol"
+      >(</a
+      ><a name="2863" href="Sized.Conat.html#_&#8804;_.s&#8804;s" class="InductiveConstructor"
+      >s&#8804;s</a
+      > <a name="2867" href="Sized.Conat.html#2867" class="Bound"
+      >p</a
+      ><a name="2868" class="Symbol"
+      >)</a
+      > <a name="2870" class="Symbol"
+      >(</a
+      ><a name="2871" href="Sized.Conat.html#_&#8804;_.s&#8804;s" class="InductiveConstructor"
+      >s&#8804;s</a
+      > <a name="2875" href="Sized.Conat.html#2875" class="Bound"
+      >q</a
+      ><a name="2876" class="Symbol"
+      >)</a
+      > <a name="2878" class="Symbol"
+      >=</a
+      > <a name="2880" href="Sized.Conat.html#_&#8804;_.s&#8804;s" class="InductiveConstructor"
+      >s&#8804;s</a
+      > <a name="2884" class="Symbol"
+      >(</a
+      ><a name="2885" href="Sized.Conat.html#&#8804;.&#8734;trans" class="Function"
+      >&#8734;trans</a
+      > <a name="2892" href="Sized.Conat.html#2867" class="Bound"
+      >p</a
+      > <a name="2894" href="Sized.Conat.html#2875" class="Bound"
+      >q</a
+      ><a name="2895" class="Symbol"
+      >)</a
+      >
+  <a name="2899" href="Sized.Conat.html#_&#8734;&#8804;_.force" class="Field"
+      >_&#8734;&#8804;_.force</a
+      > <a name="2910" class="Symbol"
+      >(</a
+      ><a name="2911" href="Sized.Conat.html#&#8804;.&#8734;trans" class="Function"
+      >&#8734;trans</a
+      > <a name="2918" href="Sized.Conat.html#2918" class="Bound"
+      >p</a
+      > <a name="2920" href="Sized.Conat.html#2920" class="Bound"
+      >q</a
+      ><a name="2921" class="Symbol"
+      >)</a
+      > <a name="2923" class="Symbol"
+      >=</a
+      > <a name="2925" href="Sized.Conat.html#&#8804;.trans" class="Function"
+      >trans</a
+      > <a name="2931" class="Symbol"
+      >(</a
+      ><a name="2932" href="Sized.Conat.html#_&#8734;&#8804;_.force" class="Field"
+      >_&#8734;&#8804;_.force</a
+      > <a name="2943" href="Sized.Conat.html#2918" class="Bound"
+      >p</a
+      ><a name="2944" class="Symbol"
+      >)</a
+      > <a name="2946" class="Symbol"
+      >(</a
+      ><a name="2947" href="Sized.Conat.html#_&#8734;&#8804;_.force" class="Field"
+      >_&#8734;&#8804;_.force</a
+      > <a name="2958" href="Sized.Conat.html#2920" class="Bound"
+      >q</a
+      ><a name="2959" class="Symbol"
+      >)</a
+      >
+</pre
+    ></body
+  ></html
+>

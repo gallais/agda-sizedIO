@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><title
+    >cat</title
+    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta http-equiv="Content-Style-Type" content="text/css"
+     /><link href="Agda.css" rel="stylesheet" type="text/css"
+     /></head
+  ><body
+  ><pre
+    ><a name="1" class="Keyword"
+      >module</a
+      > <a name="8" href="cat.html" class="Module"
+      >cat</a
+      > <a name="12" class="Keyword"
+      >where</a
+      >
+
+<a name="19" class="Keyword"
+      >open</a
+      > <a name="24" class="Keyword"
+      >import</a
+      > <a name="31" href="Foreign.Haskell.html" class="Module"
+      >Foreign.Haskell</a
+      >
+<a name="47" class="Keyword"
+      >open</a
+      > <a name="52" class="Keyword"
+      >import</a
+      > <a name="59" href="Agda.Builtin.List.html" class="Module"
+      >Agda.Builtin.List</a
+      >
+<a name="77" class="Keyword"
+      >open</a
+      > <a name="82" class="Keyword"
+      >import</a
+      > <a name="89" href="Data.Char.Base.html" class="Module"
+      >Data.Char.Base</a
+      >
+<a name="104" class="Keyword"
+      >open</a
+      > <a name="109" class="Keyword"
+      >import</a
+      > <a name="116" href="Data.String.Base.html" class="Module"
+      >Data.String.Base</a
+      >
+<a name="133" class="Keyword"
+      >open</a
+      > <a name="138" class="Keyword"
+      >import</a
+      > <a name="145" href="Data.Colist.html" class="Module"
+      >Data.Colist</a
+      > <a name="157" class="Symbol"
+      >as</a
+      > <a name="160" class="Module"
+      >C</a
+      >
+<a name="162" class="Keyword"
+      >open</a
+      > <a name="167" class="Keyword"
+      >import</a
+      > <a name="174" href="Sized.Colist.html" class="Module"
+      >Sized.Colist</a
+      >
+<a name="187" class="Keyword"
+      >open</a
+      > <a name="192" class="Keyword"
+      >import</a
+      > <a name="199" href="Function.html" class="Module"
+      >Function</a
+      >
+<a name="208" class="Keyword"
+      >open</a
+      > <a name="213" class="Keyword"
+      >import</a
+      > <a name="220" href="Sized.IO.html" class="Module"
+      >Sized.IO</a
+      >
+<a name="229" class="Keyword"
+      >open</a
+      > <a name="234" class="Keyword"
+      >import</a
+      > <a name="241" href="System.FilePath.Posix.html" class="Module"
+      >System.FilePath.Posix</a
+      >
+<a name="263" class="Keyword"
+      >open</a
+      > <a name="268" class="Keyword"
+      >import</a
+      > <a name="275" href="System.Environment.html" class="Module"
+      >System.Environment</a
+      >
+
+<a name="putChar" href="cat.html#putChar" class="Function"
+      >putChar</a
+      > <a name="303" class="Symbol"
+      >:</a
+      > <a name="305" href="Agda.Builtin.Char.html#Char" class="Postulate"
+      >Char</a
+      > <a name="310" class="Symbol"
+      >&#8594;</a
+      > <a name="312" href="Sized.IO.html#IO" class="Function"
+      >IO</a
+      > <a name="315" class="Symbol"
+      >_</a
+      >
+<a name="317" href="cat.html#putChar" class="Function"
+      >putChar</a
+      > <a name="325" href="cat.html#325" class="Bound"
+      >c</a
+      > <a name="327" class="Symbol"
+      >=</a
+      > <a name="329" href="Sized.IO.html#putStr" class="Function"
+      >putStr</a
+      > <a name="336" class="Symbol"
+      >(</a
+      ><a name="337" href="Data.Colist.html#fromList" class="Function"
+      >C.fromList</a
+      > <a name="348" class="Symbol"
+      >(</a
+      ><a name="349" href="cat.html#325" class="Bound"
+      >c</a
+      > <a name="351" href="Agda.Builtin.List.html#List._&#8759;_" class="InductiveConstructor Operator"
+      >&#8759;</a
+      > <a name="353" href="Agda.Builtin.List.html#List.[]" class="InductiveConstructor"
+      >[]</a
+      ><a name="355" class="Symbol"
+      >))</a
+      >
+
+<a name="cat" href="cat.html#cat" class="Function"
+      >cat</a
+      > <a name="363" class="Symbol"
+      >:</a
+      > <a name="365" href="System.FilePath.Posix.html#FilePath" class="Postulate"
+      >FilePath</a
+      > <a name="374" class="Symbol"
+      >&#8594;</a
+      > <a name="376" href="Sized.IO.html#IO" class="Function"
+      >IO</a
+      > <a name="379" class="Symbol"
+      >_</a
+      >
+<a name="381" href="cat.html#cat" class="Function"
+      >cat</a
+      > <a name="385" href="cat.html#385" class="Bound"
+      >fp</a
+      > <a name="388" class="Symbol"
+      >=</a
+      > <a name="390" href="Sized.IO.html#readFile" class="Function"
+      >readFile</a
+      > <a name="399" href="cat.html#385" class="Bound"
+      >fp</a
+      > <a name="402" href="Sized.IO.html#1313" class="Function Operator"
+      >&gt;&gt;=</a
+      > <a name="406" class="Symbol"
+      >&#955;</a
+      > <a name="408" href="cat.html#408" class="Bound"
+      >cstr</a
+      > <a name="413" class="Symbol"
+      >&#8594;</a
+      >
+         <a name="424" href="Sized.IO.html#2929" class="Function"
+      >ColistIO.mapM</a
+      > <a name="438" href="cat.html#putChar" class="Function"
+      >putChar</a
+      > <a name="446" class="Symbol"
+      >(</a
+      ><a name="447" href="Sized.Colist.html#1029" class="Function"
+      >fromLegacy</a
+      > <a name="458" href="cat.html#408" class="Bound"
+      >cstr</a
+      ><a name="462" class="Symbol"
+      >)</a
+      >
+
+<a name="main" href="cat.html#main" class="Function"
+      >main</a
+      > <a name="470" class="Symbol"
+      >:</a
+      > <a name="472" class="Symbol"
+      >_</a
+      >
+<a name="474" href="cat.html#main" class="Function"
+      >main</a
+      > <a name="479" class="Symbol"
+      >=</a
+      > <a name="481" href="Sized.IO.html#run" class="Function"
+      >run</a
+      > <a name="485" href="Function.html#_$_" class="Function Operator"
+      >$</a
+      > <a name="487" href="System.Environment.html#getArgs" class="Function"
+      >getArgs</a
+      > <a name="495" href="Sized.IO.html#1313" class="Function Operator"
+      >&gt;&gt;=</a
+      > <a name="499" class="Symbol"
+      >&#955;</a
+      > <a name="501" href="cat.html#501" class="Bound"
+      >fps</a
+      > <a name="505" class="Symbol"
+      >&#8594;</a
+      >
+             <a name="520" href="Sized.IO.html#2306" class="Function"
+      >ListIO.mapM&#8242;</a
+      > <a name="533" class="Symbol"
+      >(</a
+      ><a name="534" href="cat.html#cat" class="Function"
+      >cat</a
+      > <a name="538" href="Function.html#_&#8728;_" class="Function Operator"
+      >&#8728;</a
+      > <a name="540" href="System.FilePath.Posix.html#mkFilePath" class="Postulate"
+      >mkFilePath</a
+      ><a name="550" class="Symbol"
+      >)</a
+      > <a name="552" href="cat.html#501" class="Bound"
+      >fps</a
+      >
+</pre
+    ></body
+  ></html
+>
