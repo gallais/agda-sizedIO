@@ -1,16 +1,18 @@
 module cat where
 
+open import Level
 open import Foreign.Haskell
-open import Sized.Colist
+open import Codata.Colist
 open import Function
 open import Sized.IO
 open import System.FilePath.Posix
 open import System.Environment
 
-cat : FilePath → IO _
-cat fp = readFile fp >>= λ cstr →
-         ColistIO.mapM putChar (fromLegacy cstr)
+cat : FilePath → IO zero Unit
+cat fp = do
+  cstr ← readFile fp
+  ColistIO.mapM′ putChar (fromMusical cstr)
 
-main : Main
-main = run $ getArgs >>= λ fps →
-             unit <$ ListIO.mapM′ (cat ∘ mkFilePath) fps
+main = run $ do
+  fps ← getArgs
+  ListIO.mapM′ (cat ∘′ mkFilePath) fps

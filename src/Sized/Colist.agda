@@ -38,7 +38,7 @@ module _ {a} {A : Set a} where
  take n       []       = BV.[]
  take (suc n) (x ∷ xs) = x BV.∷ take n (∞Colist′.force xs)
 
- import Data.Colist as CL
+ import Codata.Musical.Colist as CL
  open CL using ([] ; _∷_)
  import Coinduction as CI
 

@@ -6,126 +6,117 @@ open import Foreign.Haskell
 Main : Set
 Main = Prim.IO Unit
 
-import IO
 open import Level
 open import Size
+open import Codata.Thunk
+open import Agda.Builtin.Equality
 open import Function
 
-data    IO′ {a} (i : Size) (A : Set a) : Set (suc a)
-record ∞IO′ {a} (i : Size) (A : Set a) : Set (suc a)
+_≤ˡ_ : Level → Level → Set
+a ≤ˡ b = a ⊔ b ≡ b
 
-data IO′ {a} i A where
-  lift   : Prim.IO A → IO′ i A
-  return : A → IO′ i A
-  bind   : {B : Set a} → ∞IO′ i B → (B → ∞IO′ i A) → IO′ i A
+instance
+  a≤a : ∀ {a} → a ≤ˡ a
+  a≤a = refl
 
-record ∞IO′ i A where
-  coinductive
-  constructor delay
-  field force : {j : Size< i} → IO′ j A
+{-# NO_UNIVERSE_CHECK #-}
+data IO′ {a} (i : Size) (ℓ : Level) (A : Set a) : Set (suc ℓ) where
+  lift   : {{eq : a ≤ˡ ℓ}} → Prim.IO {a} A → IO′ i ℓ A
+  return : {{eq : a ≤ˡ ℓ}} → A → IO′ i ℓ A
+  bind   : ∀ {b} {B : Set b} →
+           Thunk (λ i → IO′ i ℓ B) i →
+           (B → Thunk (λ i → IO′ i ℓ A) i) → IO′ i ℓ A
 
-size<_  : ∀ {i a} {A : Set a} {j : Size< i} → IO′ i A → IO′ j A
-∞size<_ : ∀ {i a} {A : Set a} {j : Size< i} → ∞IO′ i A → ∞IO′ j A
 
-size< lift io  = lift io
-size< return a = return a
-size< bind m f = bind (∞size< m) (λ a → ∞size< (f a))
-
-mkDelay : ∀ {i a} {A : Set a} → IO′ i A → ∞IO′ i A
-∞IO′.force (mkDelay io) = size< io
-
-∞IO′.force (∞size< m) = ∞IO′.force m
-
-IO : ∀ {a} → Set a → Set (suc a)
+IO : ∀ {a} (ℓ : Level) → Set a → Set (suc ℓ)
 IO = IO′ ∞
-∞IO : ∀ {a} → Set a → Set (suc a)
-∞IO = ∞IO′ ∞
 
+module _ {ℓ a b} {A : Set a} {B : Set b} where
 
-module _ {a} {A B : Set a} where
-
- map  : ∀ {i} → (A → B) → IO′ i A → IO′ i B
- ∞map : ∀ {i} → (A → B) → ∞IO′ i A → ∞IO′ i B
-
+ map  : ∀ {i} {{_ : b ≤ˡ ℓ}} → (A → B) → IO′ i ℓ A → IO′ i ℓ B
  map f (lift m)   = lift (m Prim.>>= λ a → Prim.return (f a))
  map f (return a) = return (f a)
- map f (bind m g) = bind m (λ a → ∞map f (g a))
- ∞IO′.force (∞map f io) = map f (∞IO′.force io)
+ map f (bind m g) = bind m $ λ a → λ where .force → map f (g a .force)
 
- infixr 1 _>>=_
+ infixr 1 _>>=_ _ᵗ>>=_ _>>=ᵗ_
 
- _>>=_ : ∀ {i} → IO′ i A → (A → IO′ i B) → IO′ i B
- m >>= f = bind (mkDelay m) (λ a → mkDelay (f a))
+ _>>=_ : ∀ {i} → IO′ i ℓ A → (A → IO′ i ℓ B) → IO′ i ℓ B
+ m >>= f = bind (λ where .force → m) (λ a → λ where .force → f a)
+
+ _ᵗ>>=_ : ∀ {i} → Thunk (λ i → IO′ i ℓ A) i → (A → IO′ i ℓ B) → IO′ i ℓ B
+ m ᵗ>>= f = bind m (λ a → λ where .force → f a)
+
+ _>>=ᵗ_ : ∀ {i} → IO′ i ℓ A → (A → Thunk (λ i → IO′ i ℓ B) i) → IO′ i ℓ B
+ m >>=ᵗ f = bind (λ where .force → m) f
+
 
 open import Data.List.Base as List
 
-module _ {a} {A : Set a} where
-
-module _ {a} {A B : Set a} where
+module _ {a b ℓ} {A : Set a} {B : Set b} where
 
  infixr 1 _>>_
  infixl 1 _<<_ _<$_ _<$>_ _<*>_
 
- _<$>_ : ∀ {i} → (A → B) → IO′ i A → IO′ i B
- f <$> m = bind (mkDelay m) (λ a → mkDelay (return (f a)))
+ _<$>_ : ∀ {i} {{_ : b ≤ˡ ℓ}} → (A → B) → IO′ i ℓ A → IO′ i ℓ B
+ f <$> m = m >>= λ a → return (f a)
 
- _<$_ : A → IO B → IO A
- a <$ mb = mb >>= λ _ → return a 
+ _<$_ : {{_ : a ≤ˡ ℓ}} → A → IO ℓ B → IO ℓ A
+ a <$ mb = mb >>= λ _ → return a
 
- _<*>_ : ∀ {i} → IO′ i (A → B) → IO′ i A → IO′ i B
+ _<*>_ : ∀ {i} {{_ : b ≤ˡ ℓ}} → IO′ i ℓ (A → B) → IO′ i ℓ A → IO′ i ℓ B
  f <*> m = f >>= (_<$> m)
 
- _>>_ : IO A → IO B → IO B
+ _>>_ : IO ℓ A → IO ℓ B → IO ℓ B
  ma >> mb = ma >>= λ _ → mb
 
- _<<_ : IO A → IO B → IO A
+ _<<_ : {{_ : a ≤ˡ ℓ}} → IO ℓ A → IO ℓ B → IO ℓ A
  ma << mb = ma >>= λ a → a <$ mb
 
 module ListIO where
 
- module _ {a} {A : Set a} where
+ module _ {a ℓ} {A : Set a} {{_ : a ≤ˡ ℓ}} where
 
-  sequence : List (IO A) → IO (List A)
+  sequence : List (IO ℓ A) → IO ℓ (List A)
   sequence []         = return []
   sequence (mx ∷ mxs) = mx           >>= λ x →
                         sequence mxs >>= λ xs →
                         return (x ∷ xs)
 
- module _ {a} {A B : Set a} where
+ module _ {a b ℓ} {A : Set a} {B : Set b} {{_ : b ≤ˡ ℓ}} where
 
-  mapM : (A → IO B) → List A → IO (List B)
+  mapM : (A → IO ℓ B) → List A → IO ℓ (List B)
   mapM f xs = sequence (List.map f xs)
 
-  mapM′ : (A → IO B) → List A → IO (Lift Unit)
-  mapM′ f xs = lift unit <$ mapM f xs
+  mapM′ : (A → IO ℓ B) → List A → IO ℓ Unit
+  mapM′ f xs = unit <$ mapM f xs
 
-open import Sized.Colist as Colist
-open import Coinduction
+mkDelay : ∀ {i a ℓ} {A : Set a} → IO′ i ℓ A → Thunk (λ i → IO′ i ℓ A) i
+mkDelay io .force = io
+
+open import Codata.Colist as Colist
 
 module ColistIO where
 
- module _ {a} {A : Set a} where
+ module _ {a ℓ} {A : Set a} {{_ : a ≤ˡ ℓ}} where
 
-  sequence  : ∀ {i} → Colist (IO′ i A) → IO′ i (Colist A)
-  ∞sequence : ∀ {i} → ∞Colist (IO′ i A) → ∞IO′ i (Colist A)
-
+  sequence  : ∀ {i} → Colist (IO′ i ℓ A) ∞ → IO′ i ℓ (Colist A ∞)
   sequence []         = return []
-  sequence (mx ∷ mxs) = bind (mkDelay mx) $ λ x →
-                        mkDelay $ bind (∞sequence mxs) $ λ xs →
-                        mkDelay $ return (x ∷ delay xs)
+  sequence (mx ∷ mxs) =
+    mx                                        >>= λ x →
+    (λ where .force → sequence (mxs .force)) ᵗ>>= λ xs →
+    return (x ∷ λ where .force → xs)
 
-  ∞IO′.force (∞sequence mxs) = sequence (∞Colist′.force mxs)
+ module _ {a b ℓ} {A : Set a} {B : Set b} {{_ : b ≤ˡ ℓ}} where
 
- module _ {a} {A B : Set a} where
-
-  mapM : (A → IO B) → Colist A → IO (Colist B)
+  mapM : (A → IO ℓ B) → Colist A ∞ → IO ℓ (Colist B ∞)
   mapM f xs = sequence (Colist.map f xs)
 
-  mapM′ : (A → IO B) → Colist A → IO (Lift Unit)
-  mapM′ f xs = lift unit <$ mapM f xs
+  mapM′ : (A → IO ℓ B) → Colist A ∞ → IO ℓ Unit
+  mapM′ f xs = unit <$ mapM f xs
 
 open import Agda.Builtin.Char
 open import Data.String
+open import Codata.Musical.Costring
 open import System.FilePath.Posix
 import Sized.IO.Primitive as Prim
 open import Sized.IO.Primitive
@@ -133,38 +124,40 @@ open import Sized.IO.Primitive
          Handle ; stdin ; stdout ; stderr)
   public
 
-hSetBuffering  : Handle → BufferMode → IO Unit
-hGetBuffering  : Handle → IO BufferMode
-hFlush         : Handle → IO Unit
-interact       : (String → String) → IO Unit
-getChar        : IO Char
-getLine        : IO String
-getContents    : IO Costring
-readFile       : FilePath → IO Costring
-writeFile      : FilePath → Costring → IO Unit
-appendFile     : FilePath → Costring → IO Unit
-putChar        : Char → IO Unit
-putStr         : Costring → IO Unit
-putStrLn       : Costring → IO Unit
-readFiniteFile : FilePath → IO String
+module _ {ℓ} where
 
-hSetBuffering  = λ h b → lift (Prim.hSetBuffering h b)
-hGetBuffering  = λ h → lift (Prim.hGetBuffering h)
-hFlush         = λ h → lift (Prim.hFlush h)
-interact       = λ f → lift (Prim.interact f)
-getChar        = lift Prim.getChar
-getLine        = lift Prim.getLine
-getContents    = lift Prim.getContents
-readFile       = λ fp → lift (Prim.readFile (getFilePath fp))
-writeFile      = λ fp cstr → lift (Prim.writeFile (getFilePath fp) cstr)
-appendFile     = λ fp cstr → lift (Prim.appendFile (getFilePath fp) cstr)
-putChar        = λ c → lift (Prim.putChar c)
-putStr         = λ cstr → lift (Prim.putStr cstr)
-putStrLn       = λ cstr → lift (Prim.putStrLn cstr)
-readFiniteFile = λ fp → lift (Prim.readFiniteFile (getFilePath fp))
+ hSetBuffering  : Handle → BufferMode → IO ℓ Unit
+ hGetBuffering  : Handle → IO ℓ BufferMode
+ hFlush         : Handle → IO ℓ Unit
+ interact       : (String → String) → IO ℓ Unit
+ getChar        : IO ℓ Char
+ getLine        : IO ℓ String
+ getContents    : IO ℓ Costring
+ readFile       : FilePath → IO ℓ Costring
+ writeFile      : FilePath → Costring → IO ℓ Unit
+ appendFile     : FilePath → Costring → IO ℓ Unit
+ putChar        : Char → IO ℓ Unit
+ putStr         : Costring → IO ℓ Unit
+ putStrLn       : Costring → IO ℓ Unit
+ readFiniteFile : FilePath → IO ℓ String
+
+ hSetBuffering  = λ h b → lift (Prim.hSetBuffering h b)
+ hGetBuffering  = λ h → lift (Prim.hGetBuffering h)
+ hFlush         = λ h → lift (Prim.hFlush h)
+ interact       = λ f → lift (Prim.interact f)
+ getChar        = lift Prim.getChar
+ getLine        = lift Prim.getLine
+ getContents    = lift Prim.getContents
+ readFile       = λ fp → lift (Prim.readFile (getFilePath fp))
+ writeFile      = λ fp cstr → lift (Prim.writeFile (getFilePath fp) cstr)
+ appendFile     = λ fp cstr → lift (Prim.appendFile (getFilePath fp) cstr)
+ putChar        = λ c → lift (Prim.putChar c)
+ putStr         = λ cstr → lift (Prim.putStr cstr)
+ putStrLn       = λ cstr → lift (Prim.putStrLn cstr)
+ readFiniteFile = λ fp → lift (Prim.readFiniteFile (getFilePath fp))
 
 {-# NON_TERMINATING #-}
-run : ∀ {a} {A : Set a} → IO A → Prim.IO A
+run : ∀ {a ℓ} {A : Set a} → IO ℓ A → Prim.IO A
 run (lift io)  = io
 run (return a) = Prim.return a
-run (bind m f) = run (∞IO′.force m) Prim.>>= λ a → run (∞IO′.force (f a))
+run (bind m f) = run (m .force) Prim.>>= λ a → run (f a .force)

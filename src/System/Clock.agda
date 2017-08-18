@@ -22,17 +22,19 @@ diff (mkTime ss sns) (mkTime es ens) =
   then mkTime (es - suc ss) ((1000000000 + ens) - sns)
   else mkTime (es - ss) (ens - sns)
 
-getTime : Clock → IO Time
+getTime : ∀ {ℓ} → Clock → IO ℓ Time
 getTime c = (λ { (mkPair a b) → mkTime a b }) <$> lift (Prim.getTime c)
 
-time : {A : Set} → IO A → IO (A × Time)
-time io = getTime Realtime >>= λ start →
-          io               >>= λ a     →
-          getTime Realtime >>= λ end   →
-          return (a , diff start end)
+module _ {ℓ a} {A : Set a} {{_ : a ≤ˡ ℓ}} where
 
-time′ : {A : Set} → IO A → IO Time
-time′ io = proj₂ <$> time io
+  time : IO ℓ A → IO ℓ (A × Time)
+  time io = getTime Realtime >>= λ start →
+            io               >>= λ a     →
+            getTime Realtime >>= λ end   →
+            return (a , diff start end)
+
+  time′ : IO ℓ A → IO ℓ Time
+  time′ io = proj₂ <$> time io
 
 open import Data.Unit
 open import Data.Nat.Base as ℕ
@@ -55,9 +57,6 @@ show (mkTime s ns) prec = secs ++ "s" ++ padLeft '0' decimals nsecs where
                            {exp-nz 10 (9 ∸ decimals)})
 
    where
-
-    _^_ : ℕ → ℕ → ℕ
-    x ^ n = ℕ.fold 1 (x *_) n
 
     exp-nz : ∀ x n {x≠0 : False (x ℕ.≟ 0)} → False (x ^ n ℕ.≟ 0)
     exp-nz x zero    = tt
