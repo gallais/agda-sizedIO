@@ -1,137 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-><head
-  ><title
-    >stopwatch</title
-    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
-     /><meta http-equiv="Content-Style-Type" content="text/css"
-     /><link href="Agda.css" rel="stylesheet" type="text/css"
-     /></head
-  ><body
-  ><pre
-    ><a name="1" class="Keyword"
-      >module</a
-      > <a name="8" href="stopwatch.html" class="Module"
-      >stopwatch</a
-      > <a name="18" class="Keyword"
-      >where</a
-      >
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>stopwatch</title><link rel="stylesheet" href="Agda.css"></head><body><pre><a id="1" class="Keyword">module</a> <a id="8" href="stopwatch.html" class="Module">stopwatch</a> <a id="18" class="Keyword">where</a>
 
-<a name="25" class="Keyword"
-      >open</a
-      > <a name="30" class="Keyword"
-      >import</a
-      > <a name="37" href="Data.Fin.html" class="Module"
-      >Data.Fin</a
-      > <a name="46" class="Keyword"
-      >using</a
-      > <a name="52" class="Symbol"
-      >(</a
-      ><a name="53" href="Data.Fin.html##_" class="Function Operator"
-      >#_</a
-      ><a name="55" class="Symbol"
-      >)</a
-      >
-<a name="57" class="Keyword"
-      >open</a
-      > <a name="62" class="Keyword"
-      >import</a
-      > <a name="69" href="Sized.IO.html" class="Module"
-      >Sized.IO</a
-      >
-<a name="78" class="Keyword"
-      >open</a
-      > <a name="83" class="Keyword"
-      >import</a
-      > <a name="90" href="Function.html" class="Module"
-      >Function</a
-      >
-<a name="99" class="Keyword"
-      >open</a
-      > <a name="104" class="Keyword"
-      >import</a
-      > <a name="111" href="System.Clock.html" class="Module"
-      >System.Clock</a
-      > <a name="124" class="Symbol"
-      >as</a
-      > <a name="127" class="Module"
-      >Clock</a
-      >
-<a name="133" class="Keyword"
-      >open</a
-      > <a name="138" class="Keyword"
-      >import</a
-      > <a name="145" href="Data.String.html" class="Module"
-      >Data.String</a
-      > <a name="157" class="Keyword"
-      >using</a
-      > <a name="163" class="Symbol"
-      >(</a
-      ><a name="164" href="Data.String.html#toCostring" class="Function"
-      >toCostring</a
-      ><a name="174" class="Symbol"
-      >)</a
-      >
+<a id="25" class="Keyword">open</a> <a id="30" class="Keyword">import</a> <a id="37" href="Level.html" class="Module">Level</a> <a id="43" class="Keyword">using</a> <a id="49" class="Symbol">(</a><a id="50" href="Agda.Primitive.html#611" class="Primitive">zero</a><a id="54" class="Symbol">)</a>
+<a id="56" class="Keyword">open</a> <a id="61" class="Keyword">import</a> <a id="68" href="Data.Fin.html" class="Module">Data.Fin</a> <a id="77" class="Keyword">using</a> <a id="83" class="Symbol">(</a><a id="84" href="Data.Fin.html#1772" class="Function Operator">#_</a><a id="86" class="Symbol">)</a>
+<a id="88" class="Keyword">open</a> <a id="93" class="Keyword">import</a> <a id="100" href="Sized.IO.html" class="Module">Sized.IO</a>
+<a id="109" class="Keyword">open</a> <a id="114" class="Keyword">import</a> <a id="121" href="Function.html" class="Module">Function</a>
+<a id="130" class="Keyword">open</a> <a id="135" class="Keyword">import</a> <a id="142" href="System.Clock.html" class="Module">System.Clock</a> <a id="155" class="Symbol">as</a> <a id="158" class="Module">Clock</a>
+<a id="164" class="Keyword">open</a> <a id="169" class="Keyword">import</a> <a id="176" href="Codata.Musical.Costring.html" class="Module">Codata.Musical.Costring</a>
 
-<a name="main" href="stopwatch.html#main" class="Function"
-      >main</a
-      > <a name="182" class="Symbol"
-      >:</a
-      > <a name="184" href="Sized.IO.html#Main" class="Function"
-      >Main</a
-      >
-<a name="189" href="stopwatch.html#main" class="Function"
-      >main</a
-      > <a name="194" class="Symbol"
-      >=</a
-      > <a name="196" href="Sized.IO.html#run" class="Function"
-      >run</a
-      > <a name="200" href="Function.html#_$_" class="Function Operator"
-      >$</a
-      > <a name="202" href="Sized.IO.html#hSetBuffering" class="Function"
-      >hSetBuffering</a
-      > <a name="216" href="Sized.IO.Primitive.html#stdin" class="Postulate"
-      >stdin</a
-      > <a name="222" href="Sized.IO.Primitive.html#BufferMode.NoBuffering" class="InductiveConstructor"
-      >NoBuffering</a
-      > <a name="234" href="Sized.IO.html#1807" class="Function Operator"
-      >&gt;&gt;</a
-      >
-             <a name="250" href="System.Clock.html#time&#8242;" class="Function"
-      >time&#8242;</a
-      > <a name="256" href="Sized.IO.html#getChar" class="Function"
-      >getChar</a
-      > <a name="264" href="Sized.IO.html#1313" class="Function Operator"
-      >&gt;&gt;=</a
-      > <a name="268" class="Symbol"
-      >&#955;</a
-      > <a name="270" href="stopwatch.html#270" class="Bound"
-      >dff</a
-      > <a name="274" class="Symbol"
-      >&#8594;</a
-      >
-             <a name="289" href="Sized.IO.html#putStrLn" class="Function"
-      >putStrLn</a
-      > <a name="298" class="Symbol"
-      >(</a
-      ><a name="299" href="Data.String.html#toCostring" class="Function"
-      >toCostring</a
-      > <a name="310" href="Function.html#_$_" class="Function Operator"
-      >$</a
-      > <a name="312" href="System.Clock.html#show" class="Function"
-      >Clock.show</a
-      > <a name="323" href="stopwatch.html#270" class="Bound"
-      >dff</a
-      > <a name="327" class="Symbol"
-      >(</a
-      ><a name="328" href="Data.Fin.html##_" class="Function Operator"
-      >#</a
-      > <a name="330" class="Number"
-      >3</a
-      ><a name="331" class="Symbol"
-      >))</a
-      >
-</pre
-    ></body
-  ></html
->
+<a id="main"></a><a id="201" href="stopwatch.html#201" class="Function">main</a> <a id="206" class="Symbol">:</a> <a id="208" href="Sized.IO.html#81" class="Function">Main</a>
+<a id="213" href="stopwatch.html#201" class="Function">main</a> <a id="218" class="Symbol">=</a> <a id="220" href="Sized.IO.html#4829" class="Function">run</a> <a id="224" href="Function.html#1881" class="Function Operator">$</a> <a id="226" class="Symbol">(</a><a id="227" href="Sized.IO.html#641" class="Function">IO</a> <a id="230" href="Agda.Primitive.html#611" class="Primitive">zero</a> <a id="235" class="Symbol">_</a> <a id="237" href="Function.html#3051" class="Function Operator">∋_</a><a id="239" class="Symbol">)</a> <a id="241" href="Function.html#1881" class="Function Operator">$</a> <a id="243" class="Keyword">do</a>
+  <a id="248" href="Sized.IO.html#3496" class="Function">hSetBuffering</a> <a id="262" href="Sized.IO.Primitive.html#699" class="Postulate">stdin</a> <a id="268" href="Sized.IO.Primitive.html#590" class="InductiveConstructor">NoBuffering</a>
+  <a id="282" href="stopwatch.html#282" class="Bound">dff</a> <a id="286" href="Sized.IO.html#1008" class="Function Operator">←</a> <a id="288" href="System.Clock.html#994" class="Function">time′</a> <a id="294" href="Sized.IO.html#3674" class="Function">getChar</a>
+  <a id="304" href="Sized.IO.html#3981" class="Function">putStrLn</a> <a id="313" class="Symbol">(</a><a id="314" href="Codata.Musical.Costring.html#490" class="Function">toCostring</a> <a id="325" href="Function.html#1881" class="Function Operator">$</a> <a id="327" href="System.Clock.html#1361" class="Function">Clock.show</a> <a id="338" href="stopwatch.html#282" class="Bound">dff</a> <a id="342" class="Symbol">(</a><a id="343" href="Data.Fin.html#1772" class="Function Operator">#</a> <a id="345" class="Number">3</a><a id="346" class="Symbol">))</a>
+</pre></body></html>

@@ -1,157 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-><head
-  ><title
-    >cat</title
-    ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
-     /><meta http-equiv="Content-Style-Type" content="text/css"
-     /><link href="Agda.css" rel="stylesheet" type="text/css"
-     /></head
-  ><body
-  ><pre
-    ><a name="1" class="Keyword"
-      >module</a
-      > <a name="8" href="cat.html" class="Module"
-      >cat</a
-      > <a name="12" class="Keyword"
-      >where</a
-      >
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>cat</title><link rel="stylesheet" href="Agda.css"></head><body><pre><a id="1" class="Keyword">module</a> <a id="8" href="cat.html" class="Module">cat</a> <a id="12" class="Keyword">where</a>
 
-<a name="19" class="Keyword"
-      >open</a
-      > <a name="24" class="Keyword"
-      >import</a
-      > <a name="31" href="Foreign.Haskell.html" class="Module"
-      >Foreign.Haskell</a
-      >
-<a name="47" class="Keyword"
-      >open</a
-      > <a name="52" class="Keyword"
-      >import</a
-      > <a name="59" href="Sized.Colist.html" class="Module"
-      >Sized.Colist</a
-      >
-<a name="72" class="Keyword"
-      >open</a
-      > <a name="77" class="Keyword"
-      >import</a
-      > <a name="84" href="Function.html" class="Module"
-      >Function</a
-      >
-<a name="93" class="Keyword"
-      >open</a
-      > <a name="98" class="Keyword"
-      >import</a
-      > <a name="105" href="Sized.IO.html" class="Module"
-      >Sized.IO</a
-      >
-<a name="114" class="Keyword"
-      >open</a
-      > <a name="119" class="Keyword"
-      >import</a
-      > <a name="126" href="System.FilePath.Posix.html" class="Module"
-      >System.FilePath.Posix</a
-      >
-<a name="148" class="Keyword"
-      >open</a
-      > <a name="153" class="Keyword"
-      >import</a
-      > <a name="160" href="System.Environment.html" class="Module"
-      >System.Environment</a
-      >
+<a id="19" class="Keyword">open</a> <a id="24" class="Keyword">import</a> <a id="31" href="Level.html" class="Module">Level</a>
+<a id="37" class="Keyword">open</a> <a id="42" class="Keyword">import</a> <a id="49" href="Foreign.Haskell.html" class="Module">Foreign.Haskell</a>
+<a id="65" class="Keyword">open</a> <a id="70" class="Keyword">import</a> <a id="77" href="Codata.Colist.html" class="Module">Codata.Colist</a>
+<a id="91" class="Keyword">open</a> <a id="96" class="Keyword">import</a> <a id="103" href="Function.html" class="Module">Function</a>
+<a id="112" class="Keyword">open</a> <a id="117" class="Keyword">import</a> <a id="124" href="Sized.IO.html" class="Module">Sized.IO</a>
+<a id="133" class="Keyword">open</a> <a id="138" class="Keyword">import</a> <a id="145" href="System.FilePath.Posix.html" class="Module">System.FilePath.Posix</a>
+<a id="167" class="Keyword">open</a> <a id="172" class="Keyword">import</a> <a id="179" href="System.Environment.html" class="Module">System.Environment</a>
 
-<a name="cat" href="cat.html#cat" class="Function"
-      >cat</a
-      > <a name="184" class="Symbol"
-      >:</a
-      > <a name="186" href="System.FilePath.Posix.html#FilePath" class="Postulate"
-      >FilePath</a
-      > <a name="195" class="Symbol"
-      >&#8594;</a
-      > <a name="197" href="Sized.IO.html#IO" class="Function"
-      >IO</a
-      > <a name="200" class="Symbol"
-      >_</a
-      >
-<a name="202" href="cat.html#cat" class="Function"
-      >cat</a
-      > <a name="206" href="cat.html#206" class="Bound"
-      >fp</a
-      > <a name="209" class="Symbol"
-      >=</a
-      > <a name="211" href="Sized.IO.html#readFile" class="Function"
-      >readFile</a
-      > <a name="220" href="cat.html#206" class="Bound"
-      >fp</a
-      > <a name="223" href="Sized.IO.html#1313" class="Function Operator"
-      >&gt;&gt;=</a
-      > <a name="227" class="Symbol"
-      >&#955;</a
-      > <a name="229" href="cat.html#229" class="Bound"
-      >cstr</a
-      > <a name="234" class="Symbol"
-      >&#8594;</a
-      >
-         <a name="245" href="Sized.IO.html#2929" class="Function"
-      >ColistIO.mapM</a
-      > <a name="259" href="Sized.IO.html#putChar" class="Function"
-      >putChar</a
-      > <a name="267" class="Symbol"
-      >(</a
-      ><a name="268" href="Sized.Colist.html#1029" class="Function"
-      >fromLegacy</a
-      > <a name="279" href="cat.html#229" class="Bound"
-      >cstr</a
-      ><a name="283" class="Symbol"
-      >)</a
-      >
+<a id="cat"></a><a id="199" href="cat.html#199" class="Function">cat</a> <a id="203" class="Symbol">:</a> <a id="205" href="System.FilePath.Posix.html#199" class="Postulate">FilePath</a> <a id="214" class="Symbol">→</a> <a id="216" href="Sized.IO.html#641" class="Function">IO</a> <a id="219" href="Agda.Primitive.html#611" class="Primitive">zero</a> <a id="224" href="Foreign.Haskell.html#314" class="Datatype">Unit</a>
+<a id="229" href="cat.html#199" class="Function">cat</a> <a id="233" href="cat.html#233" class="Bound">fp</a> <a id="236" class="Symbol">=</a> <a id="238" class="Keyword">do</a>
+  <a id="243" href="cat.html#243" class="Bound">cstr</a> <a id="248" href="Sized.IO.html#1008" class="Function Operator">←</a> <a id="250" href="Sized.IO.html#3764" class="Function">readFile</a> <a id="259" href="cat.html#233" class="Bound">fp</a>
+  <a id="264" href="Sized.IO.html#3084" class="Function">ColistIO.mapM′</a> <a id="279" href="Sized.IO.html#3907" class="Function">putChar</a> <a id="287" class="Symbol">(</a><a id="288" href="Codata.Colist.html#3133" class="Function">fromMusical</a> <a id="300" href="cat.html#243" class="Bound">cstr</a><a id="304" class="Symbol">)</a>
 
-<a name="main" href="cat.html#main" class="Function"
-      >main</a
-      > <a name="291" class="Symbol"
-      >:</a
-      > <a name="293" href="Sized.IO.html#Main" class="Function"
-      >Main</a
-      >
-<a name="298" href="cat.html#main" class="Function"
-      >main</a
-      > <a name="303" class="Symbol"
-      >=</a
-      > <a name="305" href="Sized.IO.html#run" class="Function"
-      >run</a
-      > <a name="309" href="Function.html#_$_" class="Function Operator"
-      >$</a
-      > <a name="311" href="System.Environment.html#getArgs" class="Function"
-      >getArgs</a
-      > <a name="319" href="Sized.IO.html#1313" class="Function Operator"
-      >&gt;&gt;=</a
-      > <a name="323" class="Symbol"
-      >&#955;</a
-      > <a name="325" href="cat.html#325" class="Bound"
-      >fps</a
-      > <a name="329" class="Symbol"
-      >&#8594;</a
-      >
-             <a name="344" href="Foreign.Haskell.html#Unit.unit" class="InductiveConstructor"
-      >unit</a
-      > <a name="349" href="Sized.IO.html#1670" class="Function Operator"
-      >&lt;$</a
-      > <a name="352" href="Sized.IO.html#2306" class="Function"
-      >ListIO.mapM&#8242;</a
-      > <a name="365" class="Symbol"
-      >(</a
-      ><a name="366" href="cat.html#cat" class="Function"
-      >cat</a
-      > <a name="370" href="Function.html#_&#8728;_" class="Function Operator"
-      >&#8728;</a
-      > <a name="372" href="System.FilePath.Posix.html#mkFilePath" class="Postulate"
-      >mkFilePath</a
-      ><a name="382" class="Symbol"
-      >)</a
-      > <a name="384" href="cat.html#325" class="Bound"
-      >fps</a
-      >
-</pre
-    ></body
-  ></html
->
+<a id="main"></a><a id="307" href="cat.html#307" class="Function">main</a> <a id="312" class="Symbol">=</a> <a id="314" href="Sized.IO.html#4829" class="Function">run</a> <a id="318" href="Function.html#1881" class="Function Operator">$</a> <a id="320" class="Keyword">do</a>
+  <a id="325" href="cat.html#325" class="Bound">fps</a> <a id="329" href="Sized.IO.html#1008" class="Function Operator">←</a> <a id="331" href="System.Environment.html#275" class="Function">getArgs</a>
+  <a id="341" href="Sized.IO.html#2364" class="Function">ListIO.mapM′</a> <a id="354" class="Symbol">(</a><a id="355" href="cat.html#199" class="Function">cat</a> <a id="359" href="Function.html#948" class="Function Operator">∘′</a> <a id="362" href="System.FilePath.Posix.html#220" class="Postulate">mkFilePath</a><a id="372" class="Symbol">)</a> <a id="374" href="cat.html#325" class="Bound">fps</a>
+</pre></body></html>
