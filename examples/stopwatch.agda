@@ -5,7 +5,6 @@ open import Data.Fin using (#_)
 open import Sized.IO
 open import Function
 open import System.Clock as Clock
-open import Data.String
 open import Codata.Musical.Costring
 
 main : Main

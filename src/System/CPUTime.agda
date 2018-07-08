@@ -5,5 +5,5 @@ open Prim using (cpuTimePrecision) public
 open import Sized.IO
 open import Data.Nat.Base
 
-getCPUTime : IO ℕ
+getCPUTime : ∀ {ℓ} → IO ℓ ℕ
 getCPUTime = lift Prim.getCPUTime

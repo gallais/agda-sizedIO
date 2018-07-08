@@ -2,19 +2,13 @@ module System.Environment where
 
 open import Agda.Builtin.String
 open import Foreign.Haskell
-open import Foreign.Haskell.Extras
 open import System.FilePath.Posix
 
 open import Data.Maybe.Base
 open import Agda.Builtin.List
 import System.Environment.Primitive as Prim
 
-
--- TOGGLE THESE TO CHANGE ERROR
--------------------------------
-
 open import Sized.IO
-import IO.Primitive as Prim
 
 module _ {ℓ} where
 

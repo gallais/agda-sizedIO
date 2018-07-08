@@ -5,7 +5,6 @@ open import Agda.Builtin.String
 open import Data.Maybe.Base
 open import Agda.Builtin.List
 open import Foreign.Haskell
-open import Foreign.Haskell.Extras
 open import System.FilePath.Posix
 
 postulate

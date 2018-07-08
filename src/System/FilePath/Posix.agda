@@ -4,7 +4,7 @@ open import Agda.Builtin.Bool
 open import Agda.Builtin.List
 open import Agda.Builtin.String
 open import Data.Maybe.Base
-open import Foreign.Haskell.Extras
+open import Foreign.Haskell
 
 postulate
 

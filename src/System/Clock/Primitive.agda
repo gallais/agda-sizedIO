@@ -2,7 +2,7 @@ module System.Clock.Primitive where
 
 open import Agda.Builtin.Nat
 open import IO.Primitive
-open import Foreign.Haskell.Extras
+open import Foreign.Haskell
 
 data Clock : Set where
   Monotonic Realtime ProcessCPUTime : Clock
