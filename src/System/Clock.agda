@@ -43,7 +43,7 @@ module _ {ℓ a} {A : Set a} {{_ : a ≤ˡ ℓ}} where
 open import Data.Nat.Base as ℕ
 import Data.Nat.Show as NatShow
 open import Data.Nat.DivMod
-open import Data.Nat.Properties
+open import Data.Nat.Properties as ℕₚ
 open import Data.Fin
 open import Data.String.Base hiding (show)
 open import Data.String.Extras
@@ -59,5 +59,5 @@ show (mkTime s ns) prec = secs ++ "s" ++ padLeft '0' decimals nsecs where
 
    where
 
-    exp-nz : ∀ x n {x≠0 : False (x ℕ.≟ 0)} → False (x ^ n ℕ.≟ 0)
+    exp-nz : ∀ x n {x≠0 : False (x ℕₚ.≟ 0)} → False (x ^ n ℕₚ.≟ 0)
     exp-nz x n {x≠0} = fromWitnessFalse (toWitnessFalse x≠0 ∘′ i^j≡0⇒i≡0 x n)

@@ -6,6 +6,7 @@ open import Sized.IO
 open import Data.Bool
 open import Data.Nat
 open import Data.String
+open import Data.String.Unsafe
 open import Codata.Musical.Costring
 open import Data.Product
 open import Function

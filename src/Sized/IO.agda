@@ -8,7 +8,7 @@ Main = Prim.IO Unit
 
 open import Level
 open import Size
-open import Codata.Thunk
+open import Codata.Thunk using (Thunk; force)
 open import Agda.Builtin.Equality
 open import Function
 
