@@ -1,4 +1,4 @@
-module Sized.IO.Types where
+module Codata.IO.Types where
 
 open import Data.Maybe.Base
 open import Data.Nat.Base

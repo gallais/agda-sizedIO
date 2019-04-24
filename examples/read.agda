@@ -2,11 +2,10 @@ module read where
 
 open import Agda.Builtin.Unit
 open import Level as L
-open import Sized.IO
-open import Data.Bool
-open import Data.Nat
+open import Codata.IO
+open import Data.Bool.Base
+open import Data.Nat.Base
 open import Data.String
-open import Data.String.Unsafe
 open import Codata.Musical.Costring
 open import Data.Product
 open import Function

@@ -5,7 +5,7 @@ open import Agda.Builtin.Unit
 open import Codata.Colist
 open import Codata.Musical.Colist using (fromMusical)
 open import Function
-open import Sized.IO
+open import Codata.IO
 open import System.FilePath.Posix
 open import System.Environment
 

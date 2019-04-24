@@ -1,4 +1,4 @@
-module Sized.IO.Primitive where
+module Codata.IO.Primitive where
 
 open import IO.Primitive
 open import Agda.Builtin.Nat

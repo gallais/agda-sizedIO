@@ -1,9 +1,10 @@
 module System.Clock where
 
+open import Level using (Level)
 open import Data.Bool.Base
 open import Data.Product
 open import Agda.Builtin.Nat
-open import Sized.IO
+open import Codata.IO
 open import Function
 open import Foreign.Haskell
 open import System.Clock.Primitive as Prim
@@ -28,7 +29,7 @@ getTime c = do
   (a , b) ← lift (Prim.getTime c)
   return $ mkTime a b
 
-module _ {ℓ a} {A : Set a} {{_ : a ≤ˡ ℓ}} where
+module _ {a ℓ} {A : Set a} {{_ : a ≤ˡ ℓ}} where
 
   time : IO ℓ A → IO ℓ (A × Time)
   time io = do

@@ -20,9 +20,18 @@ import stopwatch
 
 -- Main module
 
-import Sized.IO
+import Codata.IO
 
--- Example of Bindings from Haskell's Prelude
+-- Example of bindings
+
+import System.Clock.Primitive
+import System.Clock
+
+import System.CPUTime.Primitive
+import System.CPUTime
 
 import System.Environment.Primitive
 import System.Environment
+
+import System.FilePath.Posix.Primitive
+import System.FilePath.Posix

@@ -66,7 +66,7 @@ module BufferMode where
                              )
   #-}
 
-  open import Sized.IO.Types as Types hiding (BufferMode)
+  open import Codata.IO.Types as Types hiding (BufferMode)
 
   fromForeign : BufferMode → Types.BufferMode
   fromForeign NoBuffering         = NoBuffering
