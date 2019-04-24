@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>System.CPUTime.Primitive</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Keyword">module</a> <a id="8" href="System.CPUTime.Primitive.html" class="Module">System.CPUTime.Primitive</a> <a id="33" class="Keyword">where</a>
+
+<a id="40" class="Keyword">open</a> <a id="45" class="Keyword">import</a> <a id="52" href="Agda.Builtin.Nat.html" class="Module">Agda.Builtin.Nat</a>
+<a id="69" class="Keyword">open</a> <a id="74" class="Keyword">import</a> <a id="81" href="IO.Primitive.html" class="Module">IO.Primitive</a>
+
+<a id="95" class="Keyword">postulate</a>
+  <a id="getCPUTime"></a><a id="107" href="System.CPUTime.Primitive.html#107" class="Postulate">getCPUTime</a> <a id="118" class="Symbol">:</a> <a id="120" href="Agda.Builtin.IO.html#111" class="Postulate">IO</a> <a id="123" href="Agda.Builtin.Nat.html#165" class="Datatype">Nat</a>
+  <a id="cpuTimePrecision"></a><a id="129" href="System.CPUTime.Primitive.html#129" class="Postulate">cpuTimePrecision</a> <a id="146" class="Symbol">:</a> <a id="148" href="Agda.Builtin.Nat.html#165" class="Datatype">Nat</a>
+
+<a id="153" class="Symbol">{-#</a> <a id="157" class="Keyword">FOREIGN</a> <a id="165" class="Pragma">GHC</a> <a id="169" class="Pragma">import</a> <a id="176" class="Pragma">qualified</a> <a id="186" class="Pragma">System.CPUTime</a> <a id="201" class="Pragma">as</a> <a id="204" class="Pragma">CPT</a>  <a id="209" class="Symbol">#-}</a>
+<a id="213" class="Symbol">{-#</a> <a id="217" class="Keyword">COMPILE</a> <a id="225" class="Pragma">GHC</a> <a id="229" href="System.CPUTime.Primitive.html#107" class="Postulate">getCPUTime</a> <a id="240" class="Pragma">=</a> <a id="242" class="Pragma">CPT.getCPUTime</a>             <a id="269" class="Symbol">#-}</a>
+<a id="273" class="Symbol">{-#</a> <a id="277" class="Keyword">COMPILE</a> <a id="285" class="Pragma">GHC</a> <a id="289" href="System.CPUTime.Primitive.html#129" class="Postulate">cpuTimePrecision</a> <a id="306" class="Pragma">=</a> <a id="308" class="Pragma">CPT.cpuTimePrecision</a> <a id="329" class="Symbol">#-}</a>
+</pre></body></html>
