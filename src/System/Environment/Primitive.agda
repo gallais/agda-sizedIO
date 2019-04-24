@@ -2,9 +2,11 @@ module System.Environment.Primitive where
 
 open import IO.Primitive
 open import Agda.Builtin.String
-open import Data.Maybe.Base
 open import Agda.Builtin.List
-open import Foreign.Haskell
+open import Agda.Builtin.Unit
+open import Foreign.Haskell using (Pair)
+open import Foreign.Haskell.Extras
+
 open import System.FilePath.Posix
 
 postulate
@@ -12,9 +14,9 @@ postulate
   getArgs           : IO (List String)
   getProgName       : IO String
   getExecutablePath : IO FilePath
-  lookupEnv         : String → IO (Maybe String)
-  setEnv            : String → String → IO Unit
-  unsetEnv          : String → IO Unit
+  lookupEnv         : String → IO (Maybe.Maybe String)
+  setEnv            : String → String → IO ⊤
+  unsetEnv          : String → IO ⊤
   withArgs          : ∀ {a} {A : Set a} → List String → IO A → IO A
   withProgName      : ∀ {a} {A : Set a} → String → IO A → IO A
   getEnvironment    : IO (List (Pair String String))

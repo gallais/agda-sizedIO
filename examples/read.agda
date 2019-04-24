@@ -1,6 +1,6 @@
 module read where
 
-open import Foreign.Haskell
+open import Agda.Builtin.Unit
 open import Level as L
 open import Sized.IO
 open import Data.Bool
@@ -38,7 +38,7 @@ dispatch : {S : Set} → Type S → StringOf S
 dispatch N = it
 dispatch B = it
 
-read : IO (L.suc L.zero) Unit
+read : IO (L.suc L.zero) ⊤
 read = do
   (s , S) ← readSet
   let str = StringOf.string (dispatch S)

@@ -1,15 +1,17 @@
 module Sized.IO where
 
 import IO.Primitive as Prim
-open import Foreign.Haskell
+open import Agda.Builtin.Unit
+open import Foreign.Haskell.Extras
 
 Main : Set
-Main = Prim.IO Unit
+Main = Prim.IO ⊤
 
 open import Level
 open import Size
 open import Codata.Thunk using (Thunk; force)
 open import Agda.Builtin.Equality
+open import Data.Maybe.Base using (Maybe)
 open import Function
 
 _≤ˡ_ : Level → Level → Set
@@ -50,8 +52,6 @@ module _ {ℓ a b} {A : Set a} {B : Set b} where
  m >>=ᵗ f = bind (λ where .force → m) f
 
 
-open import Data.List.Base as List
-
 module _ {a b ℓ} {A : Set a} {B : Set b} where
 
  infixr 1 _>>_
@@ -74,6 +74,8 @@ module _ {a b ℓ} {A : Set a} {B : Set b} where
 
 module ListIO where
 
+ open import Data.List.Base as List using (List; []; _∷_)
+
  module _ {a ℓ} {A : Set a} {{_ : a ≤ˡ ℓ}} where
 
   sequence : List (IO ℓ A) → IO ℓ (List A)
@@ -87,15 +89,15 @@ module ListIO where
   mapM : (A → IO ℓ B) → List A → IO ℓ (List B)
   mapM f xs = sequence (List.map f xs)
 
-  mapM′ : (A → IO ℓ B) → List A → IO ℓ Unit
-  mapM′ f xs = unit <$ mapM f xs
+  mapM′ : (A → IO ℓ B) → List A → IO ℓ ⊤
+  mapM′ f xs = tt <$ mapM f xs
 
 mkDelay : ∀ {i a ℓ} {A : Set a} → IO′ i ℓ A → Thunk (λ i → IO′ i ℓ A) i
 mkDelay io .force = io
 
-open import Codata.Colist as Colist
-
 module ColistIO where
+
+ open import Codata.Colist as Colist using (Colist; []; _∷_)
 
  module _ {a ℓ} {A : Set a} {{_ : a ≤ˡ ℓ}} where
 
@@ -111,38 +113,50 @@ module ColistIO where
   mapM : (A → IO ℓ B) → Colist A ∞ → IO ℓ (Colist B ∞)
   mapM f xs = sequence (Colist.map f xs)
 
-  mapM′ : (A → IO ℓ B) → Colist A ∞ → IO ℓ Unit
-  mapM′ f xs = unit <$ mapM f xs
+  mapM′ : (A → IO ℓ B) → Colist A ∞ → IO ℓ ⊤
+  mapM′ f xs = tt <$ mapM f xs
 
 open import Agda.Builtin.Char
 open import Data.String
 open import Codata.Musical.Costring
 open import System.FilePath.Posix
 import Sized.IO.Primitive as Prim
-open import Sized.IO.Primitive
-  using (BufferMode ; NoBuffering ; LineBuffering ; BlockBuffering ;
-         Handle ; stdin ; stdout ; stderr)
+
+open import Sized.IO.Types
+  using ( BufferMode
+        ; NoBuffering
+        ; LineBuffering
+        ; BlockBuffering
+        )
   public
+open import Sized.IO.Primitive
+  using ( Handle
+        ; stdin
+        ; stdout
+        ; stderr
+        )
+  public
+
 
 module _ {ℓ} where
 
- hSetBuffering  : Handle → BufferMode → IO ℓ Unit
+ hSetBuffering  : Handle → BufferMode → IO ℓ ⊤
  hGetBuffering  : Handle → IO ℓ BufferMode
- hFlush         : Handle → IO ℓ Unit
- interact       : (String → String) → IO ℓ Unit
+ hFlush         : Handle → IO ℓ ⊤
+ interact       : (String → String) → IO ℓ ⊤
  getChar        : IO ℓ Char
  getLine        : IO ℓ String
  getContents    : IO ℓ Costring
  readFile       : FilePath → IO ℓ Costring
- writeFile      : FilePath → Costring → IO ℓ Unit
- appendFile     : FilePath → Costring → IO ℓ Unit
- putChar        : Char → IO ℓ Unit
- putStr         : Costring → IO ℓ Unit
- putStrLn       : Costring → IO ℓ Unit
+ writeFile      : FilePath → Costring → IO ℓ ⊤
+ appendFile     : FilePath → Costring → IO ℓ ⊤
+ putChar        : Char → IO ℓ ⊤
+ putStr         : Costring → IO ℓ ⊤
+ putStrLn       : Costring → IO ℓ ⊤
  readFiniteFile : FilePath → IO ℓ String
 
- hSetBuffering  = λ h b → lift (Prim.hSetBuffering h b)
- hGetBuffering  = λ h → lift (Prim.hGetBuffering h)
+ hSetBuffering h b = lift (Prim.hSetBuffering h (BufferMode.toForeign b))
+ hGetBuffering h = BufferMode.fromForeign <$> lift (Prim.hGetBuffering h)
  hFlush         = λ h → lift (Prim.hFlush h)
  interact       = λ f → lift (Prim.interact f)
  getChar        = lift Prim.getChar
