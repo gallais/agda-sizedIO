@@ -13,7 +13,7 @@ if ! type "agda" > /dev/null || [ ! "$CURRENT" = "$VERSION" ]; then
   mkdir -p $HOME/.agda
   cp libraries $HOME/.agda/
   cd $HOME/.agda/
-  git clone https://github.com:agda/agda-stdlib
+  git clone https://github.com/agda/agda-stdlib
   cd agda-stdlib
   git checkout experimental
   cd -
