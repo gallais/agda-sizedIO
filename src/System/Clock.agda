@@ -3,7 +3,7 @@ module System.Clock where
 open import Level using (Level)
 open import Data.Bool.Base
 open import Data.Product
-open import Agda.Builtin.Nat
+open import Data.Nat.Base using (ℕ; zero; suc; _+_; _∸_; _^_; _<ᵇ_)
 open import Codata.IO
 open import Function
 open import Foreign.Haskell
@@ -14,15 +14,15 @@ open import System.Clock.Primitive as Prim
 
 record Time : Set where
   constructor mkTime
-  field seconds     : Nat
-        nanoseconds : Nat
+  field seconds     : ℕ
+        nanoseconds : ℕ
 open Time public
 
 diff : Time → Time → Time
 diff (mkTime ss sns) (mkTime es ens) =
-  if ens < sns
-  then mkTime (es - suc ss) ((1000000000 + ens) - sns)
-  else mkTime (es - ss) (ens - sns)
+  if ens <ᵇ sns
+  then mkTime (es ∸ suc ss) ((1000000000 + ens) ∸ sns)
+  else mkTime (es ∸ ss) (ens ∸ sns)
 
 getTime : ∀ {ℓ} → Clock → IO ℓ Time
 getTime c = do
@@ -41,8 +41,7 @@ module _ {a ℓ} {A : Set a} {{_ : a ≤ˡ ℓ}} where
   time′ : IO ℓ A → IO ℓ Time
   time′ io = proj₂ <$> time io
 
-open import Data.Nat.Base as ℕ
-import Data.Nat.Show as NatShow
+import Data.Nat.Show as ℕ
 open import Data.Nat.DivMod
 open import Data.Nat.Properties as ℕₚ
 open import Data.Fin
@@ -54,11 +53,11 @@ open import Relation.Binary.PropositionalEquality
 show : Time → Fin 9 → String
 show (mkTime s ns) prec = secs ++ "s" ++ padLeft '0' decimals nsecs where
   decimals  = toℕ prec
-  secs      = NatShow.show s
-  nsecs     = NatShow.show ((ns div (10 ^ (9 ∸ decimals)))
+  secs      = ℕ.show s
+  nsecs     = ℕ.show ((ns div (10 ^ (9 ∸ decimals)))
                            {exp-nz 10 (9 ∸ decimals)})
 
    where
 
     exp-nz : ∀ x n {x≠0 : False (x ℕₚ.≟ 0)} → False (x ^ n ℕₚ.≟ 0)
-    exp-nz x n {x≠0} = fromWitnessFalse (toWitnessFalse x≠0 ∘′ i^j≡0⇒i≡0 x n)
+    exp-nz x n {x≠0} = fromWitnessFalse (toWitnessFalse x≠0 ∘′ m^n≡0⇒m≡0 x n)
