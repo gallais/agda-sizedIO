@@ -1,116 +1,110 @@
-module Codata.IO where
+{-# OPTIONS --without-K --sized-types --safe --cumulativity #-}
 
-import IO.Primitive as Prim
-open import Agda.Builtin.Unit
-open import Foreign.Haskell.Extras
+open import Level using (Level; suc; _⊔_)
 
-Main : Set
-Main = Prim.IO ⊤
+module Codata.IO
+  (F     : ∀ l → Set l → Set l)
+  (liftF : ∀ {l A} l' → F l A → F (l ⊔ l') A)
+  (mapF  : ∀ {a b} {A : Set a} {B : Set b} → (A → B) → F a A → F b B)
+  where
 
-open import Level
 open import Size
 open import Codata.Thunk using (Thunk; force)
 open import Agda.Builtin.Equality
 open import Data.Maybe.Base using (Maybe)
 open import Function
 
-_≤ˡ_ : Level → Level → Set
-a ≤ˡ b = a ⊔ b ≡ b
+data IO′ (l : Level) (A : Set l) (i : Size) : Set (suc l) where
+  action : F l A → IO′ l A i
+  return : A → IO′ l A i
+  bind   : ∀ (B : Set l) → Thunk (IO′ l B) i → (B → Thunk (IO′ l A) i) → IO′ l A i
 
-instance
-  a≤a : ∀ {a} → a ≤ˡ a
-  a≤a = refl
+lift′ : ∀ {i l A} l' → IO′ l A i → IO′ (l ⊔ l') A i
+lift′ l' (action x) = action (liftF l' x)
+lift′ l' (return a) = return a
+lift′ l' (bind B m f) =
+  bind B (λ where .force → lift′ l' (m .force)) λ b →
+         (λ where .force → lift′ l' (f b .force))
 
-{-# NO_UNIVERSE_CHECK #-}
-data IO′ {a} (i : Size) (ℓ : Level) (A : Set a) : Set (suc ℓ) where
-  lift   : {{eq : a ≤ˡ ℓ}} → Prim.IO {a} A → IO′ i ℓ A
-  return : {{eq : a ≤ˡ ℓ}} → A → IO′ i ℓ A
-  bind   : ∀ {b} {B : Set b} →
-           Thunk (λ i → IO′ i ℓ B) i →
-           (B → Thunk (λ i → IO′ i ℓ A) i) → IO′ i ℓ A
+IO : (l : Level) → Set l → Set (suc l)
+IO l A = IO′ l A ∞
 
+module _ {a b} {A : Set a} {B : Set b} where
 
-IO : ∀ {a} (ℓ : Level) → Set a → Set (suc ℓ)
-IO = IO′ ∞
+  map : ∀ {i} → (A → B) → IO′ a A i → IO′ (a ⊔ b) B i
+  map f (action x) = action (mapF f x)
+  map f (return a) = return (f a)
+  map f (bind B m g) =
+    bind B (λ where .force → lift′ b (m .force)) λ b →
+           (λ where .force → map f (g b .force))
 
-private
-  variable
-    a b ℓ : Level
-    A : Set a
-    B : Set b
-    i : Size
+  infixr 1 _>>=_ _ᵗ>>=_ _>>=ᵗ_
 
-map  : {B : Set b} {{_ : b ≤ˡ ℓ}} → (A → B) → IO′ i ℓ A → IO′ i ℓ B
-map f (lift m)   = lift (m Prim.>>= λ a → Prim.return (f a))
-map f (return a) = return (f a)
-map f (bind m g) = bind m $ λ a → λ where .force → map f (g a .force)
+  _>>=_ : ∀ {i} → IO′ a A i → (A → IO′ b B i) → IO′ (a ⊔ b) B i
+  m >>= f = bind A (λ where .force → lift′ b m) (λ x → λ where .force → lift′ a (f x))
 
-infixr 1 _>>=_ _ᵗ>>=_ _>>=ᵗ_
+  _ᵗ>>=_ : ∀ {i} → Thunk {ℓ = suc a} (IO′ a A) i → (A → IO′ b B i) → IO′ (a ⊔ b) B i
+  m ᵗ>>= f = bind A (λ where .force → lift′ b (m .force)) (λ x → λ where .force → lift′ a (f x))
 
-_>>=_ : IO′ i ℓ A → (A → IO′ i ℓ B) → IO′ i ℓ B
-m >>= f = bind (λ where .force → m) (λ a → λ where .force → f a)
+  _>>=ᵗ_ : ∀ {i} → IO′ a A i → (A → Thunk {ℓ = suc b} (IO′ b B) i) → IO′ (a ⊔ b) B i
+  m >>=ᵗ f = bind A (λ where .force → lift′ b m) λ x → λ where .force → lift′ a (f x .force)
 
-_ᵗ>>=_ : Thunk (λ i → IO′ i ℓ A) i → (A → IO′ i ℓ B) → IO′ i ℓ B
-m ᵗ>>= f = bind m (λ a → λ where .force → f a)
-
-_>>=ᵗ_ : IO′ i ℓ A → (A → Thunk (λ i → IO′ i ℓ B) i) → IO′ i ℓ B
-m >>=ᵗ f = bind (λ where .force → m) f
-
+{-
 infixr 1 _>>_
 infixl 1 _<<_ _<$_ _<$>_ _<*>_
 
-_<$>_ : {B : Set b} {{_ : b ≤ˡ ℓ}} → (A → B) → IO′ i ℓ A → IO′ i ℓ B
+_<$>_ : {B : Set b} {{_ : b ≤ˡ l}} → (A → B) → IO′ i l A → IO′ i l B
 f <$> m = m >>= λ a → return (f a)
 
-_<$_ : {A : Set a} {{_ : a ≤ˡ ℓ}} → A → IO ℓ B → IO ℓ A
+_<$_ : {A : Set a} {{_ : a ≤ˡ l}} → A → IO l B → IO l A
 a <$ mb = mb >>= λ _ → return a
 
-_<*>_ : {B : Set b} {{_ : b ≤ˡ ℓ}} → IO′ i ℓ (A → B) → IO′ i ℓ A → IO′ i ℓ B
+_<*>_ : {B : Set b} {{_ : b ≤ˡ l}} → IO′ i l (A → B) → IO′ i l A → IO′ i l B
 f <*> m = f >>= (_<$> m)
 
-_>>_ : IO ℓ A → IO ℓ B → IO ℓ B
+_>>_ : IO l A → IO l B → IO l B
 ma >> mb = ma >>= λ _ → mb
 
-_<<_ : {A : Set a} {{_ : a ≤ˡ ℓ}} → IO ℓ A → IO ℓ B → IO ℓ A
+_<<_ : {A : Set a} {{_ : a ≤ˡ l}} → IO l A → IO l B → IO l A
 ma << mb = ma >>= λ a → a <$ mb
 
 module ListIO where
 
   open import Data.List.Base as List using (List; []; _∷_)
 
-  sequence : {A : Set a} {{_ : a ≤ˡ ℓ}} →
-             List (IO ℓ A) → IO ℓ (List A)
+  sequence : {A : Set a} {{_ : a ≤ˡ l}} →
+             List (IO l A) → IO l (List A)
   sequence []         = return []
   sequence (mx ∷ mxs) = mx           >>= λ x →
                         sequence mxs >>= λ xs →
                         return (x ∷ xs)
 
-  module _ {B : Set b} {{_ : b ≤ˡ ℓ}} where
+  module _ {B : Set b} {{_ : b ≤ˡ l}} where
 
-    mapM : (A → IO ℓ B) → List A → IO ℓ (List B)
+    mapM : (A → IO l B) → List A → IO l (List B)
     mapM f xs = sequence (List.map f xs)
 
-    mapM′ : (A → IO ℓ B) → List A → IO ℓ ⊤
+    mapM′ : (A → IO l B) → List A → IO l ⊤
     mapM′ f xs = tt <$ mapM f xs
 
 module ColistIO where
 
   open import Codata.Colist as Colist using (Colist; []; _∷_)
 
-  sequence : {A : Set a} {{_ : a ≤ˡ ℓ}} →
-             Colist (IO′ i ℓ A) ∞ → IO′ i ℓ (Colist A ∞)
+  sequence : {A : Set a} {{_ : a ≤ˡ l}} →
+             Colist (IO′ i l A) ∞ → IO′ i l (Colist A ∞)
   sequence []         = return []
   sequence (mx ∷ mxs) =
     mx                                        >>= λ x →
     (λ where .force → sequence (mxs .force)) ᵗ>>= λ xs →
     return (x ∷ λ where .force → xs)
 
-  module _  {B : Set b} {{_ : b ≤ˡ ℓ}} where
+  module _  {B : Set b} {{_ : b ≤ˡ l}} where
 
-    mapM : (A → IO ℓ B) → Colist A ∞ → IO ℓ (Colist B ∞)
+    mapM : (A → IO l B) → Colist A ∞ → IO l (Colist B ∞)
     mapM f xs = sequence (Colist.map f xs)
 
-    mapM′ : (A → IO ℓ B) → Colist A ∞ → IO ℓ ⊤
+    mapM′ : (A → IO l B) → Colist A ∞ → IO l ⊤
     mapM′ f xs = tt <$ mapM f xs
 
 open import Agda.Builtin.Char
@@ -170,3 +164,4 @@ run : IO ℓ A → Prim.IO A
 run (lift io)  = io
 run (return a) = Prim.return a
 run (bind m f) = run (m .force) Prim.>>= λ a → run (f a .force)
+-}
