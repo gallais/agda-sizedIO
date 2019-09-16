@@ -4,8 +4,8 @@ open import IO.Primitive
 open import Agda.Builtin.String
 open import Agda.Builtin.List
 open import Agda.Builtin.Unit
-open import Foreign.Haskell using (Pair)
-open import Foreign.Haskell.Extras
+import Foreign.Haskell as FFI
+
 
 open import System.FilePath.Posix
 
@@ -14,12 +14,12 @@ postulate
   getArgs           : IO (List String)
   getProgName       : IO String
   getExecutablePath : IO FilePath
-  lookupEnv         : String → IO (Maybe.Maybe String)
+  lookupEnv         : String → IO (FFI.Maybe String)
   setEnv            : String → String → IO ⊤
   unsetEnv          : String → IO ⊤
   withArgs          : ∀ {a} {A : Set a} → List String → IO A → IO A
   withProgName      : ∀ {a} {A : Set a} → String → IO A → IO A
-  getEnvironment    : IO (List (Pair String String))
+  getEnvironment    : IO (List (FFI.Pair String String))
 
 {-# FOREIGN GHC import qualified System.Environment as SE                                        #-}
 {-# FOREIGN GHC import Data.Text                                                                 #-}
