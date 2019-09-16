@@ -1,6 +1,7 @@
 module Codata.IO where
 
 import IO.Primitive as Prim
+open import Codata.IO.Types hiding (module FFI) public
 open import Agda.Builtin.Unit
 
 Main : Set
@@ -165,8 +166,8 @@ putStr         : Costring → IO ℓ ⊤
 putStrLn       : Costring → IO ℓ ⊤
 readFiniteFile : FilePath → IO ℓ String
 
-hSetBuffering h b = lift (coerce Prim.hSetBuffering h b)
-hGetBuffering h = coerce <$> lift (Prim.hGetBuffering h)
+hSetBuffering h b = lift (Prim.hSetBuffering h (bufferMode-toFFI b))
+hGetBuffering h = bufferMode-fromFFI <$> lift (Prim.hGetBuffering h)
 hFlush         = λ h → lift (Prim.hFlush h)
 interact       = λ f → lift (Prim.interact f)
 getChar        = lift Prim.getChar

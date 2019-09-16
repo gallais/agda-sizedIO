@@ -28,11 +28,11 @@ postulate
   hFlush : Handle → IO ⊤
 
 {-# FOREIGN GHC import System.IO #-}
-{-# FOREIGN GHC import MAlonzo.Code.Foreign.Haskell.Extras #-}
 {-# COMPILE GHC Handle = type Handle #-}
 {-# COMPILE GHC stdin = stdin #-}
 {-# COMPILE GHC stdout = stdout #-}
 {-# COMPILE GHC stderr = stderr #-}
-{-# COMPILE GHC hSetBuffering = \ h bm -> hSetBuffering h (toBufferMode bm) #-}
-{-# COMPILE GHC hGetBuffering = \ h -> fmap fromBufferMode (hGetBuffering h) #-}
+{-# FOREIGN GHC import MAlonzo.Code.Codata.IO.Types #-}
+{-# COMPILE GHC hSetBuffering = \ h -> hSetBuffering h . toBufferMode #-}
+{-# COMPILE GHC hGetBuffering = fmap fromBufferMode . hGetBuffering #-}
 {-# COMPILE GHC hFlush = hFlush #-}
