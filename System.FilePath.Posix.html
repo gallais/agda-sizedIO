@@ -7,47 +7,48 @@
 <a id="129" class="Keyword">open</a> <a id="134" class="Keyword">import</a> <a id="141" href="Data.Maybe.Base.html" class="Module">Data.Maybe.Base</a>
 <a id="157" class="Keyword">open</a> <a id="162" class="Keyword">import</a> <a id="169" href="Data.Product.html" class="Module">Data.Product</a>
 <a id="182" class="Keyword">open</a> <a id="187" class="Keyword">import</a> <a id="194" href="Function.html" class="Module">Function</a>
-<a id="203" class="Keyword">open</a> <a id="208" class="Keyword">import</a> <a id="215" href="Foreign.Haskell.Extras.html" class="Module">Foreign.Haskell.Extras</a>
 
-<a id="239" class="Keyword">open</a> <a id="244" class="Keyword">import</a> <a id="251" href="System.FilePath.Posix.Primitive.html" class="Module">System.FilePath.Posix.Primitive</a> <a id="283" class="Symbol">as</a> <a id="286" class="Module">Prim</a>
-  <a id="293" class="Keyword">using</a> <a id="299" class="Symbol">(</a> <a id="301" href="System.FilePath.Posix.Primitive.html#216" class="Postulate">FilePath</a>
-        <a id="318" class="Symbol">;</a> <a id="320" href="System.FilePath.Posix.Primitive.html#237" class="Postulate">mkFilePath</a>
-        <a id="339" class="Symbol">;</a> <a id="341" href="System.FilePath.Posix.Primitive.html#272" class="Postulate">getFilePath</a>
-        <a id="361" class="Symbol">;</a> <a id="363" href="System.FilePath.Posix.Primitive.html#308" class="Postulate">Extension</a>
-        <a id="381" class="Symbol">;</a> <a id="383" href="System.FilePath.Posix.Primitive.html#329" class="Postulate">mkExtension</a>
-        <a id="403" class="Symbol">;</a> <a id="405" href="System.FilePath.Posix.Primitive.html#365" class="Postulate">getExtension</a>
-        <a id="426" class="Symbol">;</a> <a id="428" href="System.FilePath.Posix.Primitive.html#916" class="Postulate">takeExtension</a>
-        <a id="450" class="Symbol">;</a> <a id="452" href="System.FilePath.Posix.Primitive.html#955" class="Postulate">takeExtensions</a>
-        <a id="475" class="Symbol">;</a> <a id="477" href="System.FilePath.Posix.Primitive.html#996" class="Postulate">replaceExtension</a>
-        <a id="502" class="Symbol">;</a> <a id="504" href="System.FilePath.Posix.Primitive.html#1049" class="Postulate">replaceExtensions</a>
-        <a id="530" class="Symbol">;</a> <a id="532" href="System.FilePath.Posix.Primitive.html#1104" class="Postulate">dropExtension</a>
-        <a id="554" class="Symbol">;</a> <a id="556" href="System.FilePath.Posix.Primitive.html#1142" class="Postulate">dropExtensions</a>
-        <a id="579" class="Symbol">;</a> <a id="581" href="System.FilePath.Posix.Primitive.html#1182" class="Postulate">addExtension</a>
-        <a id="602" class="Symbol">;</a> <a id="604" href="System.FilePath.Posix.Primitive.html#1231" class="Postulate">hasExtension</a>
-        <a id="625" class="Symbol">;</a> <a id="627" href="System.FilePath.Posix.Primitive.html#1381" class="Postulate">takeFileName</a>
-        <a id="648" class="Symbol">;</a> <a id="650" href="System.FilePath.Posix.Primitive.html#1418" class="Postulate">replaceFileName</a>
-        <a id="674" class="Symbol">;</a> <a id="676" href="System.FilePath.Posix.Primitive.html#1469" class="Postulate">dropFileName</a>
-        <a id="697" class="Symbol">;</a> <a id="699" href="System.FilePath.Posix.Primitive.html#1506" class="Postulate">takeBaseName</a>
-        <a id="720" class="Symbol">;</a> <a id="722" href="System.FilePath.Posix.Primitive.html#1541" class="Postulate">replaceBaseName</a>
-        <a id="746" class="Symbol">;</a> <a id="748" href="System.FilePath.Posix.Primitive.html#1590" class="Postulate">takeDirectory</a>
-        <a id="770" class="Symbol">;</a> <a id="772" href="System.FilePath.Posix.Primitive.html#1628" class="Postulate">replaceDirectory</a>
-        <a id="797" class="Symbol">;</a> <a id="799" href="System.FilePath.Posix.Primitive.html#1680" class="Postulate">combine</a>
-        <a id="815" class="Symbol">;</a> <a id="817" href="System.FilePath.Posix.Primitive.html#1723" class="Postulate">splitPath</a>
-        <a id="835" class="Symbol">;</a> <a id="837" href="System.FilePath.Posix.Primitive.html#1762" class="Postulate">joinPath</a>
-        <a id="854" class="Symbol">;</a> <a id="856" href="System.FilePath.Posix.Primitive.html#1800" class="Postulate">splitDirectories</a>
-        <a id="881" class="Symbol">;</a> <a id="883" href="System.FilePath.Posix.Primitive.html#1846" class="Postulate">normalise</a>
-        <a id="901" class="Symbol">)</a>
-  <a id="905" class="Keyword">public</a>
+<a id="204" class="Keyword">open</a> <a id="209" class="Keyword">import</a> <a id="216" href="Foreign.Haskell.Coerce.html" class="Module">Foreign.Haskell.Coerce</a>
 
-<a id="splitExtension"></a><a id="913" href="System.FilePath.Posix.html#913" class="Function">splitExtension</a>  <a id="929" class="Symbol">:</a> <a id="931" href="System.FilePath.Posix.Primitive.html#216" class="Postulate">FilePath</a> <a id="940" class="Symbol">→</a> <a id="942" href="System.FilePath.Posix.Primitive.html#216" class="Postulate">FilePath</a> <a id="951" href="Data.Product.html#1167" class="Function Operator">×</a> <a id="953" href="System.FilePath.Posix.Primitive.html#308" class="Postulate">Extension</a>
-<a id="963" href="System.FilePath.Posix.html#913" class="Function">splitExtension</a> <a id="978" class="Symbol">=</a> <a id="980" href="Foreign.Haskell.Extras.html#612" class="Function">Pair.fromForeign</a> <a id="997" href="Function.Core.html#3365" class="Function Operator">∘′</a> <a id="1000" href="System.FilePath.Posix.Primitive.html#806" class="Postulate">Prim.splitExtension</a>
+<a id="240" class="Keyword">open</a> <a id="245" class="Keyword">import</a> <a id="252" href="System.FilePath.Posix.Primitive.html" class="Module">System.FilePath.Posix.Primitive</a> <a id="284" class="Symbol">as</a> <a id="287" class="Module">Prim</a>
+  <a id="294" class="Keyword">using</a> <a id="300" class="Symbol">(</a> <a id="302" href="System.FilePath.Posix.Primitive.html#188" class="Postulate">FilePath</a>
+        <a id="319" class="Symbol">;</a> <a id="321" href="System.FilePath.Posix.Primitive.html#209" class="Postulate">mkFilePath</a>
+        <a id="340" class="Symbol">;</a> <a id="342" href="System.FilePath.Posix.Primitive.html#244" class="Postulate">getFilePath</a>
+        <a id="362" class="Symbol">;</a> <a id="364" href="System.FilePath.Posix.Primitive.html#280" class="Postulate">Extension</a>
+        <a id="382" class="Symbol">;</a> <a id="384" href="System.FilePath.Posix.Primitive.html#301" class="Postulate">mkExtension</a>
+        <a id="404" class="Symbol">;</a> <a id="406" href="System.FilePath.Posix.Primitive.html#337" class="Postulate">getExtension</a>
+        <a id="427" class="Symbol">;</a> <a id="429" href="System.FilePath.Posix.Primitive.html#888" class="Postulate">takeExtension</a>
+        <a id="451" class="Symbol">;</a> <a id="453" href="System.FilePath.Posix.Primitive.html#927" class="Postulate">takeExtensions</a>
+        <a id="476" class="Symbol">;</a> <a id="478" href="System.FilePath.Posix.Primitive.html#968" class="Postulate">replaceExtension</a>
+        <a id="503" class="Symbol">;</a> <a id="505" href="System.FilePath.Posix.Primitive.html#1021" class="Postulate">replaceExtensions</a>
+        <a id="531" class="Symbol">;</a> <a id="533" href="System.FilePath.Posix.Primitive.html#1076" class="Postulate">dropExtension</a>
+        <a id="555" class="Symbol">;</a> <a id="557" href="System.FilePath.Posix.Primitive.html#1114" class="Postulate">dropExtensions</a>
+        <a id="580" class="Symbol">;</a> <a id="582" href="System.FilePath.Posix.Primitive.html#1154" class="Postulate">addExtension</a>
+        <a id="603" class="Symbol">;</a> <a id="605" href="System.FilePath.Posix.Primitive.html#1203" class="Postulate">hasExtension</a>
+        <a id="626" class="Symbol">;</a> <a id="628" href="System.FilePath.Posix.Primitive.html#1351" class="Postulate">takeFileName</a>
+        <a id="649" class="Symbol">;</a> <a id="651" href="System.FilePath.Posix.Primitive.html#1388" class="Postulate">replaceFileName</a>
+        <a id="675" class="Symbol">;</a> <a id="677" href="System.FilePath.Posix.Primitive.html#1439" class="Postulate">dropFileName</a>
+        <a id="698" class="Symbol">;</a> <a id="700" href="System.FilePath.Posix.Primitive.html#1476" class="Postulate">takeBaseName</a>
+        <a id="721" class="Symbol">;</a> <a id="723" href="System.FilePath.Posix.Primitive.html#1511" class="Postulate">replaceBaseName</a>
+        <a id="747" class="Symbol">;</a> <a id="749" href="System.FilePath.Posix.Primitive.html#1560" class="Postulate">takeDirectory</a>
+        <a id="771" class="Symbol">;</a> <a id="773" href="System.FilePath.Posix.Primitive.html#1598" class="Postulate">replaceDirectory</a>
+        <a id="798" class="Symbol">;</a> <a id="800" href="System.FilePath.Posix.Primitive.html#1650" class="Postulate">combine</a>
+        <a id="816" class="Symbol">;</a> <a id="818" href="System.FilePath.Posix.Primitive.html#1693" class="Postulate">splitPath</a>
+        <a id="836" class="Symbol">;</a> <a id="838" href="System.FilePath.Posix.Primitive.html#1732" class="Postulate">joinPath</a>
+        <a id="855" class="Symbol">;</a> <a id="857" href="System.FilePath.Posix.Primitive.html#1770" class="Postulate">splitDirectories</a>
+        <a id="882" class="Symbol">;</a> <a id="884" href="System.FilePath.Posix.Primitive.html#1816" class="Postulate">normalise</a>
+        <a id="902" class="Symbol">)</a>
+  <a id="906" class="Keyword">public</a>
 
-<a id="splitExtensions"></a><a id="1021" href="System.FilePath.Posix.html#1021" class="Function">splitExtensions</a> <a id="1037" class="Symbol">:</a> <a id="1039" href="System.FilePath.Posix.Primitive.html#216" class="Postulate">FilePath</a> <a id="1048" class="Symbol">→</a> <a id="1050" href="System.FilePath.Posix.Primitive.html#216" class="Postulate">FilePath</a> <a id="1059" href="Data.Product.html#1167" class="Function Operator">×</a> <a id="1061" href="System.FilePath.Posix.Primitive.html#308" class="Postulate">Extension</a>
-<a id="1071" href="System.FilePath.Posix.html#1021" class="Function">splitExtensions</a> <a id="1087" class="Symbol">=</a> <a id="1089" href="Foreign.Haskell.Extras.html#612" class="Function">Pair.fromForeign</a> <a id="1106" href="Function.Core.html#3365" class="Function Operator">∘′</a> <a id="1109" href="System.FilePath.Posix.Primitive.html#860" class="Postulate">Prim.splitExtensions</a>
+<a id="splitExtension"></a><a id="914" href="System.FilePath.Posix.html#914" class="Function">splitExtension</a>  <a id="930" class="Symbol">:</a> <a id="932" href="System.FilePath.Posix.Primitive.html#188" class="Postulate">FilePath</a> <a id="941" class="Symbol">→</a> <a id="943" href="System.FilePath.Posix.Primitive.html#188" class="Postulate">FilePath</a> <a id="952" href="Data.Product.html#1167" class="Function Operator">×</a> <a id="954" href="System.FilePath.Posix.Primitive.html#280" class="Postulate">Extension</a>
+<a id="964" href="System.FilePath.Posix.html#914" class="Function">splitExtension</a> <a id="979" class="Symbol">=</a> <a id="981" href="Foreign.Haskell.Coerce.html#2560" class="Postulate">coerce</a> <a id="988" href="System.FilePath.Posix.Primitive.html#778" class="Postulate">Prim.splitExtension</a>
 
-<a id="stripExtension"></a><a id="1131" href="System.FilePath.Posix.html#1131" class="Function">stripExtension</a> <a id="1146" class="Symbol">:</a> <a id="1148" href="System.FilePath.Posix.Primitive.html#308" class="Postulate">Extension</a> <a id="1158" class="Symbol">→</a> <a id="1160" href="System.FilePath.Posix.Primitive.html#216" class="Postulate">FilePath</a> <a id="1169" class="Symbol">→</a> <a id="1171" href="Data.Maybe.Base.html#800" class="Datatype">Maybe</a> <a id="1177" href="System.FilePath.Posix.Primitive.html#216" class="Postulate">FilePath</a>
-<a id="1186" href="System.FilePath.Posix.html#1131" class="Function">stripExtension</a> <a id="1201" href="System.FilePath.Posix.html#1201" class="Bound">ext</a> <a id="1205" href="System.FilePath.Posix.html#1205" class="Bound">fp</a> <a id="1208" class="Symbol">=</a> <a id="1210" href="Foreign.Haskell.Extras.html#397" class="Function">Maybe.fromForeign</a> <a id="1228" class="Symbol">(</a><a id="1229" href="System.FilePath.Posix.Primitive.html#1265" class="Postulate">Prim.stripExtension</a> <a id="1249" href="System.FilePath.Posix.html#1201" class="Bound">ext</a> <a id="1253" href="System.FilePath.Posix.html#1205" class="Bound">fp</a><a id="1255" class="Symbol">)</a>
+<a id="splitExtensions"></a><a id="1009" href="System.FilePath.Posix.html#1009" class="Function">splitExtensions</a> <a id="1025" class="Symbol">:</a> <a id="1027" href="System.FilePath.Posix.Primitive.html#188" class="Postulate">FilePath</a> <a id="1036" class="Symbol">→</a> <a id="1038" href="System.FilePath.Posix.Primitive.html#188" class="Postulate">FilePath</a> <a id="1047" href="Data.Product.html#1167" class="Function Operator">×</a> <a id="1049" href="System.FilePath.Posix.Primitive.html#280" class="Postulate">Extension</a>
+<a id="1059" href="System.FilePath.Posix.html#1009" class="Function">splitExtensions</a> <a id="1075" class="Symbol">=</a> <a id="1077" href="Foreign.Haskell.Coerce.html#2560" class="Postulate">coerce</a> <a id="1084" href="System.FilePath.Posix.Primitive.html#832" class="Postulate">Prim.splitExtensions</a>
 
-<a id="splitFileName"></a><a id="1258" href="System.FilePath.Posix.html#1258" class="Function">splitFileName</a> <a id="1272" class="Symbol">:</a> <a id="1274" href="System.FilePath.Posix.Primitive.html#216" class="Postulate">FilePath</a> <a id="1283" class="Symbol">→</a> <a id="1285" href="System.FilePath.Posix.Primitive.html#216" class="Postulate">FilePath</a> <a id="1294" href="Data.Product.html#1167" class="Function Operator">×</a> <a id="1296" href="System.FilePath.Posix.Primitive.html#216" class="Postulate">FilePath</a>
-<a id="1305" href="System.FilePath.Posix.html#1258" class="Function">splitFileName</a> <a id="1319" class="Symbol">=</a> <a id="1321" href="Foreign.Haskell.Extras.html#612" class="Function">Pair.fromForeign</a> <a id="1338" href="Function.Core.html#3365" class="Function Operator">∘′</a> <a id="1341" href="System.FilePath.Posix.Primitive.html#1329" class="Postulate">Prim.splitFileName</a>
+<a id="stripExtension"></a><a id="1106" href="System.FilePath.Posix.html#1106" class="Function">stripExtension</a> <a id="1121" class="Symbol">:</a> <a id="1123" href="System.FilePath.Posix.Primitive.html#280" class="Postulate">Extension</a> <a id="1133" class="Symbol">→</a> <a id="1135" href="System.FilePath.Posix.Primitive.html#188" class="Postulate">FilePath</a> <a id="1144" class="Symbol">→</a> <a id="1146" href="Data.Maybe.Base.html#800" class="Datatype">Maybe</a> <a id="1152" href="System.FilePath.Posix.Primitive.html#188" class="Postulate">FilePath</a>
+<a id="1161" href="System.FilePath.Posix.html#1106" class="Function">stripExtension</a> <a id="1176" class="Symbol">=</a> <a id="1178" href="Foreign.Haskell.Coerce.html#2560" class="Postulate">coerce</a> <a id="1185" href="System.FilePath.Posix.Primitive.html#1237" class="Postulate">Prim.stripExtension</a>
+
+<a id="splitFileName"></a><a id="1206" href="System.FilePath.Posix.html#1206" class="Function">splitFileName</a> <a id="1220" class="Symbol">:</a> <a id="1222" href="System.FilePath.Posix.Primitive.html#188" class="Postulate">FilePath</a> <a id="1231" class="Symbol">→</a> <a id="1233" href="System.FilePath.Posix.Primitive.html#188" class="Postulate">FilePath</a> <a id="1242" href="Data.Product.html#1167" class="Function Operator">×</a> <a id="1244" href="System.FilePath.Posix.Primitive.html#188" class="Postulate">FilePath</a>
+<a id="1253" href="System.FilePath.Posix.html#1206" class="Function">splitFileName</a> <a id="1267" class="Symbol">=</a> <a id="1269" href="Foreign.Haskell.Coerce.html#2560" class="Postulate">coerce</a> <a id="1276" href="System.FilePath.Posix.Primitive.html#1299" class="Postulate">Prim.splitFileName</a>
 </pre></body></html>
