@@ -41,12 +41,10 @@ data BufferMode : Set where
   BlockBuffering : Maybe ℕ → BufferMode
 
 
-bufferMode-fromFFI : FFI.BufferMode → BufferMode
-bufferMode-fromFFI FFI.NoBuffering         = NoBuffering
-bufferMode-fromFFI FFI.LineBuffering       = LineBuffering
-bufferMode-fromFFI (FFI.BlockBuffering mn) = BlockBuffering (coerce mn)
+instance
 
-bufferMode-toFFI : BufferMode → FFI.BufferMode
-bufferMode-toFFI NoBuffering         = FFI.NoBuffering
-bufferMode-toFFI LineBuffering       = FFI.LineBuffering
-bufferMode-toFFI (BlockBuffering mn) = FFI.BlockBuffering (coerce mn)
+  bufferMode-fromFFI : Coercible FFI.BufferMode BufferMode
+  bufferMode-fromFFI = TrustMe
+
+  bufferMode-toFFI : Coercible BufferMode FFI.BufferMode
+  bufferMode-toFFI = TrustMe
