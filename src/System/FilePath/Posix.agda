@@ -6,7 +6,8 @@ open import Agda.Builtin.String
 open import Data.Maybe.Base
 open import Data.Product
 open import Function
-open import Foreign.Haskell.Extras
+
+open import Foreign.Haskell.Coerce
 
 open import System.FilePath.Posix.Primitive as Prim
   using ( FilePath
@@ -39,13 +40,13 @@ open import System.FilePath.Posix.Primitive as Prim
   public
 
 splitExtension  : FilePath → FilePath × Extension
-splitExtension = Pair.fromForeign ∘′ Prim.splitExtension
+splitExtension = coerce Prim.splitExtension
 
 splitExtensions : FilePath → FilePath × Extension
-splitExtensions = Pair.fromForeign ∘′ Prim.splitExtensions
+splitExtensions = coerce Prim.splitExtensions
 
 stripExtension : Extension → FilePath → Maybe FilePath
-stripExtension ext fp = Maybe.fromForeign (Prim.stripExtension ext fp)
+stripExtension = coerce Prim.stripExtension
 
 splitFileName : FilePath → FilePath × FilePath
-splitFileName = Pair.fromForeign ∘′ Prim.splitFileName
+splitFileName = coerce Prim.splitFileName

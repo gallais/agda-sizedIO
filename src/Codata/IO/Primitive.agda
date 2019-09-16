@@ -5,7 +5,8 @@ open import Agda.Builtin.Nat
 open import Agda.Builtin.Char
 open import Agda.Builtin.String
 open import Agda.Builtin.Unit
-open import Foreign.Haskell.Extras
+open import Codata.IO.Types
+open import Foreign.Haskell.Coerce
 
 postulate
   interact : (String → String) → IO ⊤
@@ -22,8 +23,8 @@ postulate
 postulate
   Handle : Set
   stdin stdout stderr : Handle
-  hSetBuffering : Handle → BufferMode.BufferMode → IO ⊤
-  hGetBuffering : Handle → IO BufferMode.BufferMode
+  hSetBuffering : Handle → FFI.BufferMode → IO ⊤
+  hGetBuffering : Handle → IO FFI.BufferMode
   hFlush : Handle → IO ⊤
 
 {-# FOREIGN GHC import System.IO #-}

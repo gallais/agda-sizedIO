@@ -2,7 +2,6 @@ module Codata.IO where
 
 import IO.Primitive as Prim
 open import Agda.Builtin.Unit
-open import Foreign.Haskell.Extras
 
 Main : Set
 Main = Prim.IO ⊤
@@ -13,6 +12,7 @@ open import Codata.Thunk using (Thunk; force)
 open import Agda.Builtin.Equality
 open import Data.Maybe.Base using (Maybe)
 open import Function
+open import Foreign.Haskell.Coerce
 
 _≤ˡ_ : Level → Level → Set
 a ≤ˡ b = a ⊔ b ≡ b
@@ -22,16 +22,16 @@ instance
   a≤a = refl
 
 {-# NO_UNIVERSE_CHECK #-}
-data IO′ {a} (i : Size) (ℓ : Level) (A : Set a) : Set (suc ℓ) where
-  lift   : {{eq : a ≤ˡ ℓ}} → Prim.IO {a} A → IO′ i ℓ A
-  return : {{eq : a ≤ˡ ℓ}} → A → IO′ i ℓ A
+data IO′ {a} (ℓ : Level) (A : Set a) (i : Size) : Set (suc ℓ) where
+  lift   : {{eq : a ≤ˡ ℓ}} → Prim.IO {a} A → IO′ ℓ A i
+  return : {{eq : a ≤ˡ ℓ}} → A → IO′ ℓ A i
   bind   : ∀ {b} {B : Set b} →
-           Thunk (λ i → IO′ i ℓ B) i →
-           (B → Thunk (λ i → IO′ i ℓ A) i) → IO′ i ℓ A
+           Thunk (IO′ ℓ B) i →
+           (B → Thunk (IO′ ℓ A) i) → IO′ ℓ A i
 
 
 IO : ∀ {a} (ℓ : Level) → Set a → Set (suc ℓ)
-IO = IO′ ∞
+IO ℓ A = IO′ ℓ A ∞
 
 private
   variable
@@ -40,32 +40,35 @@ private
     B : Set b
     i : Size
 
-map  : {B : Set b} {{_ : b ≤ˡ ℓ}} → (A → B) → IO′ i ℓ A → IO′ i ℓ B
+map  : {B : Set b} {{_ : b ≤ˡ ℓ}} → (A → B) → IO′ ℓ A i → IO′ ℓ B i
 map f (lift m)   = lift (m Prim.>>= λ a → Prim.return (f a))
 map f (return a) = return (f a)
 map f (bind m g) = bind m $ λ a → λ where .force → map f (g a .force)
 
+delay : {A : Set a} {{_ : a ≤ˡ ℓ}} → Thunk (IO′ ℓ A) i → IO′ ℓ A i
+delay m = bind m λ a → λ where .force → return a
+
 infixr 1 _>>=_ _ᵗ>>=_ _>>=ᵗ_
 
-_>>=_ : IO′ i ℓ A → (A → IO′ i ℓ B) → IO′ i ℓ B
+_>>=_ : IO′ ℓ A i → (A → IO′ ℓ B i) → IO′ ℓ B i
 m >>= f = bind (λ where .force → m) (λ a → λ where .force → f a)
 
-_ᵗ>>=_ : Thunk (λ i → IO′ i ℓ A) i → (A → IO′ i ℓ B) → IO′ i ℓ B
+_ᵗ>>=_ : Thunk (IO′ ℓ A) i → (A → IO′ ℓ B i) → IO′ ℓ B i
 m ᵗ>>= f = bind m (λ a → λ where .force → f a)
 
-_>>=ᵗ_ : IO′ i ℓ A → (A → Thunk (λ i → IO′ i ℓ B) i) → IO′ i ℓ B
+_>>=ᵗ_ : IO′ ℓ A i → (A → Thunk (IO′ ℓ B) i) → IO′ ℓ B i
 m >>=ᵗ f = bind (λ where .force → m) f
 
 infixr 1 _>>_
 infixl 1 _<<_ _<$_ _<$>_ _<*>_
 
-_<$>_ : {B : Set b} {{_ : b ≤ˡ ℓ}} → (A → B) → IO′ i ℓ A → IO′ i ℓ B
+_<$>_ : {B : Set b} {{_ : b ≤ˡ ℓ}} → (A → B) → IO′ ℓ A i → IO′ ℓ B i
 f <$> m = m >>= λ a → return (f a)
 
-_<$_ : {A : Set a} {{_ : a ≤ˡ ℓ}} → A → IO ℓ B → IO ℓ A
+_<$_ : {A : Set a} {{_ : a ≤ˡ ℓ}} → A → IO′ ℓ B i → IO′ ℓ A i
 a <$ mb = mb >>= λ _ → return a
 
-_<*>_ : {B : Set b} {{_ : b ≤ˡ ℓ}} → IO′ i ℓ (A → B) → IO′ i ℓ A → IO′ i ℓ B
+_<*>_ : {B : Set b} {{_ : b ≤ˡ ℓ}} → IO′ ℓ (A → B) i → IO′ ℓ A i → IO′ ℓ B i
 f <*> m = f >>= (_<$> m)
 
 _>>_ : IO ℓ A → IO ℓ B → IO ℓ B
@@ -93,12 +96,18 @@ module ListIO where
     mapM′ : (A → IO ℓ B) → List A → IO ℓ ⊤
     mapM′ f xs = tt <$ mapM f xs
 
+    forM : List A → (A → IO ℓ B) → IO ℓ (List B)
+    forM  = flip mapM
+
+    forM′ : List A → (A → IO ℓ B) → IO ℓ ⊤
+    forM′ = flip mapM′
+
 module ColistIO where
 
   open import Codata.Colist as Colist using (Colist; []; _∷_)
 
   sequence : {A : Set a} {{_ : a ≤ˡ ℓ}} →
-             Colist (IO′ i ℓ A) ∞ → IO′ i ℓ (Colist A ∞)
+             Colist (IO′ ℓ A i) ∞ → IO′ ℓ (Colist A ∞) i
   sequence []         = return []
   sequence (mx ∷ mxs) =
     mx                                        >>= λ x →
@@ -107,11 +116,17 @@ module ColistIO where
 
   module _  {B : Set b} {{_ : b ≤ˡ ℓ}} where
 
-    mapM : (A → IO ℓ B) → Colist A ∞ → IO ℓ (Colist B ∞)
+    mapM : (A → IO′ ℓ B i) → Colist A ∞ → IO′ ℓ (Colist B ∞) i
     mapM f xs = sequence (Colist.map f xs)
 
-    mapM′ : (A → IO ℓ B) → Colist A ∞ → IO ℓ ⊤
+    mapM′ : (A → IO′ ℓ B i) → Colist A ∞ → IO′ ℓ ⊤ i
     mapM′ f xs = tt <$ mapM f xs
+
+    forM : Colist A ∞ → (A → IO′ ℓ B i) → IO′ ℓ (Colist B ∞) i
+    forM  = flip mapM
+
+    forM′ : Colist A ∞ → (A → IO′ ℓ B i) → IO′ ℓ ⊤ i
+    forM′ = flip mapM′
 
 open import Agda.Builtin.Char
 open import Data.String
@@ -150,8 +165,8 @@ putStr         : Costring → IO ℓ ⊤
 putStrLn       : Costring → IO ℓ ⊤
 readFiniteFile : FilePath → IO ℓ String
 
-hSetBuffering h b = lift (Prim.hSetBuffering h (BufferMode.toForeign b))
-hGetBuffering h = BufferMode.fromForeign <$> lift (Prim.hGetBuffering h)
+hSetBuffering h b = lift (coerce Prim.hSetBuffering h b)
+hGetBuffering h = coerce <$> lift (Prim.hGetBuffering h)
 hFlush         = λ h → lift (Prim.hFlush h)
 interact       = λ f → lift (Prim.interact f)
 getChar        = lift Prim.getChar

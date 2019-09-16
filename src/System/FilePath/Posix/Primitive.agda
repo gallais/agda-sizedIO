@@ -3,8 +3,7 @@ module System.FilePath.Posix.Primitive where
 open import Agda.Builtin.Bool
 open import Agda.Builtin.List
 open import Agda.Builtin.String
-open import Foreign.Haskell
-open import Foreign.Haskell.Extras
+open import Foreign.Haskell as FFI
 
 postulate
 
@@ -42,7 +41,7 @@ postulate
   addExtension : FilePath → Extension → FilePath
   hasExtension : FilePath → Bool
 
-  stripExtension : Extension → FilePath → Maybe.Maybe FilePath
+  stripExtension : Extension → FilePath → FFI.Maybe FilePath
 
   splitFileName : FilePath → Pair FilePath FilePath
   takeFileName : FilePath → FilePath
