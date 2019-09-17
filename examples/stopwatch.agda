@@ -11,4 +11,4 @@ main : Main
 main = run $ (IO zero _ ∋_) $ do
   hSetBuffering stdin NoBuffering
   dff ← time′ getChar
-  putStrLn (toCostring $ Clock.show dff (# 3))
+  putStrLn (Clock.show dff (# 3))

@@ -17,6 +17,7 @@ module README where
 import cat
 import read
 import stopwatch
+import find
 
 -- Main module
 
@@ -35,3 +36,6 @@ import System.Environment
 
 import System.FilePath.Posix.Primitive
 import System.FilePath.Posix
+
+import System.Directory.Primitive
+import System.Directory

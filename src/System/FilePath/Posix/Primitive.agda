@@ -43,19 +43,19 @@ postulate
 
   stripExtension : Extension → FilePath → FFI.Maybe FilePath
 
-  splitFileName : FilePath → Pair FilePath FilePath
-  takeFileName : FilePath → FilePath
-  replaceFileName : FilePath → FilePath → FilePath
-  dropFileName : FilePath → FilePath
-  takeBaseName : FilePath → String
-  replaceBaseName : FilePath → String → FilePath
-  takeDirectory : FilePath → FilePath
+  splitFileName    : FilePath → Pair FilePath FilePath
+  takeFileName     : FilePath → FilePath
+  replaceFileName  : FilePath → FilePath → FilePath
+  dropFileName     : FilePath → FilePath
+  takeBaseName     : FilePath → String
+  replaceBaseName  : FilePath → String → FilePath
+  takeDirectory    : FilePath → FilePath
   replaceDirectory : FilePath → FilePath → FilePath
-  combine : FilePath → FilePath → FilePath
-  splitPath : FilePath → List FilePath
-  joinPath : List FilePath → FilePath
+  combine          : FilePath → FilePath → FilePath
+  splitPath        : FilePath → List FilePath
+  joinPath         : List FilePath → FilePath
   splitDirectories : FilePath → List FilePath
-  normalise : FilePath → FilePath
+  normalise        : FilePath → FilePath
 
 {-# COMPILE GHC splitExtension = splitExtension #-}
 {-# COMPILE GHC splitExtensions = splitExtensions #-}

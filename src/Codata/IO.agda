@@ -30,6 +30,8 @@ data IO′ {a} (ℓ : Level) (A : Set a) (i : Size) : Set (suc ℓ) where
            Thunk (IO′ ℓ B) i →
            (B → Thunk (IO′ ℓ A) i) → IO′ ℓ A i
 
+pure : ∀ {a ℓ} {A : Set a} {i} → {{a ≤ˡ ℓ}} → A → IO′ ℓ A i
+pure = return
 
 IO : ∀ {a} (ℓ : Level) → Set a → Set (suc ℓ)
 IO ℓ A = IO′ ℓ A ∞
@@ -53,6 +55,9 @@ infixr 1 _>>=_ _ᵗ>>=_ _>>=ᵗ_
 
 _>>=_ : IO′ ℓ A i → (A → IO′ ℓ B i) → IO′ ℓ B i
 m >>= f = bind (λ where .force → m) (λ a → λ where .force → f a)
+
+_=<<_ : (A → IO′ ℓ B i) → IO′ ℓ A i → IO′ ℓ B i
+f =<< m = m >>= f
 
 _ᵗ>>=_ : Thunk (IO′ ℓ A) i → (A → IO′ ℓ B i) → IO′ ℓ B i
 m ᵗ>>= f = bind m (λ a → λ where .force → f a)
@@ -162,24 +167,28 @@ readFile       : FilePath → IO ℓ Costring
 writeFile      : FilePath → Costring → IO ℓ ⊤
 appendFile     : FilePath → Costring → IO ℓ ⊤
 putChar        : Char → IO ℓ ⊤
-putStr         : Costring → IO ℓ ⊤
-putStrLn       : Costring → IO ℓ ⊤
+putCoStr       : Costring → IO ℓ ⊤
+putCoStrLn     : Costring → IO ℓ ⊤
+putStr         : String → IO ℓ ⊤
+putStrLn       : String → IO ℓ ⊤
 readFiniteFile : FilePath → IO ℓ String
 
 hSetBuffering h b = lift (coerce Prim.hSetBuffering h b)
-hGetBuffering h = coerce <$> lift (Prim.hGetBuffering h)
-hFlush         = λ h → lift (Prim.hFlush h)
-interact       = λ f → lift (Prim.interact f)
-getChar        = lift Prim.getChar
-getLine        = lift Prim.getLine
-getContents    = lift Prim.getContents
-readFile       = λ fp → lift (Prim.readFile (getFilePath fp))
-writeFile      = λ fp cstr → lift (Prim.writeFile (getFilePath fp) cstr)
-appendFile     = λ fp cstr → lift (Prim.appendFile (getFilePath fp) cstr)
-putChar        = λ c → lift (Prim.putChar c)
-putStr         = λ cstr → lift (Prim.putStr cstr)
-putStrLn       = λ cstr → lift (Prim.putStrLn cstr)
-readFiniteFile = λ fp → lift (Prim.readFiniteFile (getFilePath fp))
+hGetBuffering h   = coerce <$> lift (Prim.hGetBuffering h)
+hFlush            = λ h → lift (Prim.hFlush h)
+interact          = λ f → lift (Prim.interact f)
+getChar           = lift Prim.getChar
+getLine           = lift Prim.getLine
+getContents       = lift Prim.getContents
+readFile          = λ fp → lift (Prim.readFile (getFilePath fp))
+writeFile         = λ fp cstr → lift (Prim.writeFile (getFilePath fp) cstr)
+appendFile        = λ fp cstr → lift (Prim.appendFile (getFilePath fp) cstr)
+putChar           = λ c → lift (Prim.putChar c)
+putCoStr          = λ cstr → lift (Prim.putStr cstr)
+putCoStrLn        = λ cstr → lift (Prim.putStrLn cstr)
+putStr            = putCoStr ∘′ toCostring
+putStrLn          = putCoStrLn ∘′ toCostring
+readFiniteFile    = λ fp → lift (Prim.readFiniteFile (getFilePath fp))
 
 {-# NON_TERMINATING #-}
 run : IO ℓ A → Prim.IO A
