@@ -5,12 +5,14 @@ module README where
 
 -- This library currently relies on:
 
--- * Agda with support for the NO_UNIVERSE_CHECK pragam,
---   i.e. post commit be89d4a8b264dd2719cb8c601a2c7f45a95ba220
+-- * Agda with support for the NO_UNIVERSE_CHECK pragam, and
+--   a strictly positive IO builtin.
+--   i.e. post commit eabd7f5d27f7cf91ee4d70d64ea187a0fd99dab0
 
 -- * Agda's stdlib with:
 --   - the new codata modules
---   - binding to `Pair` in `Foreign.Haskell`
+--   - the new Foreign.Haskell.Coerce module
+
 
 -- Examples
 
