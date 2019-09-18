@@ -41,7 +41,7 @@ read : IO (L.suc L.zero) ⊤
 read = do
   (s , S) ← readSet
   let str = StringOf.string (dispatch S)
-  putStrLn $ toCostring str
+  putStrLn str
 
 main : Main
 main = run read
