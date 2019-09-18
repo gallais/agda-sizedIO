@@ -163,15 +163,15 @@ interact       : (String → String) → IO ℓ ⊤
 getChar        : IO ℓ Char
 getLine        : IO ℓ String
 getContents    : IO ℓ Costring
-readFile       : FilePath → IO ℓ Costring
-writeFile      : FilePath → Costring → IO ℓ ⊤
-appendFile     : FilePath → Costring → IO ℓ ⊤
+readFile       : ∀ {n} → FilePath n → IO ℓ Costring
+writeFile      : ∀ {n} → FilePath n → Costring → IO ℓ ⊤
+appendFile     : ∀ {n} → FilePath n → Costring → IO ℓ ⊤
 putChar        : Char → IO ℓ ⊤
 putCoStr       : Costring → IO ℓ ⊤
 putCoStrLn     : Costring → IO ℓ ⊤
 putStr         : String → IO ℓ ⊤
 putStrLn       : String → IO ℓ ⊤
-readFiniteFile : FilePath → IO ℓ String
+readFiniteFile : ∀ {n} → FilePath n → IO ℓ String
 
 hSetBuffering h b = lift (coerce Prim.hSetBuffering h b)
 hGetBuffering h   = coerce <$> lift (Prim.hGetBuffering h)
@@ -181,14 +181,14 @@ getChar           = lift Prim.getChar
 getLine           = lift Prim.getLine
 getContents       = lift Prim.getContents
 readFile          = λ fp → lift (Prim.readFile (getFilePath fp))
-writeFile         = λ fp cstr → lift (Prim.writeFile (getFilePath fp) cstr)
-appendFile        = λ fp cstr → lift (Prim.appendFile (getFilePath fp) cstr)
+writeFile         = λ fp cstr → lift (coerce Prim.writeFile fp cstr)
+appendFile        = λ fp cstr → lift (coerce Prim.appendFile fp cstr)
 putChar           = λ c → lift (Prim.putChar c)
 putCoStr          = λ cstr → lift (Prim.putStr cstr)
 putCoStrLn        = λ cstr → lift (Prim.putStrLn cstr)
 putStr            = putCoStr ∘′ toCostring
 putStrLn          = putCoStrLn ∘′ toCostring
-readFiniteFile    = λ fp → lift (Prim.readFiniteFile (getFilePath fp))
+readFiniteFile    = lift ∘′ coerce Prim.readFiniteFile
 
 {-# NON_TERMINATING #-}
 run : IO ℓ A → Prim.IO A

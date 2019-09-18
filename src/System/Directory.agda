@@ -10,40 +10,41 @@ open import System.FilePath.Posix
 import System.Directory.Primitive as Prim
 
 variable
-  ℓ : Level
+  ℓ  : Level
+  n : Nature
 
 -- Actions on directories
 
-createDirectory           : FilePath → IO ℓ ⊤
-createDirectoryIfMissing  : Bool → FilePath → IO ℓ ⊤
-removeDirectory           : FilePath → IO ℓ ⊤
-removeDirectoryRecursive  : FilePath → IO ℓ ⊤
-removePathForcibly        : FilePath → IO ℓ ⊤
-renameDirectory           : FilePath → FilePath → IO ℓ ⊤
-listDirectory             : FilePath → IO ℓ (List FilePath)
+createDirectory           : FilePath n → IO ℓ ⊤
+createDirectoryIfMissing  : Bool → FilePath n → IO ℓ ⊤
+removeDirectory           : FilePath n → IO ℓ ⊤
+removeDirectoryRecursive  : FilePath n → IO ℓ ⊤
+removePathForcibly        : FilePath n → IO ℓ ⊤
+renameDirectory           : FilePath n → FilePath n → IO ℓ ⊤
+listDirectory             : FilePath n → IO ℓ (List RelativePath)
 
 -- Current working directory
 
-getDirectoryContents      : FilePath → IO ℓ (List FilePath)
-getCurrentDirectory       : IO ℓ FilePath
-setCurrentDirectory       : FilePath → IO ℓ ⊤
-withCurrentDirectory      : ∀ {a} {A : Set a} → {{a ≤ˡ ℓ}} → FilePath → IO ℓ A → IO ℓ A
+getDirectoryContents      : FilePath n → IO ℓ (List RelativePath)
+getCurrentDirectory       : IO ℓ AbsolutePath
+setCurrentDirectory       : FilePath n → IO ℓ ⊤
+withCurrentDirectory      : ∀ {a} {A : Set a} → {{a ≤ˡ ℓ}} → FilePath n → IO ℓ A → IO ℓ A
 
 -- Pre-defined directories
 
-getHomeDirectory          : IO ℓ FilePath
-getUserDocumentsDirectory : IO ℓ FilePath
-getTemporaryDirectory     : IO ℓ FilePath
+getHomeDirectory          : IO ℓ AbsolutePath
+getUserDocumentsDirectory : IO ℓ AbsolutePath
+getTemporaryDirectory     : IO ℓ AbsolutePath
 
 -- Action on files
 
-makeAbsolute : FilePath → IO ℓ FilePath
+makeAbsolute : FilePath n → IO ℓ AbsolutePath
 
 -- Existence tests
 
-doesPathExist      : FilePath -> IO ℓ Bool
-doesFileExist      : FilePath -> IO ℓ Bool
-doesDirectoryExist : FilePath -> IO ℓ Bool
+doesPathExist      : FilePath n -> IO ℓ Bool
+doesFileExist      : FilePath n -> IO ℓ Bool
+doesDirectoryExist : FilePath n -> IO ℓ Bool
 
 createDirectory           = lift ∘′ Prim.createDirectory
 createDirectoryIfMissing  = λ b → lift ∘′ Prim.createDirectoryIfMissing b

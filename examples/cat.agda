@@ -9,7 +9,7 @@ open import Codata.IO
 open import System.FilePath.Posix
 open import System.Environment
 
-cat : FilePath → IO zero ⊤
+cat : ∀ {n} → FilePath n → IO zero ⊤
 cat fp = do
   cstr ← readFile fp
   ColistIO.mapM′ putChar (fromMusical cstr)

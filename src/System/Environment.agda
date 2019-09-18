@@ -19,7 +19,7 @@ private
 
 getArgs           : IO ℓ (List String)
 getProgName       : IO ℓ String
-getExecutablePath : IO ℓ FilePath
+getExecutablePath : IO ℓ (FilePath absolute)
 lookupEnv         : String → IO ℓ (Maybe String)
 setEnv            : String → String → IO ℓ ⊤
 unsetEnv          : String → IO ℓ ⊤

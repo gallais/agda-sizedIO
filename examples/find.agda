@@ -17,12 +17,16 @@ open import System.Directory
 
 {-# NO_UNIVERSE_CHECK #-}
 data Tree′ (i : Size) : Set where
-  _:<_ : List FilePath → List (FilePath × IO 0ℓ (Thunk Tree′ i)) → Tree′ i
+  _∋_:<_ :
+    AbsolutePath →                               -- path to the root of the tree
+    List AbsolutePath →                          -- list of files in it
+    List (AbsolutePath × IO 0ℓ (Thunk Tree′ i)) → -- trees for subdirectories
+    Tree′ i
 
 Tree : Set
 Tree = Tree′ _
 
-treeᵗ : ∀ {i} → FilePath → IO 0ℓ (Thunk Tree′ i)
+treeᵗ : ∀ {i} → AbsolutePath → IO 0ℓ (Thunk Tree′ i)
 treeᵗ fp = do
   -- set current directory: makeAbsolute will now consider this
   -- to be the root
@@ -35,21 +39,21 @@ treeᵗ fp = do
   -- partition into a list ds of directories and one fs of files
   let (ds , fs) = partitionSumsWith (λ (b , a) → if b then inj₁ a else inj₂ a) bvs
   -- return the files together with the ability to further explore the tree
-  pure (λ where .force → fs :< List.map (λ fp → fp , treeᵗ fp) ds)
+  pure (λ where .force → fp ∋ fs :< List.map (λ fp → fp , treeᵗ fp) ds)
 
 tree# : Thunk Tree′ _ → Tree
 tree# t = t .force
 
-tree : FilePath → IO 0ℓ Tree
+tree : AbsolutePath → IO 0ℓ Tree
 tree fp = tree# <$> treeᵗ fp
 
 -- @find str iots@ looks depth-first for a file with basename @str@ in the
 -- list of subdirectories @iots@ left to process.
 
-find : String → ∀ {i} → List (IO′ 0ℓ Tree i) → IO′ 0ℓ (Maybe FilePath) i
+find : String → ∀ {i} → List (IO′ 0ℓ Tree i) → IO′ 0ℓ (Maybe AbsolutePath) i
 find str []           = pure nothing
 find str (iot ∷ iots) = iot >>=ᵗ λ where
-  (fs :< ds) .force → do
+  (_ ∋ fs :< ds) .force → do
     case List.filter ((str ≟_) ∘ takeBaseName) fs of λ where
       -- if we have found a suitable file in the current directory
       -- then we return it immediately
