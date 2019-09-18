@@ -6,34 +6,40 @@
 
 <a id="93" class="Comment">-- This library currently relies on:</a>
 
-<a id="131" class="Comment">-- * Agda with support for the NO_UNIVERSE_CHECK pragam,</a>
-<a id="188" class="Comment">--   i.e. post commit be89d4a8b264dd2719cb8c601a2c7f45a95ba220</a>
+<a id="131" class="Comment">-- * Agda with support for the NO_UNIVERSE_CHECK pragam, and</a>
+<a id="192" class="Comment">--   a strictly positive IO builtin.</a>
+<a id="229" class="Comment">--   i.e. post commit eabd7f5d27f7cf91ee4d70d64ea187a0fd99dab0</a>
 
-<a id="252" class="Comment">-- * Agda&#39;s stdlib with:</a>
-<a id="277" class="Comment">--   - the new codata modules</a>
-<a id="307" class="Comment">--   - binding to `Pair` in `Foreign.Haskell`</a>
+<a id="293" class="Comment">-- * Agda&#39;s stdlib with:</a>
+<a id="318" class="Comment">--   - the new codata modules</a>
+<a id="348" class="Comment">--   - the new Foreign.Haskell.Coerce module</a>
 
-<a id="354" class="Comment">-- Examples</a>
 
-<a id="367" class="Keyword">import</a> <a id="374" href="cat.html" class="Module">cat</a>
-<a id="378" class="Keyword">import</a> <a id="385" href="read.html" class="Module">read</a>
-<a id="390" class="Keyword">import</a> <a id="397" href="stopwatch.html" class="Module">stopwatch</a>
+<a id="395" class="Comment">-- Examples</a>
 
-<a id="408" class="Comment">-- Main module</a>
+<a id="408" class="Keyword">import</a> <a id="415" href="cat.html" class="Module">cat</a>
+<a id="419" class="Keyword">import</a> <a id="426" href="read.html" class="Module">read</a>
+<a id="431" class="Keyword">import</a> <a id="438" href="stopwatch.html" class="Module">stopwatch</a>
+<a id="448" class="Keyword">import</a> <a id="455" href="find.html" class="Module">find</a>
 
-<a id="424" class="Keyword">import</a> <a id="431" href="Codata.IO.html" class="Module">Codata.IO</a>
+<a id="461" class="Comment">-- Main module</a>
 
-<a id="442" class="Comment">-- Example of bindings</a>
+<a id="477" class="Keyword">import</a> <a id="484" href="Codata.IO.html" class="Module">Codata.IO</a>
 
-<a id="466" class="Keyword">import</a> <a id="473" href="System.Clock.Primitive.html" class="Module">System.Clock.Primitive</a>
-<a id="496" class="Keyword">import</a> <a id="503" href="System.Clock.html" class="Module">System.Clock</a>
+<a id="495" class="Comment">-- Example of bindings</a>
 
-<a id="517" class="Keyword">import</a> <a id="524" href="System.CPUTime.Primitive.html" class="Module">System.CPUTime.Primitive</a>
-<a id="549" class="Keyword">import</a> <a id="556" href="System.CPUTime.html" class="Module">System.CPUTime</a>
+<a id="519" class="Keyword">import</a> <a id="526" href="System.Clock.Primitive.html" class="Module">System.Clock.Primitive</a>
+<a id="549" class="Keyword">import</a> <a id="556" href="System.Clock.html" class="Module">System.Clock</a>
 
-<a id="572" class="Keyword">import</a> <a id="579" href="System.Environment.Primitive.html" class="Module">System.Environment.Primitive</a>
-<a id="608" class="Keyword">import</a> <a id="615" href="System.Environment.html" class="Module">System.Environment</a>
+<a id="570" class="Keyword">import</a> <a id="577" href="System.CPUTime.Primitive.html" class="Module">System.CPUTime.Primitive</a>
+<a id="602" class="Keyword">import</a> <a id="609" href="System.CPUTime.html" class="Module">System.CPUTime</a>
 
-<a id="635" class="Keyword">import</a> <a id="642" href="System.FilePath.Posix.Primitive.html" class="Module">System.FilePath.Posix.Primitive</a>
-<a id="674" class="Keyword">import</a> <a id="681" href="System.FilePath.Posix.html" class="Module">System.FilePath.Posix</a>
+<a id="625" class="Keyword">import</a> <a id="632" href="System.Environment.Primitive.html" class="Module">System.Environment.Primitive</a>
+<a id="661" class="Keyword">import</a> <a id="668" href="System.Environment.html" class="Module">System.Environment</a>
+
+<a id="688" class="Keyword">import</a> <a id="695" href="System.FilePath.Posix.Primitive.html" class="Module">System.FilePath.Posix.Primitive</a>
+<a id="727" class="Keyword">import</a> <a id="734" href="System.FilePath.Posix.html" class="Module">System.FilePath.Posix</a>
+
+<a id="757" class="Keyword">import</a> <a id="764" href="System.Directory.Primitive.html" class="Module">System.Directory.Primitive</a>
+<a id="791" class="Keyword">import</a> <a id="798" href="System.Directory.html" class="Module">System.Directory</a>
 </pre></body></html>
