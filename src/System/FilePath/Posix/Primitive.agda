@@ -60,11 +60,11 @@ RelativePath = FilePath relative
 -- * a function @mkFilePath@ producing filepaths of this postulated nature
 
 postulate
-  defaultNature : Nature
-  mkFilePath    : String → FilePath defaultNature
+  unknown    : Nature
+  mkFilePath : String → FilePath unknown
 
-{-# COMPILE GHC defaultNature = type () #-}
-{-# COMPILE GHC mkFilePath    = unpack  #-}
+{-# COMPILE GHC unknown    = type () #-}
+{-# COMPILE GHC mkFilePath = unpack  #-}
 
 postulate
 

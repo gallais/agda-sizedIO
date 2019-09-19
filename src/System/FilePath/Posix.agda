@@ -14,6 +14,7 @@ open import System.FilePath.Posix.Primitive as Prim
   using ( Nature
         ; absolute
         ; relative
+        ; unknown
         ; FilePath
         ; mkFilePath
         ; getFilePath
