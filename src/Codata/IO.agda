@@ -181,14 +181,14 @@ getChar           = lift Prim.getChar
 getLine           = lift Prim.getLine
 getContents       = lift Prim.getContents
 readFile          = λ fp → lift (Prim.readFile (getFilePath fp))
-writeFile         = λ fp cstr → lift (coerce Prim.writeFile fp cstr)
-appendFile        = λ fp cstr → lift (coerce Prim.appendFile fp cstr)
+writeFile         = λ fp cstr → lift (Prim.writeFile (getFilePath fp) cstr)
+appendFile        = λ fp cstr → lift (Prim.appendFile (getFilePath fp) cstr)
 putChar           = λ c → lift (Prim.putChar c)
 putCoStr          = λ cstr → lift (Prim.putStr cstr)
 putCoStrLn        = λ cstr → lift (Prim.putStrLn cstr)
 putStr            = putCoStr ∘′ toCostring
 putStrLn          = putCoStrLn ∘′ toCostring
-readFiniteFile    = lift ∘′ coerce Prim.readFiniteFile
+readFiniteFile    = lift ∘′ Prim.readFiniteFile ∘′ getFilePath
 
 {-# NON_TERMINATING #-}
 run : IO ℓ A → Prim.IO A

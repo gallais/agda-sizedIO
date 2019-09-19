@@ -54,16 +54,6 @@ postulate
 AbsolutePath = FilePath absolute
 RelativePath = FilePath relative
 
-
--- As a @FilePath@ is represented internally as @String@ we can happily
--- coerce from one to the other. We do not add the symmetric @Coercible@
--- instance as this would entail the ability to pick a specific nature.
-
-instance
-
-  filePath-toString : Coercible (FilePath n) String
-  filePath-toString = TrustMe
-
 -- In order to prevent users from picking whether a string gets
 -- converted to a @relative@ or an @absolute@ path we have:
 -- * a postulated @defaultNature@
