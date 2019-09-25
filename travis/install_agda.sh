@@ -12,7 +12,7 @@ cd ..
 mkdir -p $HOME/.agda
 cp libraries $HOME/.agda/
 cd $HOME/.agda/
-git clone https://github.com/agda/agda-stdlib
 cd agda-stdlib
+git pull
 git checkout issue903
 cd -
