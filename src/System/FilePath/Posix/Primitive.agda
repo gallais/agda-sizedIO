@@ -21,11 +21,10 @@ postulate
 -- In the Haskell backend these @natures@ are simply erased as the
 -- libraries represent all filepaths in the same way.
 
-{-# FOREIGN GHC {-# LANGUAGE DataKinds #-} #-}
-{-# FOREIGN GHC import Data.Kind #-}
+{-# FOREIGN GHC import Data.Kind     #-}
 {-# COMPILE GHC Nature   = type Type #-}
-{-# COMPILE GHC relative = type () #-}
-{-# COMPILE GHC absolute = type () #-}
+{-# COMPILE GHC relative = type ()   #-}
+{-# COMPILE GHC absolute = type ()   #-}
 
 private
   variable
