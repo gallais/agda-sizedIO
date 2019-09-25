@@ -104,7 +104,8 @@ postulate
   isAbsolute       : FilePath n → Bool
   checkFilePath    : FilePath n → Either RelativePath AbsolutePath
 
-{-# FOREIGN GHC checkFilePath fp
+{-# FOREIGN GHC
+checkFilePath fp
   | isRelative fp = Left fp
   | otherwise     = Right fp
 #-}
