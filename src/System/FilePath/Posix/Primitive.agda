@@ -12,7 +12,7 @@ open import Foreign.Haskell.Coerce
 -- We postulate this nature rather than defining it as an inductive
 -- type so that the user cannot inspect. The only way to cast an
 -- arbitrary filepath nature @n@ to either @relative@ or @absolute@
--- is to use @observeNature@.
+-- is to use @checkFilePath@.
 
 postulate
   Nature : Set
@@ -102,6 +102,12 @@ postulate
   normalise        : FilePath n → FilePath n
   isRelative       : FilePath n → Bool
   isAbsolute       : FilePath n → Bool
+  checkFilePath    : FilePath n → Either RelativePath AbsolutePath
+
+{-# FOREIGN GHC checkFilePath fp
+  | isRelative fp = Left fp
+  | otherwise     = Right fp
+#-}
 
 {-# COMPILE GHC splitExtension    = \ _ -> splitExtension                  #-}
 {-# COMPILE GHC splitExtensions   = \ _ -> splitExtensions                 #-}
@@ -129,3 +135,4 @@ postulate
 {-# COMPILE GHC normalise         = \ _ -> normalise                       #-}
 {-# COMPILE GHC isRelative        = \ _ -> isRelative                      #-}
 {-# COMPILE GHC isAbsolute        = \ _ -> isAbsolute                      #-}
+{-# COMPILE GHC checkFilePath     = \ _ -> checkFilePath                   #-}

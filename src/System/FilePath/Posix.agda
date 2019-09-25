@@ -52,14 +52,17 @@ private
   variable
     m n : Nature
 
-splitExtension  : ∀ {n} → FilePath n → FilePath n × Extension
+splitExtension  : FilePath n → FilePath n × Extension
 splitExtension = coerce Prim.splitExtension
 
-splitExtensions : ∀ {n} → FilePath n → FilePath n × Extension
+splitExtensions : FilePath n → FilePath n × Extension
 splitExtensions = coerce Prim.splitExtensions
 
-stripExtension : ∀ {n} → Extension → FilePath n → Maybe (FilePath n)
+stripExtension : Extension → FilePath n → Maybe (FilePath n)
 stripExtension = coerce Prim.stripExtension
 
-splitFileName : ∀ {n} → FilePath n → FilePath n × RelativePath
+splitFileName : FilePath n → FilePath n × RelativePath
 splitFileName = coerce Prim.splitFileName
+
+checkFilePath : FilePath n → RelativePath ⊎ AbsolutePath
+checkFilePath = coerce Prim.checkFilePath

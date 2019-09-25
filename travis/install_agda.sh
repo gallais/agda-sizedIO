@@ -14,5 +14,5 @@ cp libraries $HOME/.agda/
 cd $HOME/.agda/
 git clone https://github.com/agda/agda-stdlib
 cd agda-stdlib
-git checkout master
+git checkout issue903
 cd -
