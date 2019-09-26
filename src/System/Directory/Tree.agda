@@ -35,11 +35,11 @@ treeᵗ n fp = do
   -- set current directory: makeAbsolute will now consider this
   -- to be the root
   setCurrentDirectory fp
-  -- get content of the current directory and make paths absolute
+  -- get content of the current directory
   vs ← listDirectory fp
-  vs ← ListIO.mapM (toKnownNature n) vs
-  -- tag each file with whether it is a directory or not
+  -- tag each filepath with whether it points to a directory
   bvs ← ListIO.forM vs $ λ fp → do
+    fp   ← toKnownNature n fp
     true ← doesDirectoryExist fp where false → pure (inj₂ fp)
     inj₁ ∘′ (fp ,_) <$> makeAbsolute fp
   -- partition into a list ds of directories and one fs of files
