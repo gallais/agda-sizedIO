@@ -11,7 +11,7 @@ import System.Directory.Primitive as Prim
 
 variable
   ℓ  : Level
-  n : Nature
+  m n : Nature
 
 -- Actions on directories
 
@@ -39,6 +39,20 @@ getTemporaryDirectory     : IO ℓ AbsolutePath
 -- Action on files
 
 makeAbsolute : FilePath n → IO ℓ AbsolutePath
+makeRelative : FilePath n → IO ℓ RelativePath
+
+toKnownNature : KnownNature m → FilePath n → IO ℓ (FilePath m)
+toKnownNature absolute = makeAbsolute
+toKnownNature relative = makeRelative
+
+relativeToKnownNature : KnownNature n → RelativePath → IO ℓ (FilePath n)
+absoluteToKnownNature : KnownNature n → AbsolutePath → IO ℓ (FilePath n)
+
+relativeToKnownNature absolute = makeAbsolute
+relativeToKnownNature relative = pure
+
+absoluteToKnownNature absolute = pure
+absoluteToKnownNature relative = makeRelative
 
 -- Existence tests
 
@@ -61,6 +75,7 @@ getHomeDirectory          = lift Prim.getHomeDirectory
 getUserDocumentsDirectory = lift Prim.getUserDocumentsDirectory
 getTemporaryDirectory     = lift Prim.getTemporaryDirectory
 makeAbsolute              = lift ∘′ Prim.makeAbsolute
+makeRelative              = lift ∘′ Prim.makeRelativeToCurrentDirectory
 doesPathExist             = lift ∘′ Prim.doesPathExist
 doesFileExist             = lift ∘′ Prim.doesFileExist
 doesDirectoryExist        = lift ∘′ Prim.doesDirectoryExist

@@ -14,17 +14,22 @@ open import Foreign.Haskell.Coerce
 -- arbitrary filepath nature @n@ to either @relative@ or @absolute@
 -- is to use @checkFilePath@.
 
-postulate
-  Nature : Set
-  relative absolute : Nature
+module Nature where
+
+  postulate
+    Nature : Set
+    relative absolute unknown : Nature
 
 -- In the Haskell backend these @natures@ are simply erased as the
 -- libraries represent all filepaths in the same way.
 
-{-# FOREIGN GHC import Data.Kind     #-}
-{-# COMPILE GHC Nature   = type Type #-}
-{-# COMPILE GHC relative = type ()   #-}
-{-# COMPILE GHC absolute = type ()   #-}
+  {-# FOREIGN GHC import Data.Kind     #-}
+  {-# COMPILE GHC Nature   = type Type #-}
+  {-# COMPILE GHC relative = type ()   #-}
+  {-# COMPILE GHC absolute = type ()   #-}
+  {-# COMPILE GHC unknown  = type ()   #-}
+
+open Nature using (Nature) public
 
 private
   variable
@@ -50,8 +55,8 @@ postulate
 
 -- We provide convenient short names for the two types of filepaths
 
-AbsolutePath = FilePath absolute
-RelativePath = FilePath relative
+AbsolutePath = FilePath Nature.absolute
+RelativePath = FilePath Nature.relative
 
 -- In order to prevent users from picking whether a string gets
 -- converted to a @relative@ or an @absolute@ path we have:
@@ -59,10 +64,8 @@ RelativePath = FilePath relative
 -- * a function @mkFilePath@ producing filepaths of this postulated nature
 
 postulate
-  unknown    : Nature
-  mkFilePath : String → FilePath unknown
+  mkFilePath : String → FilePath Nature.unknown
 
-{-# COMPILE GHC unknown    = type () #-}
 {-# COMPILE GHC mkFilePath = unpack  #-}
 
 postulate

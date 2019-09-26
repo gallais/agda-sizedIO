@@ -13,7 +13,7 @@ postulate
 
   getArgs           : IO (List String)
   getProgName       : IO String
-  getExecutablePath : IO (FilePath absolute)
+  getExecutablePath : IO AbsolutePath
   lookupEnv         : String → IO (FFI.Maybe String)
   setEnv            : String → String → IO ⊤
   unsetEnv          : String → IO ⊤

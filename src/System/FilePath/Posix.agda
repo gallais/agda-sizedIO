@@ -11,10 +11,8 @@ open import Function
 open import Foreign.Haskell.Coerce
 
 open import System.FilePath.Posix.Primitive as Prim
-  using ( Nature
-        ; absolute
-        ; relative
-        ; unknown
+  using ( module Nature
+        ; Nature
         ; FilePath
         ; mkFilePath
         ; getFilePath
@@ -51,6 +49,12 @@ open import System.FilePath.Posix.Primitive as Prim
 private
   variable
     m n : Nature
+
+-- singleton type for Nature
+data KnownNature : Nature → Set where
+  instance
+    absolute : KnownNature Nature.absolute
+    relative : KnownNature Nature.relative
 
 splitExtension  : FilePath n → FilePath n × Extension
 splitExtension = coerce Prim.splitExtension
