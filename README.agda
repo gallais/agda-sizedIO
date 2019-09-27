@@ -46,6 +46,8 @@ import System.FilePath.Posix
 import System.Directory.Primitive
 import System.Directory
 
+import System.Info
+
 -- Example of a high-level library function built on top
 
 import System.Directory.Tree
