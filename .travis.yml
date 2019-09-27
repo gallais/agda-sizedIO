@@ -9,8 +9,8 @@ branches:
 addons:
   apt:
     packages:
-      - cabal-install-2.0
-      - ghc-8.2.2
+      - cabal-install-2.2
+      - ghc-8.4.4
     sources:
       - hvr-ghc
 
@@ -21,7 +21,7 @@ cache:
     - $HOME/.agda/
 
 install:
-  - export PATH=$HOME/.cabal/bin:/opt/ghc/8.2.2/bin:/opt/cabal/2.0/bin:$PATH
+  - export PATH=$HOME/.cabal/bin:/opt/ghc/8.4.4/bin:/opt/cabal/2.2/bin:$PATH
   - cd travis/
   - travis_wait 50 ./install_agda.sh
 
