@@ -13,6 +13,10 @@ module README where
 --   - the new codata modules
 --   - the new Foreign.Haskell.Coerce module
 
+-- * The following Haskell packages:
+--   - directory >= 1.3.2.0
+--   - filepaht  >= 1.4.2.1
+
 
 -- Examples
 
