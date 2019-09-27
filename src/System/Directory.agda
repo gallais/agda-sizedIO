@@ -90,6 +90,18 @@ findFiles                    : List (FilePath n) → String → IO ℓ (List (Fi
 findFileWith                 : (FilePath n → IO ℓ Bool) → List (FilePath n) → String → IO ℓ (Maybe (FilePath n))
 findFilesWith                : (FilePath n → IO ℓ Bool) → List (FilePath n) → String → IO ℓ (List (FilePath n))
 
+-- Symbolic links
+
+createFileLink        : FilePath m → FilePath n → IO ℓ ⊤
+createDirectoryLink   : FilePath m → FilePath n → IO ℓ ⊤
+removeDirectoryLink   : FilePath n → IO ℓ ⊤
+pathIsSymbolicLink    : FilePath n → IO ℓ Bool
+getSymbolicLinkTarget : FilePath n → IO ℓ (FilePath Nature.unknown)
+
+
+
+
+
 createDirectory          = lift ∘′ Prim.createDirectory
 createDirectoryIfMissing = λ b → lift ∘′ Prim.createDirectoryIfMissing b
 removeDirectory          = lift ∘′ Prim.removeDirectory
@@ -130,3 +142,9 @@ findFile                     = λ fps str → lift (coerce Prim.findFile fps str
 findFiles                    = λ fps str → lift (Prim.findFiles fps str)
 findFileWith                 = λ p fps str → lift (coerce Prim.findFileWith (run ∘′ p) fps str)
 findFilesWith                = λ p fps str → lift (Prim.findFilesWith (run ∘′ p) fps str)
+
+createFileLink        = λ fp → lift ∘′ Prim.createFileLink fp
+createDirectoryLink   = λ fp → lift ∘′ Prim.createDirectoryLink fp
+removeDirectoryLink   = lift ∘′ Prim.removeDirectoryLink
+pathIsSymbolicLink    = lift ∘′ Prim.pathIsSymbolicLink
+getSymbolicLinkTarget = lift ∘′ Prim.getSymbolicLinkTarget

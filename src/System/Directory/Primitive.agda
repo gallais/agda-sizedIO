@@ -53,6 +53,7 @@ postulate
   getTemporaryDirectory     : IO AbsolutePath
 
   -- Actions on files
+
   removeFile                     : FilePath m → IO ⊤
   renameFile                     : FilePath m → FilePath n → IO ⊤
   renamePath                     : FilePath m → FilePath n → IO ⊤
@@ -77,44 +78,59 @@ postulate
   findFilesWith                : (FilePath n → IO Bool) → List (FilePath n) → String → IO (List (FilePath n))
   exeExtension                 : String
 
-{-# COMPILE GHC createDirectory                = const createDirectory                                #-}
-{-# COMPILE GHC createDirectoryIfMissing       = const createDirectoryIfMissing                       #-}
-{-# COMPILE GHC removeDirectory                = const removeDirectory                                #-}
-{-# COMPILE GHC removeDirectoryRecursive       = const removeDirectoryRecursive                       #-}
-{-# COMPILE GHC removePathForcibly             = const removePathForcibly                             #-}
-{-# COMPILE GHC renameDirectory                = \ _ _ -> renameDirectory                             #-}
-{-# COMPILE GHC listDirectory                  = const listDirectory                                  #-}
-{-# COMPILE GHC getDirectoryContents           = const getDirectoryContents                           #-}
+  -- Symbolic links
 
-{-# COMPILE GHC getCurrentDirectory            = getCurrentDirectory                                  #-}
-{-# COMPILE GHC setCurrentDirectory            = const setCurrentDirectory                            #-}
-{-# COMPILE GHC withCurrentDirectory           = \ _ _ _ -> withCurrentDirectory                      #-}
+  createFileLink        : FilePath m → FilePath n → IO ⊤
+  createDirectoryLink   : FilePath m → FilePath n → IO ⊤
+  removeDirectoryLink   : FilePath n → IO ⊤
+  pathIsSymbolicLink    : FilePath n → IO Bool
+  getSymbolicLinkTarget : FilePath n → IO (FilePath Nature.unknown)
 
-{-# COMPILE GHC getHomeDirectory               = getHomeDirectory                                     #-}
-{-# COMPILE GHC getXdgDirectory                = getXdgDirectory                                      #-}
-{-# COMPILE GHC getXdgDirectoryList            = getXdgDirectoryList                                  #-}
-{-# COMPILE GHC getAppUserDataDirectory        = getAppUserDataDirectory                              #-}
-{-# COMPILE GHC getUserDocumentsDirectory      = getUserDocumentsDirectory                            #-}
-{-# COMPILE GHC getTemporaryDirectory          = getTemporaryDirectory                                #-}
 
-{-# COMPILE GHC removeFile                     = const removeFile                                     #-}
-{-# COMPILE GHC renameFile                     = \ _ _ -> renameFile                                  #-}
-{-# COMPILE GHC renamePath                     = \ _ _ -> renamePath                                  #-}
-{-# COMPILE GHC copyFile                       = \ _ _ -> copyFile                                    #-}
-{-# COMPILE GHC copyFileWithMetadata           = \ _ _ -> copyFileWithMetadata                        #-}
-{-# COMPILE GHC getFileSize                    = const getFileSize                                    #-}
-{-# COMPILE GHC canonicalizePath               = const canonicalizePath                               #-}
-{-# COMPILE GHC makeAbsolute                   = const makeAbsolute                                   #-}
-{-# COMPILE GHC makeRelativeToCurrentDirectory = const makeRelativeToCurrentDirectory                 #-}
+{-# COMPILE GHC createDirectory          = const createDirectory          #-}
+{-# COMPILE GHC createDirectoryIfMissing = const createDirectoryIfMissing #-}
+{-# COMPILE GHC removeDirectory          = const removeDirectory          #-}
+{-# COMPILE GHC removeDirectoryRecursive = const removeDirectoryRecursive #-}
+{-# COMPILE GHC removePathForcibly       = const removePathForcibly       #-}
+{-# COMPILE GHC renameDirectory          = \ _ _ -> renameDirectory       #-}
+{-# COMPILE GHC listDirectory            = const listDirectory            #-}
+{-# COMPILE GHC getDirectoryContents     = const getDirectoryContents     #-}
 
-{-# COMPILE GHC doesPathExist                  = const doesPathExist                                  #-}
-{-# COMPILE GHC doesFileExist                  = const doesFileExist                                  #-}
-{-# COMPILE GHC doesDirectoryExist             = const doesDirectoryExist                             #-}
-{-# COMPILE GHC findExecutable                 = findExecutable . unpack                              #-}
-{-# COMPILE GHC findExecutables                = findExecutables . unpack                             #-}
-{-# COMPILE GHC findExecutablesInDirectories   = \ _ fps -> findExecutablesInDirectories fps . unpack #-}
-{-# COMPILE GHC findFile                       = \ _ fps -> findFile fps . unpack                     #-}
-{-# COMPILE GHC findFiles                      = \ _ fps -> findFiles fps . unpack                    #-}
-{-# COMPILE GHC findFileWith                   = \ _ p fps -> findFileWith p fps . unpack             #-}
-{-# COMPILE GHC findFilesWith                  = \ _ p fps -> findFilesWith p fps . unpack            #-}
-{-# COMPILE GHC exeExtension                   = pack exeExtension                                    #-}
+{-# COMPILE GHC getCurrentDirectory  = getCurrentDirectory             #-}
+{-# COMPILE GHC setCurrentDirectory  = const setCurrentDirectory       #-}
+{-# COMPILE GHC withCurrentDirectory = \ _ _ _ -> withCurrentDirectory #-}
+
+{-# COMPILE GHC getHomeDirectory          = getHomeDirectory          #-}
+{-# COMPILE GHC getXdgDirectory           = getXdgDirectory           #-}
+{-# COMPILE GHC getXdgDirectoryList       = getXdgDirectoryList       #-}
+{-# COMPILE GHC getAppUserDataDirectory   = getAppUserDataDirectory   #-}
+{-# COMPILE GHC getUserDocumentsDirectory = getUserDocumentsDirectory #-}
+{-# COMPILE GHC getTemporaryDirectory     = getTemporaryDirectory     #-}
+
+{-# COMPILE GHC removeFile                     = const removeFile                     #-}
+{-# COMPILE GHC renameFile                     = \ _ _ -> renameFile                  #-}
+{-# COMPILE GHC renamePath                     = \ _ _ -> renamePath                  #-}
+{-# COMPILE GHC copyFile                       = \ _ _ -> copyFile                    #-}
+{-# COMPILE GHC copyFileWithMetadata           = \ _ _ -> copyFileWithMetadata        #-}
+{-# COMPILE GHC getFileSize                    = const getFileSize                    #-}
+{-# COMPILE GHC canonicalizePath               = const canonicalizePath               #-}
+{-# COMPILE GHC makeAbsolute                   = const makeAbsolute                   #-}
+{-# COMPILE GHC makeRelativeToCurrentDirectory = const makeRelativeToCurrentDirectory #-}
+
+{-# COMPILE GHC doesPathExist                = const doesPathExist                                  #-}
+{-# COMPILE GHC doesFileExist                = const doesFileExist                                  #-}
+{-# COMPILE GHC doesDirectoryExist           = const doesDirectoryExist                             #-}
+{-# COMPILE GHC findExecutable               = findExecutable . unpack                              #-}
+{-# COMPILE GHC findExecutables              = findExecutables . unpack                             #-}
+{-# COMPILE GHC findExecutablesInDirectories = \ _ fps -> findExecutablesInDirectories fps . unpack #-}
+{-# COMPILE GHC findFile                     = \ _ fps -> findFile fps . unpack                     #-}
+{-# COMPILE GHC findFiles                    = \ _ fps -> findFiles fps . unpack                    #-}
+{-# COMPILE GHC findFileWith                 = \ _ p fps -> findFileWith p fps . unpack             #-}
+{-# COMPILE GHC findFilesWith                = \ _ p fps -> findFilesWith p fps . unpack            #-}
+{-# COMPILE GHC exeExtension                 = pack exeExtension                                    #-}
+
+{-# COMPILE GHC createFileLink        = \ _ _ -> createFileLink      #-}
+{-# COMPILE GHC createDirectoryLink   = \ _ _ -> createDirectoryLink #-}
+{-# COMPILE GHC removeDirectoryLink   = const removeDirectoryLink    #-}
+{-# COMPILE GHC pathIsSymbolicLink    = const pathIsSymbolicLink     #-}
+{-# COMPILE GHC getSymbolicLinkTarget = const getSymbolicLinkTarget  #-}

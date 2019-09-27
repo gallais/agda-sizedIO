@@ -15,7 +15,7 @@ module README where
 
 -- * The following Haskell packages:
 --   - directory >= 1.3.2.0
---   - filepaht  >= 1.4.2.1
+--   - filepath  >= 1.4.2.1
 
 
 -- Examples
