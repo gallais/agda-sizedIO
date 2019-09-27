@@ -1,14 +1,20 @@
 module System.FilePath.Posix where
 
+open import Level
 open import Agda.Builtin.Bool
 open import Agda.Builtin.List
 open import Agda.Builtin.String
+open import Codata.IO.Core
 open import Data.Maybe.Base
 open import Data.Product
 open import Data.Sum.Base
 open import Function
 
 open import Foreign.Haskell.Coerce
+
+private
+  variable
+    ℓ : Level
 
 open import System.FilePath.Posix.Primitive as Prim
   using ( module Nature
@@ -21,14 +27,31 @@ open import System.FilePath.Posix.Primitive as Prim
         ; Extension
         ; mkExtension
         ; getExtension
+     -- Separator predicates
+        ; pathSeparator
+        ; pathSeparators
+        ; isPathSeparator
+        ; searchPathSeparator
+        ; isSearchPathSeparator
+        ; extSeparator
+        ; isExtSeparator
+     -- $PATH methods
+        ; splitSearchPath
+     -- ; getSearchPath see below: lift needed
+     -- Extension functions
+     -- ; splitExtension see below: coerce needed
         ; takeExtension
-        ; takeExtensions
         ; replaceExtension
-        ; replaceExtensions
         ; dropExtension
-        ; dropExtensions
         ; addExtension
         ; hasExtension
+        ; takeExtensions
+        ; replaceExtensions
+        ; dropExtensions
+        ; isExtensionOf
+     -- ; stripExtension see below: coerce needed
+     -- Filename/directory functions
+     -- ; splitFileName see below: coerce needed
         ; takeFileName
         ; replaceFileName
         ; dropFileName
@@ -40,11 +63,20 @@ open import System.FilePath.Posix.Primitive as Prim
         ; splitPath
         ; joinPath
         ; splitDirectories
+      -- Trailing slash functions
+        ; hasTrailingPathSeparator
+        ; addTrailingPathSeparator
+        ; dropTrailingPathSeparator
+     -- File name manipulations
         ; normalise
+        ; equalFilePath
+        ; makeRelative
+     -- ; checkFilePath see below: coerce neededc
         ; isRelative
         ; isAbsolute
-        )
-  public
+        ; isValid
+        ; makeValid
+        ) public
 
 private
   variable
@@ -64,6 +96,9 @@ splitExtensions = coerce Prim.splitExtensions
 
 stripExtension : Extension → FilePath n → Maybe (FilePath n)
 stripExtension = coerce Prim.stripExtension
+
+getSearchPath : IO ℓ (List (FilePath Nature.unknown))
+getSearchPath = lift Prim.getSearchPath
 
 splitFileName : FilePath n → FilePath n × RelativePath
 splitFileName = coerce Prim.splitFileName

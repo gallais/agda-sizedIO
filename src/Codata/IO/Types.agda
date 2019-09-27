@@ -1,7 +1,7 @@
 module Codata.IO.Types where
 
 open import Data.Maybe.Base
-open import Data.Nat.Base
+open import Data.Nat.Base using (ℕ)
 open import Foreign.Haskell.Coerce
 
 module FFI where

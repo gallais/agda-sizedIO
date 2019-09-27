@@ -10,7 +10,7 @@ open import Data.Nat.Base
 open import Data.String.Base
 open import Foreign.Haskell.Coerce
 open import Function
-open import System.FilePath.Posix
+open import System.FilePath.Posix hiding (makeRelative)
 
 open import System.Directory.Primitive as Prim
   using ( XdgDirectory

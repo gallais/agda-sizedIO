@@ -1,12 +1,13 @@
 module System.FilePath.Posix.Primitive where
 
 open import Agda.Builtin.Bool
+open import Agda.Builtin.Char
 open import Agda.Builtin.List
 open import Agda.Builtin.String
 open import Data.Product
 open import Data.Sum.Base
 open import Foreign.Haskell as FFI
-open import Foreign.Haskell.Coerce
+open import IO.Primitive
 
 -- A filepath has a nature: it can be either relative or absolute.
 -- We postulate this nature rather than defining it as an inductive
@@ -60,32 +61,47 @@ RelativePath = FilePath Nature.relative
 
 -- In order to prevent users from picking whether a string gets
 -- converted to a @relative@ or an @absolute@ path we have:
--- * a postulated @defaultNature@
+-- * a postulated @unknown@ nature
 -- * a function @mkFilePath@ producing filepaths of this postulated nature
 
 postulate
   mkFilePath : String → FilePath Nature.unknown
 
-{-# COMPILE GHC mkFilePath = unpack  #-}
+{-# COMPILE GHC mkFilePath = unpack #-}
 
 postulate
 
-  splitExtension  : FilePath n → Pair (FilePath n) Extension
-  splitExtensions : FilePath n → Pair (FilePath n) Extension
+  -- Separator predicates
 
-  takeExtension  : FilePath n → Extension
-  takeExtensions : FilePath n → Extension
+  pathSeparator         : Char
+  pathSeparators        : List Char
+  isPathSeparator       : Char → Bool
+  searchPathSeparator   : Char
+  isSearchPathSeparator : Char → Bool
+  extSeparator          : Char
+  isExtSeparator        : Char → Bool
 
+  -- $PATH methods
+
+  splitSearchPath : String → List (FilePath Nature.unknown)
+  getSearchPath   : IO (List (FilePath Nature.unknown))
+
+  -- Extension functions
+
+  splitExtension    : FilePath n → Pair (FilePath n) Extension
+  takeExtension     : FilePath n → Extension
   replaceExtension  : FilePath n → Extension → FilePath n
+  dropExtension     : FilePath n → FilePath n
+  addExtension      : FilePath n → Extension → FilePath n
+  hasExtension      : FilePath n → Bool
+  splitExtensions   : FilePath n → Pair (FilePath n) Extension
+  takeExtensions    : FilePath n → Extension
   replaceExtensions : FilePath n → Extension → FilePath n
+  dropExtensions    : FilePath n → FilePath n
+  isExtensionOf     : Extension → FilePath n → Bool
+  stripExtension    : Extension → FilePath n → FFI.Maybe (FilePath n)
 
-  dropExtension  : FilePath n → FilePath n
-  dropExtensions : FilePath n → FilePath n
-
-  addExtension : FilePath n → Extension → FilePath n
-  hasExtension : FilePath n → Bool
-
-  stripExtension : Extension → FilePath n → FFI.Maybe (FilePath n)
+  -- Filename/directory functions
 
   splitFileName    : FilePath n → Pair (FilePath n) RelativePath
   takeFileName     : FilePath n → String
@@ -100,12 +116,32 @@ postulate
   joinPath         : List RelativePath → RelativePath
   splitDirectories : FilePath n → List RelativePath
 
-  -- File name manipulation
+  -- Drive functions
+
+  splitDrive : FilePath n → Pair (FilePath n) RelativePath
+  joinDrive  : FilePath n → RelativePath → FilePath n
+  takeDrive  : FilePath n → FilePath n
+  hasDrive   : FilePath n → Bool
+  dropDrive  : FilePath n → RelativePath
+  isDrive    : FilePath n → Bool
+
+  -- Trailing slash functions
+
+  hasTrailingPathSeparator  : FilePath n → Bool
+  addTrailingPathSeparator  : FilePath n → FilePath n
+  dropTrailingPathSeparator : FilePath n → FilePath n
+
+  -- File name manipulations
 
   normalise        : FilePath n → FilePath n
+  equalFilePath    : FilePath m → FilePath n → Bool
+  makeRelative     : FilePath m → FilePath n → RelativePath
+  checkFilePath    : FilePath n → Either RelativePath AbsolutePath
   isRelative       : FilePath n → Bool
   isAbsolute       : FilePath n → Bool
-  checkFilePath    : FilePath n → Either RelativePath AbsolutePath
+  isValid          : FilePath n → Bool
+  makeValid        : FilePath n → FilePath n
+
 
 {-# FOREIGN GHC
 checkFilePath fp
@@ -113,30 +149,59 @@ checkFilePath fp
   | otherwise     = Right fp
 #-}
 
-{-# COMPILE GHC splitExtension    = \ _ -> splitExtension                  #-}
-{-# COMPILE GHC splitExtensions   = \ _ -> splitExtensions                 #-}
-{-# COMPILE GHC takeExtension     = \ _ -> takeExtension                   #-}
-{-# COMPILE GHC takeExtensions    = \ _ -> takeExtensions                  #-}
-{-# COMPILE GHC replaceExtension  = \ _ -> replaceExtension                #-}
-{-# COMPILE GHC replaceExtensions = \ _ -> replaceExtensions               #-}
-{-# COMPILE GHC dropExtension     = \ _ -> dropExtension                   #-}
-{-# COMPILE GHC dropExtensions    = \ _ -> dropExtensions                  #-}
-{-# COMPILE GHC addExtension      = \ _ -> addExtension                    #-}
-{-# COMPILE GHC hasExtension      = \ _ -> hasExtension                    #-}
-{-# COMPILE GHC stripExtension    = \ _ -> stripExtension                  #-}
-{-# COMPILE GHC splitFileName     = \ _ -> splitFileName                   #-}
-{-# COMPILE GHC takeFileName      = \ _ -> pack . takeFileName             #-}
-{-# COMPILE GHC replaceFileName   = \ _ -> fmap (. unpack) replaceFileName #-}
-{-# COMPILE GHC dropFileName      = \ _ -> dropFileName                    #-}
-{-# COMPILE GHC takeBaseName      = \ _ -> pack . takeBaseName             #-}
-{-# COMPILE GHC replaceBaseName   = \ _ -> fmap (. unpack) replaceBaseName #-}
-{-# COMPILE GHC takeDirectory     = \ _ -> takeDirectory                   #-}
-{-# COMPILE GHC replaceDirectory  = \ _ _ -> replaceDirectory              #-}
-{-# COMPILE GHC combine           = \ _ -> combine                         #-}
-{-# COMPILE GHC splitPath         = \ _ -> splitPath                       #-}
-{-# COMPILE GHC joinPath          = joinPath                               #-}
-{-# COMPILE GHC splitDirectories  = \ _ -> splitDirectories                #-}
-{-# COMPILE GHC normalise         = \ _ -> normalise                       #-}
-{-# COMPILE GHC isRelative        = \ _ -> isRelative                      #-}
-{-# COMPILE GHC isAbsolute        = \ _ -> isAbsolute                      #-}
-{-# COMPILE GHC checkFilePath     = \ _ -> checkFilePath                   #-}
+{-# COMPILE GHC pathSeparator         = pathSeparator         #-}
+{-# COMPILE GHC pathSeparators        = pathSeparators        #-}
+{-# COMPILE GHC isPathSeparator       = isPathSeparator       #-}
+{-# COMPILE GHC searchPathSeparator   = searchPathSeparator   #-}
+{-# COMPILE GHC isSearchPathSeparator = isSearchPathSeparator #-}
+{-# COMPILE GHC extSeparator          = extSeparator          #-}
+{-# COMPILE GHC isExtSeparator        = isExtSeparator        #-}
+
+{-# COMPILE GHC splitSearchPath = splitSearchPath . unpack #-}
+{-# COMPILE GHC getSearchPath   = getSearchPath            #-}
+
+{-# COMPILE GHC splitExtension    = const splitExtension    #-}
+{-# COMPILE GHC takeExtension     = const takeExtension     #-}
+{-# COMPILE GHC replaceExtension  = const replaceExtension  #-}
+{-# COMPILE GHC dropExtension     = const dropExtension     #-}
+{-# COMPILE GHC addExtension      = const addExtension      #-}
+{-# COMPILE GHC hasExtension      = const hasExtension      #-}
+{-# COMPILE GHC splitExtensions   = const splitExtensions   #-}
+{-# COMPILE GHC takeExtensions    = const takeExtensions    #-}
+{-# COMPILE GHC replaceExtensions = const replaceExtensions #-}
+{-# COMPILE GHC dropExtensions    = const dropExtensions    #-}
+{-# COMPILE GHC isExtensionOf     = const isExtensionOf     #-}
+{-# COMPILE GHC stripExtension    = const stripExtension    #-}
+
+{-# COMPILE GHC splitFileName    = const splitFileName                     #-}
+{-# COMPILE GHC takeFileName     = const $ pack . takeFileName             #-}
+{-# COMPILE GHC replaceFileName  = const $ fmap (. unpack) replaceFileName #-}
+{-# COMPILE GHC dropFileName     = const dropFileName                      #-}
+{-# COMPILE GHC takeBaseName     = const $ pack . takeBaseName             #-}
+{-# COMPILE GHC replaceBaseName  = const $ fmap (. unpack) replaceBaseName #-}
+{-# COMPILE GHC takeDirectory    = const takeDirectory                     #-}
+{-# COMPILE GHC replaceDirectory = \ _ _ -> replaceDirectory               #-}
+{-# COMPILE GHC combine          = const combine                           #-}
+{-# COMPILE GHC splitPath        = const splitPath                         #-}
+{-# COMPILE GHC joinPath         = joinPath                                #-}
+{-# COMPILE GHC splitDirectories = const splitDirectories                  #-}
+
+{-# COMPILE GHC splitDrive = const splitDrive #-}
+{-# COMPILE GHC joinDrive  = const joinDrive  #-}
+{-# COMPILE GHC takeDrive  = const takeDrive  #-}
+{-# COMPILE GHC hasDrive   = const hasDrive   #-}
+{-# COMPILE GHC dropDrive  = const dropDrive  #-}
+{-# COMPILE GHC isDrive    = const isDrive    #-}
+
+{-# COMPILE GHC hasTrailingPathSeparator  = const hasTrailingPathSeparator  #-}
+{-# COMPILE GHC addTrailingPathSeparator  = const addTrailingPathSeparator  #-}
+{-# COMPILE GHC dropTrailingPathSeparator = const dropTrailingPathSeparator #-}
+
+{-# COMPILE GHC normalise     = const normalise        #-}
+{-# COMPILE GHC equalFilePath = \ _ _ -> equalFilePath #-}
+{-# COMPILE GHC makeRelative  = \ _ _ -> makeRelative  #-}
+{-# COMPILE GHC isRelative    = const isRelative       #-}
+{-# COMPILE GHC isAbsolute    = const isAbsolute       #-}
+{-# COMPILE GHC checkFilePath = const checkFilePath    #-}
+{-# COMPILE GHC isValid       = const isValid          #-}
+{-# COMPILE GHC makeValid     = const makeValid        #-}
