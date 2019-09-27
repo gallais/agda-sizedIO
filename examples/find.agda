@@ -19,19 +19,19 @@ open import System.Directory.Tree
 -- @find str iots@ looks depth-first for a file with name @str@ in the
 -- list of subdirectories @iots@ left to process.
 
-find : String → ∀ {i} → List (IO′ 0ℓ RelativeTree i) → IO′ 0ℓ (Maybe AbsolutePath) i
+find : String → ∀ {i} → List (IO′ 0ℓ RelativeTree i) → IO′ 0ℓ (Maybe (List RelativePath)) i
 find str []           = pure nothing
 find str (iot ∷ iots) = iot >>=ᵗ λ where
   (dir ∋ fs :< ds) .force → do
     case List.filter ((str ≟_) ∘ getFilePath) fs of λ where
       -- if we have found a suitable file in the current directory
       -- then we return it immediately
-      (fp ∷ _) → pure (just (combine dir fp))
+      (fp ∷ _) → pure (just (dir ∷ fp ∷ []))
       -- otherwise we look for it in its subdirectories. If we fail
       -- then we look at the next directory in the list.
       []       → do
         let ds = List.map ((tree# <$>_) ∘′ proj₂) ds
-        nothing ← find str ds where fp@(just _) → pure fp
+        nothing ← find str ds where (just fps) → pure (just (dir ∷ fps))
         find str iots
 
 usage : IO 0ℓ _
@@ -43,5 +43,5 @@ main = run $ do
   let dtree = tree =<< makeAbsolute (mkFilePath fp)
   mfp ← find str (dtree ∷ [])
   case mfp of λ where
-    nothing   → putStrLn $ "Could not find file with name " ++ str
-    (just fp) → putStrLn $ "Found: " ++ getFilePath fp
+    nothing    → putStrLn $ "Could not find file with name " ++ str
+    (just fps) → putStrLn $ "Found: " ++ getFilePath (joinPath fps)
