@@ -47,8 +47,6 @@ treeᵗ n fp = do
   -- return the files together with the ability to further explore the tree
   pure (λ where .force → fp ∋ fs :< List.map (Prod.map₂ (treeᵗ n)) ds)
 
--- (λ fp → _, fp <$> doesDirectoryExist fp) vs
-
 tree# : Thunk (Tree′ n) ∞ → Tree n
 tree# t = t .force
 
