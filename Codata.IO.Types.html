@@ -2,51 +2,51 @@
 <html><head><meta charset="utf-8"><title>Codata.IO.Types</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Keyword">module</a> <a id="8" href="Codata.IO.Types.html" class="Module">Codata.IO.Types</a> <a id="24" class="Keyword">where</a>
 
 <a id="31" class="Keyword">open</a> <a id="36" class="Keyword">import</a> <a id="43" href="Data.Maybe.Base.html" class="Module">Data.Maybe.Base</a>
-<a id="59" class="Keyword">open</a> <a id="64" class="Keyword">import</a> <a id="71" href="Data.Nat.Base.html" class="Module">Data.Nat.Base</a>
-<a id="85" class="Keyword">open</a> <a id="90" class="Keyword">import</a> <a id="97" href="Foreign.Haskell.Coerce.html" class="Module">Foreign.Haskell.Coerce</a>
+<a id="59" class="Keyword">open</a> <a id="64" class="Keyword">import</a> <a id="71" href="Data.Nat.Base.html" class="Module">Data.Nat.Base</a> <a id="85" class="Keyword">using</a> <a id="91" class="Symbol">(</a><a id="92" href="Agda.Builtin.Nat.html#165" class="Datatype">ℕ</a><a id="93" class="Symbol">)</a>
+<a id="95" class="Keyword">open</a> <a id="100" class="Keyword">import</a> <a id="107" href="Foreign.Haskell.Coerce.html" class="Module">Foreign.Haskell.Coerce</a>
 
-<a id="121" class="Keyword">module</a> <a id="FFI"></a><a id="128" href="Codata.IO.Types.html#128" class="Module">FFI</a> <a id="132" class="Keyword">where</a>
+<a id="131" class="Keyword">module</a> <a id="FFI"></a><a id="138" href="Codata.IO.Types.html#138" class="Module">FFI</a> <a id="142" class="Keyword">where</a>
 
-  <a id="141" class="Keyword">import</a> <a id="148" href="Foreign.Haskell.html" class="Module">Foreign.Haskell</a> <a id="164" class="Symbol">as</a> <a id="167" class="Module">FFI</a>
+  <a id="151" class="Keyword">import</a> <a id="158" href="Foreign.Haskell.html" class="Module">Foreign.Haskell</a> <a id="174" class="Symbol">as</a> <a id="177" class="Module">FFI</a>
 
-  <a id="174" class="Keyword">data</a> <a id="FFI.BufferMode"></a><a id="179" href="Codata.IO.Types.html#179" class="Datatype">BufferMode</a> <a id="190" class="Symbol">:</a> <a id="192" class="PrimitiveType">Set</a> <a id="196" class="Keyword">where</a>
-    <a id="FFI.BufferMode.NoBuffering"></a><a id="206" href="Codata.IO.Types.html#206" class="InductiveConstructor">NoBuffering</a> <a id="FFI.BufferMode.LineBuffering"></a><a id="218" href="Codata.IO.Types.html#218" class="InductiveConstructor">LineBuffering</a> <a id="232" class="Symbol">:</a> <a id="234" href="Codata.IO.Types.html#179" class="Datatype">BufferMode</a>
-    <a id="FFI.BufferMode.BlockBuffering"></a><a id="249" href="Codata.IO.Types.html#249" class="InductiveConstructor">BlockBuffering</a> <a id="264" class="Symbol">:</a> <a id="266" href="Foreign.Haskell.Maybe.html#522" class="Datatype">FFI.Maybe</a> <a id="276" href="Agda.Builtin.Nat.html#165" class="Datatype">ℕ</a> <a id="278" class="Symbol">→</a> <a id="280" href="Codata.IO.Types.html#179" class="Datatype">BufferMode</a>
-  <a id="293" class="Symbol">{-#</a> <a id="297" class="Keyword">FOREIGN</a> <a id="305" class="Pragma">GHC</a> <a id="309" class="Pragma">import</a> <a id="316" class="Pragma">qualified</a> <a id="326" class="Pragma">System.IO</a> <a id="336" class="Pragma">as</a> <a id="339" class="Pragma">SIO</a> <a id="343" class="Symbol">#-}</a>
-  <a id="349" class="Symbol">{-#</a> <a id="353" class="Keyword">FOREIGN</a> <a id="361" class="Pragma">GHC</a>
-      <a id="371" class="Pragma">data</a> <a id="376" class="Pragma">AgdaBufferMode</a>
-        <a id="399" class="Pragma">=</a> <a id="401" class="Pragma">NoBuffering</a>
-        <a id="421" class="Pragma">|</a> <a id="423" class="Pragma">LineBuffering</a>
-        <a id="445" class="Pragma">|</a> <a id="447" class="Pragma">BlockBuffering</a> <a id="462" class="Pragma">(Maybe</a> <a id="469" class="Pragma">Integer)</a>
-      <a id="484" class="Pragma">toBufferMode</a> <a id="497" class="Pragma">::</a> <a id="500" class="Pragma">AgdaBufferMode</a> <a id="515" class="Pragma">-&gt;</a> <a id="518" class="Pragma">SIO.BufferMode</a>
-      <a id="539" class="Pragma">toBufferMode</a> <a id="552" class="Pragma">x</a> <a id="554" class="Pragma">=</a> <a id="556" class="Pragma">case</a> <a id="561" class="Pragma">x</a> <a id="563" class="Pragma">of</a>
-        <a id="574" class="Pragma">NoBuffering</a>       <a id="592" class="Pragma">-&gt;</a> <a id="595" class="Pragma">SIO.NoBuffering</a>
-        <a id="619" class="Pragma">LineBuffering</a>     <a id="637" class="Pragma">-&gt;</a> <a id="640" class="Pragma">SIO.LineBuffering</a>
-        <a id="666" class="Pragma">BlockBuffering</a> <a id="681" class="Pragma">mi</a> <a id="684" class="Pragma">-&gt;</a> <a id="687" class="Pragma">SIO.BlockBuffering</a> <a id="706" class="Pragma">(fromIntegral</a> <a id="720" class="Pragma">&lt;$&gt;</a> <a id="724" class="Pragma">mi)</a>
-      <a id="734" class="Pragma">fromBufferMode</a> <a id="749" class="Pragma">::</a> <a id="752" class="Pragma">SIO.BufferMode</a> <a id="767" class="Pragma">-&gt;</a> <a id="770" class="Pragma">AgdaBufferMode</a>
-      <a id="791" class="Pragma">fromBufferMode</a> <a id="806" class="Pragma">x</a> <a id="808" class="Pragma">=</a> <a id="810" class="Pragma">case</a> <a id="815" class="Pragma">x</a> <a id="817" class="Pragma">of</a>
-        <a id="828" class="Pragma">SIO.NoBuffering</a>       <a id="850" class="Pragma">-&gt;</a> <a id="853" class="Pragma">NoBuffering</a>
-        <a id="873" class="Pragma">SIO.LineBuffering</a>     <a id="895" class="Pragma">-&gt;</a> <a id="898" class="Pragma">LineBuffering</a>
-        <a id="920" class="Pragma">SIO.BlockBuffering</a> <a id="939" class="Pragma">mi</a> <a id="942" class="Pragma">-&gt;</a> <a id="945" class="Pragma">BlockBuffering</a> <a id="960" class="Pragma">(fromIntegral</a> <a id="974" class="Pragma">&lt;$&gt;</a> <a id="978" class="Pragma">mi)</a>
-  <a id="984" class="Symbol">#-}</a>
+  <a id="184" class="Keyword">data</a> <a id="FFI.BufferMode"></a><a id="189" href="Codata.IO.Types.html#189" class="Datatype">BufferMode</a> <a id="200" class="Symbol">:</a> <a id="202" class="PrimitiveType">Set</a> <a id="206" class="Keyword">where</a>
+    <a id="FFI.BufferMode.NoBuffering"></a><a id="216" href="Codata.IO.Types.html#216" class="InductiveConstructor">NoBuffering</a> <a id="FFI.BufferMode.LineBuffering"></a><a id="228" href="Codata.IO.Types.html#228" class="InductiveConstructor">LineBuffering</a> <a id="242" class="Symbol">:</a> <a id="244" href="Codata.IO.Types.html#189" class="Datatype">BufferMode</a>
+    <a id="FFI.BufferMode.BlockBuffering"></a><a id="259" href="Codata.IO.Types.html#259" class="InductiveConstructor">BlockBuffering</a> <a id="274" class="Symbol">:</a> <a id="276" href="Foreign.Haskell.Maybe.html#522" class="Datatype">FFI.Maybe</a> <a id="286" href="Agda.Builtin.Nat.html#165" class="Datatype">ℕ</a> <a id="288" class="Symbol">→</a> <a id="290" href="Codata.IO.Types.html#189" class="Datatype">BufferMode</a>
+  <a id="303" class="Symbol">{-#</a> <a id="307" class="Keyword">FOREIGN</a> <a id="315" class="Pragma">GHC</a> <a id="319" class="Pragma">import</a> <a id="326" class="Pragma">qualified</a> <a id="336" class="Pragma">System.IO</a> <a id="346" class="Pragma">as</a> <a id="349" class="Pragma">SIO</a> <a id="353" class="Symbol">#-}</a>
+  <a id="359" class="Symbol">{-#</a> <a id="363" class="Keyword">FOREIGN</a> <a id="371" class="Pragma">GHC</a>
+      <a id="381" class="Pragma">data</a> <a id="386" class="Pragma">AgdaBufferMode</a>
+        <a id="409" class="Pragma">=</a> <a id="411" class="Pragma">NoBuffering</a>
+        <a id="431" class="Pragma">|</a> <a id="433" class="Pragma">LineBuffering</a>
+        <a id="455" class="Pragma">|</a> <a id="457" class="Pragma">BlockBuffering</a> <a id="472" class="Pragma">(Maybe</a> <a id="479" class="Pragma">Integer)</a>
+      <a id="494" class="Pragma">toBufferMode</a> <a id="507" class="Pragma">::</a> <a id="510" class="Pragma">AgdaBufferMode</a> <a id="525" class="Pragma">-&gt;</a> <a id="528" class="Pragma">SIO.BufferMode</a>
+      <a id="549" class="Pragma">toBufferMode</a> <a id="562" class="Pragma">x</a> <a id="564" class="Pragma">=</a> <a id="566" class="Pragma">case</a> <a id="571" class="Pragma">x</a> <a id="573" class="Pragma">of</a>
+        <a id="584" class="Pragma">NoBuffering</a>       <a id="602" class="Pragma">-&gt;</a> <a id="605" class="Pragma">SIO.NoBuffering</a>
+        <a id="629" class="Pragma">LineBuffering</a>     <a id="647" class="Pragma">-&gt;</a> <a id="650" class="Pragma">SIO.LineBuffering</a>
+        <a id="676" class="Pragma">BlockBuffering</a> <a id="691" class="Pragma">mi</a> <a id="694" class="Pragma">-&gt;</a> <a id="697" class="Pragma">SIO.BlockBuffering</a> <a id="716" class="Pragma">(fromIntegral</a> <a id="730" class="Pragma">&lt;$&gt;</a> <a id="734" class="Pragma">mi)</a>
+      <a id="744" class="Pragma">fromBufferMode</a> <a id="759" class="Pragma">::</a> <a id="762" class="Pragma">SIO.BufferMode</a> <a id="777" class="Pragma">-&gt;</a> <a id="780" class="Pragma">AgdaBufferMode</a>
+      <a id="801" class="Pragma">fromBufferMode</a> <a id="816" class="Pragma">x</a> <a id="818" class="Pragma">=</a> <a id="820" class="Pragma">case</a> <a id="825" class="Pragma">x</a> <a id="827" class="Pragma">of</a>
+        <a id="838" class="Pragma">SIO.NoBuffering</a>       <a id="860" class="Pragma">-&gt;</a> <a id="863" class="Pragma">NoBuffering</a>
+        <a id="883" class="Pragma">SIO.LineBuffering</a>     <a id="905" class="Pragma">-&gt;</a> <a id="908" class="Pragma">LineBuffering</a>
+        <a id="930" class="Pragma">SIO.BlockBuffering</a> <a id="949" class="Pragma">mi</a> <a id="952" class="Pragma">-&gt;</a> <a id="955" class="Pragma">BlockBuffering</a> <a id="970" class="Pragma">(fromIntegral</a> <a id="984" class="Pragma">&lt;$&gt;</a> <a id="988" class="Pragma">mi)</a>
+  <a id="994" class="Symbol">#-}</a>
 
-  <a id="991" class="Symbol">{-#</a> <a id="995" class="Keyword">COMPILE</a> <a id="1003" class="Pragma">GHC</a> <a id="1007" href="Codata.IO.Types.html#179" class="Datatype">BufferMode</a> <a id="1018" class="Pragma">=</a> <a id="1020" class="Pragma">data</a> <a id="1025" class="Pragma">AgdaBufferMode</a>
-                             <a id="1069" class="Pragma">(</a> <a id="1071" class="Pragma">NoBuffering</a>
-                             <a id="1112" class="Pragma">|</a> <a id="1114" class="Pragma">LineBuffering</a>
-                             <a id="1157" class="Pragma">|</a> <a id="1159" class="Pragma">BlockBuffering</a>
-                             <a id="1203" class="Pragma">)</a>
-  <a id="1207" class="Symbol">#-}</a>
+  <a id="1001" class="Symbol">{-#</a> <a id="1005" class="Keyword">COMPILE</a> <a id="1013" class="Pragma">GHC</a> <a id="1017" href="Codata.IO.Types.html#189" class="Datatype">BufferMode</a> <a id="1028" class="Pragma">=</a> <a id="1030" class="Pragma">data</a> <a id="1035" class="Pragma">AgdaBufferMode</a>
+                             <a id="1079" class="Pragma">(</a> <a id="1081" class="Pragma">NoBuffering</a>
+                             <a id="1122" class="Pragma">|</a> <a id="1124" class="Pragma">LineBuffering</a>
+                             <a id="1167" class="Pragma">|</a> <a id="1169" class="Pragma">BlockBuffering</a>
+                             <a id="1213" class="Pragma">)</a>
+  <a id="1217" class="Symbol">#-}</a>
 
-<a id="1212" class="Keyword">data</a> <a id="BufferMode"></a><a id="1217" href="Codata.IO.Types.html#1217" class="Datatype">BufferMode</a> <a id="1228" class="Symbol">:</a> <a id="1230" class="PrimitiveType">Set</a> <a id="1234" class="Keyword">where</a>
-  <a id="BufferMode.NoBuffering"></a><a id="1242" href="Codata.IO.Types.html#1242" class="InductiveConstructor">NoBuffering</a> <a id="BufferMode.LineBuffering"></a><a id="1254" href="Codata.IO.Types.html#1254" class="InductiveConstructor">LineBuffering</a> <a id="1268" class="Symbol">:</a> <a id="1270" href="Codata.IO.Types.html#1217" class="Datatype">BufferMode</a>
-  <a id="BufferMode.BlockBuffering"></a><a id="1283" href="Codata.IO.Types.html#1283" class="InductiveConstructor">BlockBuffering</a> <a id="1298" class="Symbol">:</a> <a id="1300" href="Data.Maybe.Base.html#800" class="Datatype">Maybe</a> <a id="1306" href="Agda.Builtin.Nat.html#165" class="Datatype">ℕ</a> <a id="1308" class="Symbol">→</a> <a id="1310" href="Codata.IO.Types.html#1217" class="Datatype">BufferMode</a>
+<a id="1222" class="Keyword">data</a> <a id="BufferMode"></a><a id="1227" href="Codata.IO.Types.html#1227" class="Datatype">BufferMode</a> <a id="1238" class="Symbol">:</a> <a id="1240" class="PrimitiveType">Set</a> <a id="1244" class="Keyword">where</a>
+  <a id="BufferMode.NoBuffering"></a><a id="1252" href="Codata.IO.Types.html#1252" class="InductiveConstructor">NoBuffering</a> <a id="BufferMode.LineBuffering"></a><a id="1264" href="Codata.IO.Types.html#1264" class="InductiveConstructor">LineBuffering</a> <a id="1278" class="Symbol">:</a> <a id="1280" href="Codata.IO.Types.html#1227" class="Datatype">BufferMode</a>
+  <a id="BufferMode.BlockBuffering"></a><a id="1293" href="Codata.IO.Types.html#1293" class="InductiveConstructor">BlockBuffering</a> <a id="1308" class="Symbol">:</a> <a id="1310" href="Data.Maybe.Base.html#800" class="Datatype">Maybe</a> <a id="1316" href="Agda.Builtin.Nat.html#165" class="Datatype">ℕ</a> <a id="1318" class="Symbol">→</a> <a id="1320" href="Codata.IO.Types.html#1227" class="Datatype">BufferMode</a>
 
 
-<a id="1323" class="Keyword">instance</a>
+<a id="1333" class="Keyword">instance</a>
 
-  <a id="bufferMode-fromFFI"></a><a id="1335" href="Codata.IO.Types.html#1335" class="Function">bufferMode-fromFFI</a> <a id="1354" class="Symbol">:</a> <a id="1356" href="Foreign.Haskell.Coerce.html#2249" class="Datatype">Coercible</a> <a id="1366" href="Codata.IO.Types.html#179" class="Datatype">FFI.BufferMode</a> <a id="1381" href="Codata.IO.Types.html#1217" class="Datatype">BufferMode</a>
-  <a id="1394" href="Codata.IO.Types.html#1335" class="Function">bufferMode-fromFFI</a> <a id="1413" class="Symbol">=</a> <a id="1415" href="Foreign.Haskell.Coerce.html#2297" class="InductiveConstructor">TrustMe</a>
+  <a id="bufferMode-fromFFI"></a><a id="1345" href="Codata.IO.Types.html#1345" class="Function">bufferMode-fromFFI</a> <a id="1364" class="Symbol">:</a> <a id="1366" href="Foreign.Haskell.Coerce.html#2249" class="Datatype">Coercible</a> <a id="1376" href="Codata.IO.Types.html#189" class="Datatype">FFI.BufferMode</a> <a id="1391" href="Codata.IO.Types.html#1227" class="Datatype">BufferMode</a>
+  <a id="1404" href="Codata.IO.Types.html#1345" class="Function">bufferMode-fromFFI</a> <a id="1423" class="Symbol">=</a> <a id="1425" href="Foreign.Haskell.Coerce.html#2297" class="InductiveConstructor">TrustMe</a>
 
-  <a id="bufferMode-toFFI"></a><a id="1426" href="Codata.IO.Types.html#1426" class="Function">bufferMode-toFFI</a> <a id="1443" class="Symbol">:</a> <a id="1445" href="Foreign.Haskell.Coerce.html#2249" class="Datatype">Coercible</a> <a id="1455" href="Codata.IO.Types.html#1217" class="Datatype">BufferMode</a> <a id="1466" href="Codata.IO.Types.html#179" class="Datatype">FFI.BufferMode</a>
-  <a id="1483" href="Codata.IO.Types.html#1426" class="Function">bufferMode-toFFI</a> <a id="1500" class="Symbol">=</a> <a id="1502" href="Foreign.Haskell.Coerce.html#2297" class="InductiveConstructor">TrustMe</a>
+  <a id="bufferMode-toFFI"></a><a id="1436" href="Codata.IO.Types.html#1436" class="Function">bufferMode-toFFI</a> <a id="1453" class="Symbol">:</a> <a id="1455" href="Foreign.Haskell.Coerce.html#2249" class="Datatype">Coercible</a> <a id="1465" href="Codata.IO.Types.html#1227" class="Datatype">BufferMode</a> <a id="1476" href="Codata.IO.Types.html#189" class="Datatype">FFI.BufferMode</a>
+  <a id="1493" href="Codata.IO.Types.html#1436" class="Function">bufferMode-toFFI</a> <a id="1510" class="Symbol">=</a> <a id="1512" href="Foreign.Haskell.Coerce.html#2297" class="InductiveConstructor">TrustMe</a>
 </pre></body></html>
