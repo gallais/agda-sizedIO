@@ -22,11 +22,12 @@ cache:
 
 install:
   - export PATH=$HOME/.cabal/bin:/opt/ghc/8.4.4/bin:/opt/cabal/2.2/bin:$PATH
+  - cabal install --only-dependencies
   - cd travis/
   - travis_wait 50 ./install_agda.sh
+  - cd ..
 
 script:
-  - cd ..
   # compilation test
   - agda -i. -c examples/cat.agda
   - agda -i. -c examples/stopwatch.agda
