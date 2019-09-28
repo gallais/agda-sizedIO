@@ -58,10 +58,10 @@ a <$ mb = mb >>= λ _ → return a
 _<*>_ : {B : Set b} {{_ : b ≤ˡ ℓ}} → IO′ ℓ (A → B) i → IO′ ℓ A i → IO′ ℓ B i
 f <*> m = f >>= (_<$> m)
 
-_>>_ : IO ℓ A → IO ℓ B → IO ℓ B
+_>>_ : ∀ {i} → IO′ ℓ A i → IO′ ℓ B i → IO′ ℓ B i
 ma >> mb = ma >>= λ _ → mb
 
-_<<_ : {A : Set a} {{_ : a ≤ˡ ℓ}} → IO ℓ A → IO ℓ B → IO ℓ A
+_<<_ : ∀ {i} {A : Set a} {{_ : a ≤ˡ ℓ}} → IO′ ℓ A i → IO′ ℓ B i → IO′ ℓ A i
 ma << mb = ma >>= λ a → a <$ mb
 
 module ListIO where
