@@ -24,6 +24,7 @@ import cat
 import read
 import stopwatch
 import find
+import lsR
 
 -- Main module
 

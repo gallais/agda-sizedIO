@@ -31,6 +31,8 @@ script:
   - agda -i. -c examples/cat.agda
   - agda -i. -c examples/stopwatch.agda
   - agda -i. -c examples/read.agda
+  - agda -i. -c examples/find.agda
+  - agda -i. -c examples/lsR.agda
   - agda -i. -c README.agda
   # documentation generation
   - agda -i. --html README.agda

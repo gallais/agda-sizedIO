@@ -19,7 +19,7 @@ open import System.Directory.Tree
 printTree : ∀ {i} → String → List (IO′ 0ℓ RelativeTree i) → IO′ 0ℓ ⊤ i
 printTree pad []           = pure _
 printTree pad (iot ∷ iots) = iot >>=ᵗ λ where
-  (dir ∋ fs :< ds) .force {j} → do
+  (dir ∋ fs :< ds) .force → do
     putStrLn (pad ++ getFilePath dir)
     let pad′ = "  " ++ pad
     ListIO.mapM′ (λ fp → putStrLn (pad′ ++ getFilePath fp)) fs
