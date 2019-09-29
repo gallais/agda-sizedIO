@@ -45,16 +45,11 @@ printSubTrees ((bs , iot) ∷ iots) = iot >>=ᵗ λ where
     printSubTrees (List.zip bs ds)
     printSubTrees iots
 
--- printTree remembers to preserve the current directory:
--- exploring the directory tree has side-effects such as
--- changing the current working directory.
 printTree : Tree n → IO 0ℓ ⊤
-printTree t = withCurrentDirectory currentDirectory $
-  printSubTrees (([] , pure t) ∷ [])
+printTree t = printSubTrees (([] , pure t) ∷ [])
 
 printTreeAt : FilePath n → IO 0ℓ ⊤
-printTreeAt fp = withCurrentDirectory currentDirectory $
-  printTree =<< tree {{relative}} fp
+printTreeAt fp = printTree =<< tree {{relative}} fp
 
 usage : IO 0ℓ _
 usage = putStrLn "Requires a non-empty list of paths to directories"

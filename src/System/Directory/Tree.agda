@@ -34,16 +34,14 @@ treeᵗ : ∀ {i} →
         KnownNature n →                -- nature of the paths stored in the tree
         (AbsolutePath × FilePath n) →  -- path to the root (absolute for setting, n for storing)
         IO 0ℓ (Thunk (Tree′ n) i)
-treeᵗ n (afp , fp) = do
-  -- set current directory: makeAbsolute will now consider this
-  -- to be the root
-  setCurrentDirectory afp
+treeᵗ n (afp , fp) = withCurrentDirectory afp $ do
   -- get content of the current directory
   vs ← listDirectory afp
   -- tag each filepath with whether it points to a directory
   bvs ← ListIO.forM vs $ λ fp → do
     fp   ← toKnownNature n fp
     true ← doesDirectoryExist fp where false → pure (inj₂ fp)
+    -- thanks to withCurrentDirectory, this will return the right answer
     afp  ← makeAbsolute fp
     pure (inj₁ (fp , (afp , fp)))
   -- partition into a list ds of directories and one fs of files
