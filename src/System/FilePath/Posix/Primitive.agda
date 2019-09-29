@@ -58,6 +58,7 @@ postulate
 
 AbsolutePath = FilePath Nature.absolute
 RelativePath = FilePath Nature.relative
+SomePath     = FilePath Nature.unknown
 
 -- In order to prevent users from picking whether a string gets
 -- converted to a @relative@ or an @absolute@ path we have:
@@ -65,7 +66,7 @@ RelativePath = FilePath Nature.relative
 -- * a function @mkFilePath@ producing filepaths of this postulated nature
 
 postulate
-  mkFilePath : String → FilePath Nature.unknown
+  mkFilePath : String → SomePath
 
 {-# COMPILE GHC mkFilePath = unpack #-}
 
@@ -83,8 +84,8 @@ postulate
 
   -- $PATH methods
 
-  splitSearchPath : String → List (FilePath Nature.unknown)
-  getSearchPath   : IO (List (FilePath Nature.unknown))
+  splitSearchPath : String → List SomePath
+  getSearchPath   : IO (List SomePath)
 
   -- Extension functions
 

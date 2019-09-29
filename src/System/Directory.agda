@@ -96,7 +96,7 @@ createFileLink        : FilePath m → FilePath n → IO ℓ ⊤
 createDirectoryLink   : FilePath m → FilePath n → IO ℓ ⊤
 removeDirectoryLink   : FilePath n → IO ℓ ⊤
 pathIsSymbolicLink    : FilePath n → IO ℓ Bool
-getSymbolicLinkTarget : FilePath n → IO ℓ (FilePath Nature.unknown)
+getSymbolicLinkTarget : FilePath n → IO ℓ SomePath
 
 
 

@@ -24,6 +24,7 @@ open import System.FilePath.Posix.Primitive as Prim
         ; getFilePath
         ; AbsolutePath
         ; RelativePath
+        ; SomePath
         ; Extension
         ; mkExtension
         ; getExtension
@@ -88,6 +89,9 @@ data KnownNature : Nature → Set where
     absolute : KnownNature Nature.absolute
     relative : KnownNature Nature.relative
 
+currentDirectory : SomePath
+currentDirectory = mkFilePath "."
+
 splitExtension  : FilePath n → FilePath n × Extension
 splitExtension = coerce Prim.splitExtension
 
@@ -97,7 +101,7 @@ splitExtensions = coerce Prim.splitExtensions
 stripExtension : Extension → FilePath n → Maybe (FilePath n)
 stripExtension = coerce Prim.stripExtension
 
-getSearchPath : IO ℓ (List (FilePath Nature.unknown))
+getSearchPath : IO ℓ (List SomePath)
 getSearchPath = lift Prim.getSearchPath
 
 splitFileName : FilePath n → FilePath n × RelativePath

@@ -84,7 +84,7 @@ postulate
   createDirectoryLink   : FilePath m → FilePath n → IO ⊤
   removeDirectoryLink   : FilePath n → IO ⊤
   pathIsSymbolicLink    : FilePath n → IO Bool
-  getSymbolicLinkTarget : FilePath n → IO (FilePath Nature.unknown)
+  getSymbolicLinkTarget : FilePath n → IO SomePath
 
 
 {-# COMPILE GHC createDirectory          = const createDirectory          #-}

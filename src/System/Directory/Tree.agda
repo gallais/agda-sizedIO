@@ -54,7 +54,8 @@ treeᵗ n (afp , fp) = do
 tree# : Thunk (Tree′ n) ∞ → Tree n
 tree# t = t .force
 
-tree : {{KnownNature n}} → AbsolutePath → IO 0ℓ (Tree n)
-tree {{n}} afp = do
-  fp ← toKnownNature n afp
+tree : {{KnownNature n}} → FilePath m → IO 0ℓ (Tree n)
+tree {{n}} fp = do
+  afp ← makeAbsolute fp
+  fp  ← toKnownNature n fp
   tree# <$> treeᵗ n (afp , fp)
