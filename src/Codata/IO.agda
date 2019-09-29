@@ -89,6 +89,31 @@ module ListIO where
     forM′ : List A → (A → IO ℓ B) → IO ℓ ⊤
     forM′ = flip mapM′
 
+module VecIO where
+
+  open import Data.Vec.Base as Vec using (Vec; []; _∷_)
+
+  sequence : ∀ {n} {A : Set a} {{_ : a ≤ˡ ℓ}} →
+             Vec (IO ℓ A) n → IO ℓ (Vec A n)
+  sequence []         = return []
+  sequence (mx ∷ mxs) = mx           >>= λ x →
+                        sequence mxs >>= λ xs →
+                        return (x ∷ xs)
+
+  module _ {n} {B : Set b} {{_ : b ≤ˡ ℓ}} where
+
+    mapM : (A → IO ℓ B) → Vec A n → IO ℓ (Vec B n)
+    mapM f xs = sequence (Vec.map f xs)
+
+    mapM′ : (A → IO ℓ B) → Vec A n → IO ℓ ⊤
+    mapM′ f xs = tt <$ mapM f xs
+
+    forM : Vec A n → (A → IO ℓ B) → IO ℓ (Vec B n)
+    forM  = flip mapM
+
+    forM′ : Vec A n → (A → IO ℓ B) → IO ℓ ⊤
+    forM′ = flip mapM′
+
 module ColistIO where
 
   open import Codata.Colist as Colist using (Colist; []; _∷_)
