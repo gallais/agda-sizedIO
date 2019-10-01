@@ -13,6 +13,6 @@ mkdir -p $HOME/.agda
 cp libraries $HOME/.agda/
 cd $HOME/.agda/
 cd agda-stdlib
+git checkout master
 git pull
-git checkout issue903
 cd -
