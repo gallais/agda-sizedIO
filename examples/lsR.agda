@@ -20,12 +20,16 @@ open import System.Directory
 open import System.Directory.Tree
 
 padding : Bool → List Bool → String
-padding dir? []       = ""
-padding dir? (b ∷ bs) =
-  (if dir? ∧ List.null bs
-   then if b then " ├ " else " └ "
-   else if b then " │"  else "  ")
-  ++ padding dir? bs
+padding dir? = concat ∘′ go [] where
+
+  go : List String → List Bool → List String
+  go acc []       = acc
+  go acc (b ∷ bs) = go (hd ∷ acc) bs where
+
+    hd : String
+    hd = if dir? ∧ List.null acc
+           then if b then " ├ " else " └ "
+           else if b then " │"  else "  "
 
 prefixes : ℕ → List Bool
 prefixes n = List.replicate (n ∸ 1) true ∷ʳ false
@@ -34,9 +38,8 @@ printSubTrees : ∀ {i} → List (List Bool × IO′ 0ℓ (Tree n) i) → IO′ 
 printSubTrees []                  = pure _
 printSubTrees ((bs , iot) ∷ iots) = iot >>=ᵗ λ where
   (dir ∋ fs :< ds) .force → do
-    let bs′ = List.reverse bs
-    putStrLn (padding true bs′ ++ getFilePath dir)
-    let pad = padding false bs′
+    putStrLn padding true bs ++ getFilePath dir
+    let pad = padding false bs
     let pads = prefixes (List.length fs + List.length ds)
     ListIO.forM′ (List.zip pads fs) $ λ (b , fp) → do
       putStrLn (pad ++ (if b then " ├ " else " └ ") ++ getFilePath fp)
